@@ -11,14 +11,8 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <ThemeProvider style={STYLE_GOBAL.container}>
-        <Header title="HOME" />
-        <Avatar
-          rounded
-          source={{
-            uri: 'https://randomuser.me/api/portraits/men/41.jpg',
-          }}
-          size="large"
-        />
+        <Header title="LOGIN" />
+        <Text> { this.props.title } </Text>
       </ThemeProvider>
     )
   }

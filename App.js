@@ -1,90 +1,90 @@
 import React from 'react';
 
-// IMPORT COMPONETS REACT NATIVE
-import { View } from 'react-native';
+// IMPORT REACT NATIVE
+import { StyleSheet } from 'react-native';
+
+// IMPORT REACT NATIVE ELEMENT
+import { Button,
+  Text,
+  ThemeProvider
+ } from 'react-native-elements';
+
+// IMPORT COMPOMENT
+import Header from './src/components/headers/DefaultHeaderComponent';
+import LoginComponent from './src/components/login/LoginComponent';
 
 // IMPORT SCREEN
-import HomeScreen from './src/sreens/HomeScreen';
-import ProfileScreen from './src/sreens/ProfileScreen';
-import SettingScreen from './src/sreens/SettingScreen';
+// import LoginScreen from './src/sreens/LoginScreen';
+// import HomeScreen from './src/sreens/HomeScreen';
+// import ProfileScreen from './src/sreens/ProfileScreen';
+// import SettingScreen from './src/sreens/SettingScreen';
 
 // IMPORT LIBRARY
-import Icon from 'react-native-vector-icons/Ionicons';
 import {createAppContainer} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+// import { createStackNavigator } from 'react-navigation-stack';
 
-// CREATE TAB NAVIGATOR BOTTOM
-const TabNavigator = createMaterialBottomTabNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-home'} />
-          </View>
-        ),
-      }
-    },
-    Profile: {
-      screen: ProfileScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-person'} />
-          </View>
-        ),
-        activeColor: '#ffffff',
-        inactiveColor: '#a3c2fa',
-        barStyle: { backgroundColor: '#2163f6' },
-      }
-    },
-    History: {
-      screen: ProfileScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-images'} />
-          </View>
-        ),
-        activeColor: '#ffffff',
-        inactiveColor: '#92c5c2',
-        barStyle: { backgroundColor: '#2c6d6a' },
-      }
-    },
-    Cart: {
-      screen: ProfileScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-cart'} />
-          </View>
-        ),
-        activeColor: '#ffffff',
-        inactiveColor: '#ebaabd',
-        barStyle: { backgroundColor: '#d13560' },
-      }
-    },
-    Setting: {
-      screen: SettingScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-grid'} />
-          </View>
-        ),
-        activeColor: '#ffffff',
-        inactiveColor: '#ebaabd',
-        barStyle: { backgroundColor: '#393939' },
-      }
-    },
-  },
-  {
-    initialRouteName: 'Home',
-    activeColor: '#ffffff',
-    inactiveColor: '#bda1f7',
-    barStyle: { backgroundColor: '#6948f4' },
+import * as TabNavigatorRender from './src/services/TabNavigator';
+
+export default class App extends React.Component {
+
+  state = {
+    navigator: 'student',
+    selectedTabnavigator: 'student',
+    loading: false
   }
-);
+  // SELECTED TAB NAVIGATOR
+  selectedTabNavigator = () => {
+    if (this.state.selectedTabnavigator == 'student') {
+      return TabNavigatorRender.STUDENT
+    }
+    return TabNavigatorRender.TEACHER
+  }
 
-export default createAppContainer(TabNavigator);
+  // CREATE TAB NAVIGATOR BOTTOM
+  TabNavigator = createMaterialBottomTabNavigator(
+    this.selectedTabNavigator(),
+    {
+      initialRouteName: 'Home',
+      activeColor: '#ffffff',
+      inactiveColor: '#bda1f7',
+      barStyle: { backgroundColor: '#6948f4' },
+    }
+  );
+
+  login = () => {
+    this.setState({
+      loading: true
+    })
+    setTimeout(()=> {   
+      this.setState({
+        navigator: 'teacher'
+      })
+    }, 2000)
+  }
+
+  render () {
+    const Navigator = createAppContainer(this.TabNavigator);
+
+    if (this.state.navigator == 'student') {
+      return (
+        <LoginComponent title="LOGIN"
+          loading = {this.state.loading}
+          loginFunction = { this.login }
+        />
+      )
+    }
+    return (
+      <Navigator></Navigator>
+    )
+
+  }
+}
+
+const styles = StyleSheet.create({
+  button: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});
