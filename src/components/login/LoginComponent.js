@@ -2,53 +2,102 @@ import React, { Component } from 'react';
 
 import { ActivityIndicator,
     StyleSheet,
-    TouchableOpacity, ImageBackground } from 'react-native';
+    TouchableOpacity, 
+    ImageBackground,
+    View } from 'react-native';
 
 import { Image,
-    ThemeProvider, 
-    Button, 
+    Avatar,
+    Accessory,
     Text,
-    SocialIcon } from 'react-native-elements';
+    SocialIcon,
+    Card } from 'react-native-elements';
+
+// IMPORT LIBRARY
+import Icon from 'react-native-vector-icons/Ionicons';
+
+// IMPORT LOGIN GOOGLE
+
 
 import * as COLORS from '../../constants/Colors';
+import  { LOGIN } from '../../constants/Locale';
+
 
 
 export default class HeaderDefaultComponent extends Component {
     render () {
-        const title = this.props.title || 'HEADER';
-        const backgroundColor = this.props.backgroundColor || COLORS.PRIMARY;
         return (
-            <ThemeProvider style={ styles.themeProvider }>
-                <ImageBackground 
-                    source={ require('../../assets/images/bg/bg_login.jpg') } 
-                    style={styles.image}
-                >      
-                    <Text>{ this.props.loading ? 'loading...' : '' }</Text>
-                    <TouchableOpacity
-                        onPress= { ()=> this.props.loginFunction() }
+            <ImageBackground
+                source={ require('../../assets/images/illustrators/notebook.svg') }
+                style={ styles.imageBackground }
+                blurRadius = '3'
+            >      
+                {/* Logo image */}
+                <View style={ styles.container }>
+                    <Image 
+                        source={ require('../../assets/images/logos/logo_black.png') }
+                        style={ styles.imageLogo }
+                        resizeMode='cover'
+                        PlaceholderContent={<ActivityIndicator />}
                     >
-                            {/* loading = { this.props.loading } */}
-                        <SocialIcon
-                            title='Đăng nhập với google'
-                            button
-                            type='google'
+                    </Image>
+                    <Text h4 style={ { fontWeight: 'bold' } }> 
+                        { LOGIN.appName }
+                    </Text>
+                </View>
+
+                {/* Introduce */}
+                <View style= { styles.introduce }>
+                    <Card style= { {width: 200 } }>
+                        <Text style= { { fontSize: 17, fontWeight: 'bold' } }> { LOGIN.welcome }</Text>
+                        
+                        {/* <Card.Divider/> */}
+                        <Card.Image
+                            style= { { height: 200, marginBottom: 15 } }
+                            source= { require('../../assets/images/illustrators/gifs/classroom.gif') }  
                         />
-                    </TouchableOpacity>
-                </ImageBackground>
-            </ThemeProvider>
+                        <Text style= { styles.marginCard }>
+                            { LOGIN.introductLogin }
+                        </Text>
+
+                        {/* Login google */}
+                        <TouchableOpacity
+                            onPress= { ()=> this.props.loginFunction() }
+                        >
+                            <SocialIcon
+                                title= { LOGIN.loginWithGoole }
+                                button
+                                type= 'google'
+                            />
+                        </TouchableOpacity>
+                    </Card>
+                </View>
+
+            </ImageBackground>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    button: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 50
     },
-    image: {
+    introduce: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 50
+    },
+    imageBackground: {
         flex: 1,
-        resizeMode: "cover",
-        justifyContent: "center"
+        resizeMode: "cover"
+    },
+    imageLogo: {
+        width: 100,
+        height: 100
+    },
+    marginCard: {
+        marginBottom: 15 
     }
 });

@@ -52,6 +52,7 @@ export default class App extends React.Component {
     }
   );
 
+  // Login
   login = () => {
     this.setState({
       loading: true
