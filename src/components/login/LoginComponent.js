@@ -17,7 +17,7 @@ import { Image,
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // IMPORT LOGIN GOOGLE
-
+import * as GoogleSignIn from 'expo-google-sign-in';
 
 import * as COLORS from '../../constants/Colors';
 import  { LOGIN } from '../../constants/Locale';
