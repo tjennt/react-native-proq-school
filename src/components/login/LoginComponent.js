@@ -68,6 +68,7 @@ export default class HeaderDefaultComponent extends Component {
                                 title= { LOGIN.loginWithGoole }
                                 button
                                 type= 'google'
+                                loading={this.props.loading}
                             />
                         </TouchableOpacity>
                     </Card>

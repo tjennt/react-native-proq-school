@@ -6,11 +6,11 @@ import {
 
 import STYLE_GOBAL from '../styles/Global';
 
-export default class SettingScreen extends React.Component {
+export default class MoreScreen extends React.Component {
     render() {
       return (
         <View style={STYLE_GOBAL.container}>
-          <Text>CartScreen</Text>
+          <Text>More Screen</Text>
         </View>
       )
     }

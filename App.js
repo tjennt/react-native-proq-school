@@ -10,21 +10,19 @@ import { Button,
  } from 'react-native-elements';
 
 // IMPORT COMPOMENT
-import Header from './src/components/headers/DefaultHeaderComponent';
 import LoginComponent from './src/components/login/LoginComponent';
 
-// IMPORT SCREEN
-// import LoginScreen from './src/sreens/LoginScreen';
-// import HomeScreen from './src/sreens/HomeScreen';
-// import ProfileScreen from './src/sreens/ProfileScreen';
-// import SettingScreen from './src/sreens/SettingScreen';
 
 // IMPORT LIBRARY
 import {createAppContainer} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
-// import { createStackNavigator } from 'react-navigation-stack';
 
+// IMPORT TAB NAVIGATOR
 import * as TabNavigatorRender from './src/services/TabNavigator';
+
+// IMPORT COLORS
+import * as COLORS from './src/constants/Colors';
+
 
 export default class App extends React.Component {
 
@@ -33,11 +31,12 @@ export default class App extends React.Component {
     selectedTabnavigator: 'student',
     loading: false
   }
+
   // SELECTED TAB NAVIGATOR
   selectedTabNavigator = () => {
-    if (this.state.selectedTabnavigator == 'student') {
-      return TabNavigatorRender.STUDENT
-    }
+    // if (this.state.selectedTabnavigator == 'student') {
+    //   return TabNavigatorRender.STUDENT
+    // }
     return TabNavigatorRender.TEACHER
   }
 
@@ -46,9 +45,9 @@ export default class App extends React.Component {
     this.selectedTabNavigator(),
     {
       initialRouteName: 'Home',
-      activeColor: '#ffffff',
-      inactiveColor: '#bda1f7',
-      barStyle: { backgroundColor: '#6948f4' },
+      activeColor: COLORS.LIGHT,
+      inactiveColor: COLORS.LIGHT_HIGHT,
+      barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
     }
   );
 
@@ -61,13 +60,13 @@ export default class App extends React.Component {
       this.setState({
         navigator: 'teacher'
       })
-    }, 2000)
+    }, 1000)
   }
 
   render () {
     const Navigator = createAppContainer(this.TabNavigator);
 
-    if (this.state.navigator == 'student') {
+    if (this.state.navigator == 'studentt') {
       return (
         <LoginComponent title="LOGIN"
           loading = {this.state.loading}

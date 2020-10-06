@@ -4,13 +4,13 @@ import {
     Text
   } from 'react-native';
 
-import STYLE_GOBAL from '../styles/Global';
+import STYLE_GOBAL from '../../styles/Global';
 
-export default class ProfileScreen extends React.Component {
+export default class TeacherSubjectScreen extends React.Component {
   render() {
     return (
       <View style={STYLE_GOBAL.container}>
-        <Text>ProfileScreen</Text>
+        <Text>ScheduleScreen</Text>
       </View>
     )
   }
