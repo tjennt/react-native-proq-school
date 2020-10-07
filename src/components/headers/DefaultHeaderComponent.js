@@ -8,7 +8,7 @@ export default class HeaderDefaultComponent extends Component {
 
     render () {
         const title = this.props.title || 'HEADER';
-        const backgroundColor = this.props.backgroundColor || COLORS.PRIMARY;
+        const backgroundColor = this.props.backgroundColor || COLORS.MAIN_PRIMARY;
         return (
             <Header
                 centerComponent={{ 

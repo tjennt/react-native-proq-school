@@ -8,11 +8,15 @@ export const LOGIN = {
 }
 
 // LOCALE NAME NAVIGATOR
-
 export const NAVIGATOR = {
     home: 'Trang Chủ',
     personal: 'Cá Nhân',
     schedule: 'Lịch',
     subject: 'Môn học',
     more: 'Thêm'
+}
+
+// 
+export const APP = {
+    searchInput: 'Tìm kiếm...'
 }
