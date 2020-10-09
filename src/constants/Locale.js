@@ -10,6 +10,7 @@ export const LOGIN = {
 // LOCALE NAME NAVIGATOR
 export const NAVIGATOR = {
     home: 'Trang Chủ',
+    newsInHome: 'Tin tức ProQ School',
     personal: 'Cá Nhân',
     schedule: 'Lịch',
     subject: 'Môn học',

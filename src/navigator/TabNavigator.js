@@ -4,17 +4,19 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 // IMPORT SCREEN
-import HomeScreen from '../sreens/HomeScreen';
-import ProfileScreen from '../sreens/ProfileScreen';
-import MoreScreen from '../sreens/MoreScreen';
+// import HomeScreen from '../sreens/HomeScreen';
+import HomeScreen from './screens/HomeStack';
+
+import ProfileScreen from '../screens/ProfileScreen';
+import MoreScreen from '../screens/MoreScreen';
 
 // IMPORT STUDENT SCREEN
-import StudentScheduleScreen from '../sreens/students/StudentScheduleScreen';
-import StudentSubjectScreen from '../sreens/students/StudentSubjectScreen';
+import StudentScheduleScreen from '../screens/students/StudentScheduleScreen';
+import StudentSubjectScreen from '../screens/students/StudentSubjectScreen';
 
 // IMPORT STUDENT SCREEN
-import TeacherScheduleScreen from '../sreens/teachers/TeacherScheduleScreen';
-import TeacherSubjectScreen from '../sreens/teachers/TeacherSubjectScreen';
+import TeacherScheduleScreen from '../screens/teachers/TeacherScheduleScreen';
+import TeacherSubjectScreen from '../screens/teachers/TeacherSubjectScreen';
 
 // IMPORT LIBRARY
 import {Ionicons,

@@ -13,9 +13,13 @@ export default class HeaderDefaultComponent extends Component {
             <Header
                 centerComponent={{ 
                     text: title, 
-                    style: { color: COLORS.LIGHT, fontWeight: 'bold' } 
+                    style: { 
+                        color: COLORS.LIGHT,
+                        fontWeight: 'bold',
+                        textTransform: 'uppercase' 
+                    } 
                 }}
-                rightComponent={{ icon: 'home', color: COLORS.LIGHT }}
+                // rightComponent={{ icon: 'home', color: COLORS.LIGHT }}
                 backgroundColor = { backgroundColor }
             />
         )

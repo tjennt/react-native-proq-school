@@ -3,12 +3,6 @@ import React from 'react';
 // IMPORT REACT NATIVE
 import { StyleSheet } from 'react-native';
 
-// IMPORT REACT NATIVE ELEMENT
-import { Button,
-  Text,
-  ThemeProvider
- } from 'react-native-elements';
-
 // IMPORT COMPOMENT
 import LoginComponent from './src/components/login/LoginComponent';
 
@@ -18,7 +12,7 @@ import {createAppContainer} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 
 // IMPORT TAB NAVIGATOR
-import * as TabNavigatorRender from './src/services/TabNavigator';
+import * as TabNavigatorRender from './src/navigator/TabNavigator';
 
 // IMPORT COLORS
 import * as COLORS from './src/constants/Colors';
@@ -37,7 +31,7 @@ export default class App extends React.Component {
     // if (this.state.selectedTabnavigator == 'student') {
     //   return TabNavigatorRender.STUDENT
     // }
-    return TabNavigatorRender.TEACHER
+    return TabNavigatorRender.STUDENT
   }
 
   // CREATE TAB NAVIGATOR BOTTOM
@@ -77,7 +71,6 @@ export default class App extends React.Component {
     return (
       <Navigator></Navigator>
     )
-
   }
 }
 
