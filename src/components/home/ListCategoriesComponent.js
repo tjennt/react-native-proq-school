@@ -20,15 +20,13 @@ export default class ListNewsComponent extends Component {
         return (
             <ScrollView horizontal={ true } 
             style={ styles.ScrollView } >
-              
               {
                 categories.map((category, index)=> (
-                  <Button 
+                  <Button
                       title= { category.name }
                       style={ styles.Button }
                       buttonStyle={ buttonStyleSeleted(index) }
                       onPress={ ()=> { getNews(category.id, index) } }
-
                   ></Button>
                 ))
               }

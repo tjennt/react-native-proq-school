@@ -18,7 +18,15 @@ export default class ListNewsComponent extends Component {
             <ScrollView horizontal={ false } >
               {
                 news.map((newDetail, i)=> (
-                  <ListItem key={i} bottomDivider>
+                  <ListItem 
+                    key={i} 
+                    bottomDivider
+                    onPress={ ()=> { 
+                      navigation.navigate('NewsDetail', {
+                        news: newDetail  
+                      }) 
+                    } }
+                  >
                   <Avatar 
                     avatarStyle={{ borderRadius: 10 }}
                     size="large"
@@ -26,9 +34,7 @@ export default class ListNewsComponent extends Component {
                 />
                   <ListItem.Content>
                     <ListItem.Title>{newDetail.name}</ListItem.Title>
-                    <ListItem.Subtitle 
-                      onPress={ ()=> { navigation.navigate('NewsDetail') } }
-                    >{newDetail.description}</ListItem.Subtitle>
+                    <ListItem.Subtitle >{newDetail.description}</ListItem.Subtitle>
                   </ListItem.Content>
                 </ListItem>
                 ))

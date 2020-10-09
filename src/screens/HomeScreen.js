@@ -113,7 +113,7 @@ export default class HomeScreen extends React.Component {
       this.setState({
         loadingNews: false
       })
-    }, 1000)
+    }, 1)
   }
 
 
@@ -128,7 +128,7 @@ export default class HomeScreen extends React.Component {
       this.setState({
         searchLoading: false
       })
-    }, 2000)
+    }, 1)
   }
 
 
@@ -152,7 +152,7 @@ export default class HomeScreen extends React.Component {
       this.setState({
         loadingNews: false
       })
-    }, 1000)
+    }, 1)
   }
   getNewsDetail = () => {
     this.props.navigation.navigate.push('NewsDetail')

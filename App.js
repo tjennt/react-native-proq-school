@@ -17,6 +17,9 @@ import * as TabNavigatorRender from './src/navigator/TabNavigator';
 // IMPORT COLORS
 import * as COLORS from './src/constants/Colors';
 
+// IMPORT REDUX
+import {Provider} from 'react-redux';
+import store from './src/store';
 
 export default class App extends React.Component {
 
@@ -59,7 +62,7 @@ export default class App extends React.Component {
 
   render () {
     const Navigator = createAppContainer(this.TabNavigator);
-
+    
     if (this.state.navigator == 'studentt') {
       return (
         <LoginComponent title="LOGIN"
@@ -69,7 +72,9 @@ export default class App extends React.Component {
       )
     }
     return (
-      <Navigator></Navigator>
+      <Provider store = {store}>
+        <Navigator></Navigator>
+      </Provider>
     )
   }
 }

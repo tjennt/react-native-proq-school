@@ -10,6 +10,7 @@ import { LOGIN, NAVIGATOR } from '../../constants/Locale';
 // IMPORT COLORS
 import * as COLORS from '../../constants/Colors';
 
+
 const HomeStack = createStackNavigator(
   {
     HomeScreen: {
@@ -23,13 +24,6 @@ const HomeStack = createStackNavigator(
     },
     NewsDetail: {
       screen: NewsDetail,
-      navigationOptions: {
-        headerModescreen: false,
-        title: 'Tin tức ProQ School',
-        headerTitleAlign: 'left',
-        headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
-        headerStyle: { height: 50, backgroundColor: COLORS.MAIN_PRIMARY },
-      },
     },
   }
 );
