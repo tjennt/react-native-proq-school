@@ -12,6 +12,7 @@ import {
     ListItem, 
     Avatar,
     Button } from 'react-native-elements';
+import { APP } from '../../constants/Locale';
 
 import * as PARAMETER from '../../constants/Parameter';
 
@@ -53,11 +54,27 @@ export default class ListNewsComponent extends Component {
                 </ListItem>
                 ))
               }
-              <Button 
-                title="Xem thêm"
-                onPress={ ()=>{ moreNews() } }
+              <View style={ styles.ViewButon }>
+                <Button 
+                  title={ APP.more }
+                  type="clear"
+                  buttonStyle={ styles.ButtonMore }
+                  onPress={ ()=>{ moreNews() } }
                 ></Button>
+              </View>
             </ScrollView>
         )
     }
 }
+
+const styles = StyleSheet.create({
+  ViewButon: {
+    marginTop: 5,
+    marginBottom: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  ButtonMore: {
+
+  }
+})

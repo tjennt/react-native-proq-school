@@ -21,5 +21,6 @@ export const NAVIGATOR = {
 export const APP = {
     searchInput: 'Tìm kiếm...',
     author: 'Tác giả',
-    time: 'Thời gian'
+    time: 'Thời gian',
+    more: 'Xem thêm'
 }
