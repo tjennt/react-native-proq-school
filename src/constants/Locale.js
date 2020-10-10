@@ -19,5 +19,7 @@ export const NAVIGATOR = {
 
 // 
 export const APP = {
-    searchInput: 'Tìm kiếm...'
+    searchInput: 'Tìm kiếm...',
+    author: 'Tác giả',
+    time: 'Thời gian'
 }

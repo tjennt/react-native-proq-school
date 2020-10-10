@@ -22,6 +22,9 @@ import TestComponent from '../components/TestComponent';
 // IMPORT LOCALE
 import { APP, NAVIGATOR } from '../constants/Locale';
 
+// IMPORT PARAMETER
+import * as PARAMETER from '../constants/Parameter';
+
 import * as COLORS from '../constants/Colors';
 import Constants from 'expo-constants';
 
@@ -32,6 +35,9 @@ import ListCategoriesComponent from '../components/home/ListCategoriesComponent'
 // IMPORT LOADER
 import LoaderListNewsComponent from '../components/loader/LoaderListNewsComponent';
 
+// IMPORT AXIOS
+import axios from 'axios';
+
 export default class HomeScreen extends React.Component {
   
   constructor(props) {
@@ -40,82 +46,70 @@ export default class HomeScreen extends React.Component {
       search: '',
       searchLoading: false,
       categories: [],
+      axiosNews: [],
       news: [],
+      numberMoreNews: 0,
       selectedCategory: 0,
       loadingNews: true
     }
   }
 
-  componentDidMount() {
-    this.setState({
-      categories: [
-        {
-          id: 1,
-          name: 'Thông báo'
-        },
-        {
-          id: 2,
-          name: 'Sự kiện'
-        },
-        {
-          id: 3,
-          name: 'Học phí'
-        },
-        {
-          id: 4,
-          name: 'Thú vui'
-        },
-        {
-          id: 5,
-          name: 'Đi chơi'
-        }
-      ],
-      news: [
-        {
-          id: 1,
-          name: 'Thông báo đóng học phí, hông báo đóng học phí',
-          description: 'Hoc khong bao nhieu dong tien thi nhieu...'
-        },
-        {
-          id: 2,
-          name: 'Thông báo đewqsdss',
-          description: 'Hoc khong bao nhieu dong tien thi nhieu...'
-        },
-        {
-          id: 3,
-          name: 'Thông báo Nghỉ học',
-          description: 'Hoc khong bao nhieu dong tien thi nhieu...'
-        },
-        {
-          id: 4,
-          name: 'Liên hoang trường đi',
-          description: 'Hoc khong bao nhieu dong tien thi nhieu...'
-        },
-        {
-          id: 5,
-          name: 'Hello mấy cưng',
-          description: 'Hoc khong bao nhieu dong tien thi nhieu...'
-        },
-        {
-          id: 6,
-          name: 'Nghỉ nha khỏi học hành gì hết',
-          description: 'Hoc khong bao nhieu dong tien thi nhieu...'
-        },
-        {
-          id: 7,
-          name: 'Học quan gi, nghỉ chấm hết',
-          description: 'Hoc khong bao nhieu dong tien thi nhieu...'
-        }
-      ]
-    })
-
-    setTimeout(()=> {
+  async componentDidMount() {
+    try {
+      let categories  = await this.handleAxiosCategories()
+      let news        = await this.handleAxiosNews()
       this.setState({
         loadingNews: false
       })
-    }, 1)
+    } catch (error) {
+      
+    }
   }
 
+  // AXIOS GET CATEGORIES
+  handleAxiosCategories = async ()=> {
+    try {
+      let res = await axios.get(`${PARAMETER.SERVER_API}/api/categories`)
+      let { data } = res 
+      this.setState({
+        categories: data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+    return true
+  }
+
+  // AXIOS GET NEWS
+
+  handleAxiosNews = async ()=> {
+    try {
+      let res = await axios.get(`${PARAMETER.SERVER_API}/api/news`)
+      let { data } = res 
+      this.setState({
+        axiosNews: data
+      })
+      this.moreNews()
+      // console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+    return true
+  }
+
+  // scroll more news
+  moreNews = ()=> {
+    const { news, axiosNews, numberMoreNews } = this.state;
+    let newsArray = axiosNews.slice(numberMoreNews, numberMoreNews + 10).map((newDetail)=>{
+      return newDetail;
+    });
+
+    this.setState({
+      news: news.concat(newsArray),
+      numberMoreNews: numberMoreNews + 10
+    })
+    return true
+  }
 
   // Search
   updateSearch = (text) => {
@@ -167,6 +161,7 @@ export default class HomeScreen extends React.Component {
       
       viewNewsOrLoader = <ListNewsComponent 
                           navigation = { navigation }
+                          moreNews = { this.moreNews }
                           news={ news } />
     }
 

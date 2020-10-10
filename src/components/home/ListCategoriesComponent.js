@@ -23,7 +23,7 @@ export default class ListNewsComponent extends Component {
               {
                 categories.map((category, index)=> (
                   <Button
-                      title= { category.name }
+                      title= { category.title }
                       style={ styles.Button }
                       buttonStyle={ buttonStyleSeleted(index) }
                       onPress={ ()=> { getNews(category.id, index) } }

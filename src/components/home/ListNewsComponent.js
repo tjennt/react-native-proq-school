@@ -3,19 +3,32 @@ import React, { Component } from 'react';
 import { View, 
     StyleSheet, 
     Dimensions, 
-    ScrollView
+    ScrollView,
+    ActivityIndicator 
      } from 'react-native';
 
     
 import {
     ListItem, 
-    Avatar } from 'react-native-elements';
+    Avatar,
+    Button } from 'react-native-elements';
+
+import * as PARAMETER from '../../constants/Parameter';
 
 export default class ListNewsComponent extends Component {
     render () {
-        const { navigation, news } = this.props;
+        const { navigation, news, moreNews } = this.props;
+        let heightScroll = 'unset';
+
+        if (PARAMETER.HEIGHT_SCROLL != 0) {
+          heightScroll = PARAMETER.HEIGHT_SCROLL;
+        }
+
         return (
-            <ScrollView horizontal={ false } >
+            <ScrollView 
+              horizontal={ false }
+              style={ { height: heightScroll } }
+              >
               {
                 news.map((newDetail, i)=> (
                   <ListItem 
@@ -30,15 +43,20 @@ export default class ListNewsComponent extends Component {
                   <Avatar 
                     avatarStyle={{ borderRadius: 10 }}
                     size="large"
-                    source= 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg' 
-                />
+                    source= { newDetail.image }
+                    PlaceholderContent={<ActivityIndicator />}
+                  />
                   <ListItem.Content>
-                    <ListItem.Title>{newDetail.name}</ListItem.Title>
-                    <ListItem.Subtitle >{newDetail.description}</ListItem.Subtitle>
+                    <ListItem.Title>{newDetail.title}</ListItem.Title>
+                    <ListItem.Subtitle >{newDetail.shortDescription}</ListItem.Subtitle>
                   </ListItem.Content>
                 </ListItem>
                 ))
               }
+              <Button 
+                title="Xem thêm"
+                onPress={ ()=>{ moreNews() } }
+                ></Button>
             </ScrollView>
         )
     }
