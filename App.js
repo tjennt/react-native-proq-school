@@ -62,7 +62,6 @@ export default class App extends React.Component {
 
   render () {
     const Navigator = createAppContainer(this.TabNavigator);
-    
     if (this.state.navigator == 'studentt') {
       return (
         <LoginComponent title="LOGIN"

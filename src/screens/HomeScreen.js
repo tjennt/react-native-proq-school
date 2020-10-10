@@ -58,12 +58,26 @@ export default class HomeScreen extends React.Component {
     try {
       let categories  = await this.handleAxiosCategories()
       let news        = await this.handleAxiosNews()
-      this.setState({
-        loadingNews: false
-      })
+      let loadScreent = await this.handleLoadScreen()
+      if (categories && news && loadScreent) {
+        this.setState({
+          loadingNews: false
+        })
+      }
+
     } catch (error) {
       
     }
+  }
+
+  handleLoadScreen = async ()=> {
+    const { navigation } = this.props;
+    await navigation.navigate('StudentScheduleScreen')
+    await navigation.navigate('ProfileScreen')
+    await navigation.navigate('StudentSubjectScreen')
+    await navigation.navigate('More')
+    await navigation.navigate('HomeScreen')
+    return true
   }
 
   // AXIOS GET CATEGORIES
@@ -164,7 +178,6 @@ export default class HomeScreen extends React.Component {
                           moreNews = { this.moreNews }
                           news={ news } />
     }
-
     return (
       <View style={{ backgroundColor: COLORS.LIGHT }}>
         {/* <Header title={ NAVIGATOR.home } /> */}

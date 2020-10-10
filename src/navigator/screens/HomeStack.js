@@ -25,6 +25,9 @@ const HomeStack = createStackNavigator(
     NewsDetail: {
       screen: NewsDetail,
     },
+  },
+  {
+    initialRouteName: 'HomeScreen'
   }
 );
 

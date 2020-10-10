@@ -3,20 +3,16 @@ import React from 'react';
 // IMPORT COMPONETS REACT NATIVE
 import { View, Text } from 'react-native';
 
-// IMPORT SCREEN
-// import HomeScreen from '../sreens/HomeScreen';
-import HomeScreen from './screens/HomeStack';
+// IMPORT SCREEN STACK
+import HomeStack from './screens/HomeStack';
+import ProfileStack from './screens/ProfileStack';
+import { StudentScheduleStack, TeacherScheduleStack } from './screens/ScheduleStack';
+import { StudentSubjectStack, TeacherSubjectStack } from './screens/SubjectStack';
 
 import ProfileScreen from '../screens/ProfileScreen';
 import MoreScreen from '../screens/MoreScreen';
 
-// IMPORT STUDENT SCREEN
-import StudentScheduleScreen from '../screens/students/StudentScheduleScreen';
-import StudentSubjectScreen from '../screens/students/StudentSubjectScreen';
 
-// IMPORT STUDENT SCREEN
-import TeacherScheduleScreen from '../screens/teachers/TeacherScheduleScreen';
-import TeacherSubjectScreen from '../screens/teachers/TeacherSubjectScreen';
 
 // IMPORT LIBRARY
 import {Ionicons,
@@ -33,7 +29,7 @@ import * as COLORS from '../constants/Colors';
 // TAB NAVIGATOR STUDENT
 export const STUDENT = {
     Home: {
-        screen: HomeScreen,
+        screen: HomeStack,
         navigationOptions: {
             title: NAVIGATOR.home,
             tabBarIcon: ({ tintColor }) => (
@@ -44,7 +40,7 @@ export const STUDENT = {
         }
     },
     Schedule: {
-        screen: StudentScheduleScreen,
+        screen: StudentScheduleStack,
         navigationOptions: {
             title: NAVIGATOR.schedule,
             tabBarIcon: ({ tintColor }) => (
@@ -59,7 +55,7 @@ export const STUDENT = {
         }
     },
     Profile: {
-        screen: ProfileScreen,
+        screen: ProfileStack,
         navigationOptions: {
             title: NAVIGATOR.personal,
             tabBarIcon: ({ tintColor }) => (
@@ -69,11 +65,11 @@ export const STUDENT = {
             ),
             activeColor: COLORS.LIGHT,
             inactiveColor: COLORS.LIGHT_HIGHT,
-            barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+            barStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
         }
     },
     Subject: {
-        screen: StudentSubjectScreen,
+        screen: StudentSubjectStack,
         navigationOptions: {
             title: NAVIGATOR.subject,
             tabBarIcon: ({ tintColor }) => (
@@ -105,7 +101,7 @@ export const STUDENT = {
 // TAB NAVIGATOR TEACHER
 export const TEACHER = {
     Home: {
-        screen: HomeScreen,
+        screen: HomeStack,
         navigationOptions: {
             title: NAVIGATOR.home,
             tabBarIcon: ({ tintColor }) => (
@@ -116,7 +112,7 @@ export const TEACHER = {
         }
     },
     Schedule: {
-        screen: TeacherScheduleScreen,
+        screen: TeacherScheduleStack,
         navigationOptions: {
             title: NAVIGATOR.schedule,
             tabBarIcon: ({ tintColor }) => (
@@ -131,7 +127,7 @@ export const TEACHER = {
         }
     },
     Profile: {
-        screen: ProfileScreen,
+        screen: ProfileStack,
         navigationOptions: {
             title: NAVIGATOR.personal,
             tabBarIcon: ({ tintColor }) => (
@@ -145,7 +141,7 @@ export const TEACHER = {
         }
     },
     Subject: {
-        screen: TeacherSubjectScreen,
+        screen: TeacherSubjectStack,
         navigationOptions: {
             title: NAVIGATOR.subject,
             tabBarIcon: ({ tintColor }) => (
