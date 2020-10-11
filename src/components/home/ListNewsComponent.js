@@ -31,9 +31,9 @@ export default class ListNewsComponent extends Component {
               style={ { height: heightScroll } }
               >
               {
-                news.map((newDetail, i)=> (
+                news.map((newDetail, index)=> (
                   <ListItem 
-                    key={i} 
+                    key={ newDetail.id }
                     bottomDivider
                     onPress={ ()=> { 
                       navigation.navigate('NewsDetail', {
@@ -48,7 +48,7 @@ export default class ListNewsComponent extends Component {
                     PlaceholderContent={<ActivityIndicator />}
                   />
                   <ListItem.Content>
-                    <ListItem.Title>{newDetail.title}</ListItem.Title>
+                  <ListItem.Title>{newDetail.title} { newDetail.id }</ListItem.Title>
                     <ListItem.Subtitle >{newDetail.shortDescription}</ListItem.Subtitle>
                   </ListItem.Content>
                 </ListItem>

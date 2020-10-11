@@ -6,7 +6,6 @@ import { StyleSheet } from 'react-native';
 // IMPORT COMPOMENT
 import LoginComponent from './src/components/login/LoginComponent';
 
-
 // IMPORT LIBRARY
 import {createAppContainer} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
@@ -24,22 +23,15 @@ import store from './src/store';
 export default class App extends React.Component {
 
   state = {
-    navigator: 'student',
-    selectedTabnavigator: 'student',
-    loading: false
+    navigator: null,
+    selectedTabnavigator: null,
+    loading: false,
+    user: {}
   }
-
-  // SELECTED TAB NAVIGATOR
-  selectedTabNavigator = () => {
-    // if (this.state.selectedTabnavigator == 'student') {
-    //   return TabNavigatorRender.STUDENT
-    // }
-    return TabNavigatorRender.STUDENT
-  }
-
-  // CREATE TAB NAVIGATOR BOTTOM
-  TabNavigator = createMaterialBottomTabNavigator(
-    this.selectedTabNavigator(),
+    
+  // NAVIGATOR STUDENT
+  NavigatorStudent = createMaterialBottomTabNavigator(
+    TabNavigatorRender.STUDENT,
     {
       initialRouteName: 'Home',
       activeColor: COLORS.LIGHT,
@@ -48,31 +40,53 @@ export default class App extends React.Component {
     }
   );
 
-  // Login
-  login = () => {
+  // NAVIGATOR TEACHER
+  NavigatorTeacher = createMaterialBottomTabNavigator(
+    TabNavigatorRender.TEACHER,
+    {
+      initialRouteName: 'Home',
+      activeColor: COLORS.LIGHT,
+      inactiveColor: COLORS.LIGHT_HIGHT,
+      barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+    }
+  )
+    
+  // LOGIN
+  login = (user) => {
     this.setState({
+      user: user,
       loading: true
     })
     setTimeout(()=> {   
       this.setState({
-        navigator: 'teacher'
+        navigator: user.role,
+        selectedTabnavigator: user.role
       })
     }, 1000)
   }
 
   render () {
-    const Navigator = createAppContainer(this.TabNavigator);
-    if (this.state.navigator == 'studentt') {
+    const NavigatorStudent = createAppContainer(this.NavigatorStudent)
+    const NavigatorTeacher = createAppContainer(this.NavigatorTeacher)
+
+    let Navigator = NavigatorTeacher;
+    if (this.state.selectedTabnavigator == 'student'){
+      Navigator = NavigatorStudent
+    }
+    if (this.state.navigator ==  null) {
       return (
-        <LoginComponent title="LOGIN"
-          loading = {this.state.loading}
-          loginFunction = { this.login }
-        />
+        <Provider store = {store}>
+          <LoginComponent title="LOGIN"
+            loading = {this.state.loading}
+            loginFunction = { this.login }
+          />
+        </Provider>
       )
     }
+
     return (
       <Provider store = {store}>
-        <Navigator></Navigator>
+        <Navigator />
       </Provider>
     )
   }

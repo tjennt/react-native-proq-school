@@ -33,7 +33,7 @@ import { connect } from 'react-redux';
 // IMPORT RENDER HTML
 import HTML from "react-native-render-html";
 
-class NewDetailScreen extends React.Component {
+export default class NewDetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerShown: true,
     title: '',
@@ -50,10 +50,6 @@ class NewDetailScreen extends React.Component {
     }
   }
 
-  handleAddNewsDetail = () => {
-    this.props.addNewsDetail();
-  };
-
   componentDidMount() {
     const { navigation } = this.props;
     // console.log(navigation.getParam('news'))
@@ -69,7 +65,8 @@ class NewDetailScreen extends React.Component {
           <Image
             source={{ uri: news.image }}
             style={ styles.image }
-            />
+            PlaceholderContent={<ActivityIndicator color={ COLORS.MAIN_PRIMARY } />}
+          />
         </View>
 
         <ScrollView style={ styles.scrollView }>
@@ -104,7 +101,7 @@ class NewDetailScreen extends React.Component {
                 Về cơ bản nó là 1 bước trung gian như đúng cái tên của nó nghĩa là nhận các action đầu vào rồi và trả ra cũng là các action.
                 </Text>
                 <HTML 
-                  tagsStyles={styles.HTML}
+                  // tagsStyles={styles.HTML}
                   html={ news.description } 
                   contentWidth={100}
                 />
@@ -115,12 +112,6 @@ class NewDetailScreen extends React.Component {
     )
   }
 }
-
-const mapStateToProps = state => ({
-  title: state.newsDetail
-});
-
-export default connect(mapStateToProps, actions)(NewDetailScreen);
 
 const styles = StyleSheet.create({
   container: {

@@ -120,7 +120,7 @@ export const TEACHER = {
                 <MaterialIcons style={[{color: tintColor}]} size={25} name={'schedule'} />
             </View>
             ),
-            tabBarBadge: 3,
+            tabBarBadge: 23,
             activeColor: COLORS.LIGHT,
             inactiveColor: COLORS.LIGHT_HIGHT,
             barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },

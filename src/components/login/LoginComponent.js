@@ -17,14 +17,57 @@ import { Image,
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // IMPORT LOGIN GOOGLE
-import * as GoogleSignIn from 'expo-google-sign-in';
+// import * as Google from 'expo-google-sign-in';
+import * as Google from "expo-google-app-auth";
 
 import * as COLORS from '../../constants/Colors';
 import  { LOGIN } from '../../constants/Locale';
 
+// IMPORT REDUX
+import * as actions from '../../actions';
+import { connect } from 'react-redux';
 
+import * as PARAMETER from '../../constants/Parameter';
 
-export default class HeaderDefaultComponent extends Component {
+class LoginComponent extends Component {
+    
+    signInWithGoogle = async () => {
+        try {
+          const result = await Google.logInAsync({
+            iosClientId: PARAMETER.IOS_CLIENT_ID,
+            androidClientId: PARAMETER.ANDROID_CLIENT_ID,
+            clientId: "AIzaSyC0At0eVwSI6H8BvXnQue1BGj1d4xrPp94",
+            scopes: ["profile", "email"]
+          });
+    
+          if (result.type === "success") {
+            console.log("SUCCESS", result.user.givenName);
+            // this.props.navigation.navigate("Profile", {
+            //   username: result.user.givenName
+            // }); //after Google login redirect to Profile
+            return result.accessToken;
+          } else {
+            return { cancelled: true };
+          }
+        } catch (e) {
+          console.log('Error with login', e);
+          return { error: true };
+        }
+    };
+
+    login = ()=> {
+        let user = {
+            token: 'Bearer erdrfw0jiktjgiom=rqfeodojmpgwer',
+            userName: 'natriwit',
+            fullName: 'Nguyen Tan Tien',
+            avatar: 'image/adsa/dsaf.jpg',
+            role: 'student'
+        }
+
+        this.props.addUser(user)
+        this.props.loginFunction(user)
+    }
+
     render () {
         return (
             <ImageBackground
@@ -44,6 +87,7 @@ export default class HeaderDefaultComponent extends Component {
                     <Text h4 style={ { fontWeight: 'bold' } }> 
                         { LOGIN.appName }
                     </Text>
+
                 </View>
 
                 {/* Introduce */}
@@ -56,13 +100,13 @@ export default class HeaderDefaultComponent extends Component {
                             style= { { height: 200, marginBottom: 15 } }
                             source= { require('../../assets/images/illustrators/gifs/classroom.gif') }  
                         />
-                        <Text style= { styles.marginCard }>
-                            { LOGIN.introductLogin }
-                        </Text>
+                        <View style= { styles.marginCard }>
+                            <Text>{ LOGIN.introductLogin }</Text>
+                        </View>
 
                         {/* Login google */}
                         <TouchableOpacity
-                            onPress= { ()=> this.props.loginFunction() }
+                            onPress={ this.signInWithGoogle }
                         >
                             <SocialIcon
                                 title= { LOGIN.loginWithGoole }
@@ -78,6 +122,12 @@ export default class HeaderDefaultComponent extends Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps, actions)(LoginComponent);
 
 const styles = StyleSheet.create({
     container: {
@@ -99,6 +149,6 @@ const styles = StyleSheet.create({
         height: 100
     },
     marginCard: {
-        marginBottom: 15 
+        paddingBottom: 15 
     }
 });

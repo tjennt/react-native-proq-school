@@ -70,6 +70,7 @@ export default class HomeScreen extends React.Component {
     }
   }
 
+  // LOAD SCREEN
   handleLoadScreen = async ()=> {
     const { navigation } = this.props;
     await navigation.navigate('StudentScheduleScreen')
@@ -77,6 +78,8 @@ export default class HomeScreen extends React.Component {
     await navigation.navigate('StudentSubjectScreen')
     await navigation.navigate('More')
     await navigation.navigate('HomeScreen')
+    // await navigation.navigate('HLEL')
+    
     return true
   }
 

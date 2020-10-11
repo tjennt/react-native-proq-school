@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "myNewProject",
-    "slug": "myNewProject",
+    "name": "PROQ SCHOOL",
+    "slug": "proq_school",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,7 +17,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.webiosandroid.all",
+      "config": {
+        "googleSignIn": {
+          "reseredClientId": "com.googleusercontent.apps.598161901649-kj4pqoeqs1a1t5kia3m693cr4rg76074"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
