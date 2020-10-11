@@ -35,3 +35,23 @@
     - expo web
     - expo eject
 ```
+
+
+### INFO GOOGLE PLAY
+```
+Ứng dụng nhằm mục đích cho học sinh, sinh viên trường PROQ EDUCATION xem thông báo, tin tức của trường,..
+Chức năng chính:
+- Học sinh, sinh viên: 
+  + Xem tin tức, thông báo, hoạt động của trường.
+  + Xem lịch học.
+  + Xem thông tin cá nhân.
+  + Thống kê.
+  + Xem các môn học và thời khóa biểu của môn học đó.
+
+- Giảng viên:
+  + Xem tin tức, thông báo, hoạt động của trường.
+  + Điểm danh.
+  + Xem thông tin cá nhân.
+  + Xem thời khóa biểu dạy.
+  + Xem môn đang dạy và lịch dạy.
+```
