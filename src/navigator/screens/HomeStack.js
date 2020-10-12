@@ -19,11 +19,14 @@ const HomeStack = createStackNavigator(
         title: NAVIGATOR.newsInHome,
         headerTitleAlign: 'left',
         headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
-        headerStyle: { height: 50, backgroundColor: COLORS.MAIN_PRIMARY }
+        headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
       }
     },
     NewsDetail: {
       screen: NewsDetail,
+      navigationOptions: {
+        title: ''
+      }
     },
   },
   {

@@ -35,11 +35,6 @@ import HTML from "react-native-render-html";
 
 export default class NewDetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    headerShown: true,
-    title: '',
-    headerStyle: { 
-      height: 50, 
-    },
     headerTransparent: true
   });
 
@@ -156,7 +151,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     width: '100%',
     height: 200,
-    borderBottomEndRadius: 20,
+    borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20
   },
   HTML: {

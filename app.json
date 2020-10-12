@@ -21,7 +21,7 @@
       "bundleIdentifier": "com.webiosandroid.all",
       "config": {
         "googleSignIn": {
-          "reseredClientId": "com.googleusercontent.apps.598161901649-kj4pqoeqs1a1t5kia3m693cr4rg76074"
+          "reservedClientId": "com.googleusercontent.apps.598161901649-kj4pqoeqs1a1t5kia3m693cr4rg76074"
         }
       }
     },

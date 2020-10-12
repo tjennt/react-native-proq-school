@@ -32,19 +32,20 @@ import * as PARAMETER from '../../constants/Parameter';
 class LoginComponent extends Component {
     
     signInWithGoogle = async () => {
+        // this.login()
+        // return;
         try {
           const result = await Google.logInAsync({
             iosClientId: PARAMETER.IOS_CLIENT_ID,
             androidClientId: PARAMETER.ANDROID_CLIENT_ID,
+            webClientId: "AIzaSyC0At0eVwSI6H8BvXnQue1BGj1d4xrPp94",
             clientId: "AIzaSyC0At0eVwSI6H8BvXnQue1BGj1d4xrPp94",
             scopes: ["profile", "email"]
           });
     
           if (result.type === "success") {
-            console.log("SUCCESS", result.user.givenName);
-            // this.props.navigation.navigate("Profile", {
-            //   username: result.user.givenName
-            // }); //after Google login redirect to Profile
+            this.login()
+            console.log("SUCCESS", result);
             return result.accessToken;
           } else {
             return { cancelled: true };
@@ -73,7 +74,6 @@ class LoginComponent extends Component {
             <ImageBackground
                 source={ require('../../assets/images/illustrators/notebook.svg') }
                 style={ styles.imageBackground }
-                blurRadius = '3'
             >      
                 {/* Logo image */}
                 <View style={ styles.container }>

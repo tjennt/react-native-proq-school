@@ -17,7 +17,6 @@ import STYLE_GOBAL from '../styles';
 
 // IMPORT HEADER
 import Header from '../components/headers/DefaultHeaderComponent';
-import TestComponent from '../components/TestComponent';
 
 // IMPORT LOCALE
 import { APP, NAVIGATOR } from '../constants/Locale';
@@ -58,8 +57,8 @@ export default class HomeScreen extends React.Component {
     try {
       let categories  = await this.handleAxiosCategories()
       let news        = await this.handleAxiosNews()
-      let loadScreent = await this.handleLoadScreen()
-      if (categories && news && loadScreent) {
+      // let loadScreent = await this.handleLoadScreen()
+      if (categories && news) {
         this.setState({
           loadingNews: false
         })

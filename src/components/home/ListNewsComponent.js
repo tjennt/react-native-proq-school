@@ -37,14 +37,14 @@ export default class ListNewsComponent extends Component {
                     bottomDivider
                     onPress={ ()=> { 
                       navigation.navigate('NewsDetail', {
-                        news: newDetail  
+                        news: newDetail 
                       }) 
                     } }
                   >
                   <Avatar 
                     avatarStyle={{ borderRadius: 10 }}
                     size="large"
-                    source= { newDetail.image }
+                    source= { { uri: newDetail.image } }
                     PlaceholderContent={<ActivityIndicator />}
                   />
                   <ListItem.Content>
