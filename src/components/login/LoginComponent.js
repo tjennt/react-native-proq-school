@@ -27,7 +27,11 @@ import  { LOGIN } from '../../constants/Locale';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
 
+// IMPORT PARAMETER
 import * as PARAMETER from '../../constants/Parameter';
+
+// IMPORT AXIOS
+import axios from 'axios';
 
 class LoginComponent extends Component {
     
@@ -38,15 +42,12 @@ class LoginComponent extends Component {
           const result = await Google.logInAsync({
             iosClientId: PARAMETER.IOS_CLIENT_ID,
             androidClientId: PARAMETER.ANDROID_CLIENT_ID,
-            webClientId: "AIzaSyC0At0eVwSI6H8BvXnQue1BGj1d4xrPp94",
-            clientId: "AIzaSyC0At0eVwSI6H8BvXnQue1BGj1d4xrPp94",
             scopes: ["profile", "email"]
           });
     
           if (result.type === "success") {
-            this.login()
-            console.log("SUCCESS", result);
-            return result.accessToken;
+              console.log("SUCCESS", result);
+                this.loginServerApi()
           } else {
             return { cancelled: true };
           }
@@ -55,6 +56,22 @@ class LoginComponent extends Component {
           return { error: true };
         }
     };
+
+    loginServerApi = async ()=> {
+        try {
+            let res = await axios.post(`${PARAMETER.SERVER_API}/api/login`, {
+                userName: 'tiennt',
+                passName: '12ba4nam'
+            })
+
+            let { data } = res
+            if (data) {
+                console.log(data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     login = ()=> {
         let user = {
@@ -72,13 +89,13 @@ class LoginComponent extends Component {
     render () {
         return (
             <ImageBackground
-                source={ require('../../assets/images/illustrators/notebook.svg') }
+                source={ { uri: require('../../assets/images/illustrators/notebook.svg') } }
                 style={ styles.imageBackground }
             >      
                 {/* Logo image */}
                 <View style={ styles.container }>
                     <Image 
-                        source={ require('../../assets/images/logos/logo_black.png') }
+                        source={ { uri: require('../../assets/images/logos/logo_black.png') } }
                         style={ styles.imageLogo }
                         resizeMode='cover'
                         PlaceholderContent={<ActivityIndicator />}
@@ -98,7 +115,7 @@ class LoginComponent extends Component {
                         {/* <Card.Divider/> */}
                         <Card.Image
                             style= { { height: 200, marginBottom: 15 } }
-                            source= { require('../../assets/images/illustrators/gifs/classroom.gif') }  
+                            source= { { uri: require('../../assets/images/illustrators/gifs/classroom.gif') } }  
                         />
                         <View style= { styles.marginCard }>
                             <Text>{ LOGIN.introductLogin }</Text>
@@ -133,12 +150,12 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 50
+        paddingTop: 55
     },
     introduce: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 50
+        paddingTop: 55
     },
     imageBackground: {
         flex: 1,
@@ -149,6 +166,6 @@ const styles = StyleSheet.create({
         height: 100
     },
     marginCard: {
-        paddingBottom: 15 
+        paddingBottom: 20 
     }
 });
