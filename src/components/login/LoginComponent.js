@@ -35,48 +35,59 @@ import axios from 'axios';
 
 class LoginComponent extends Component {
     
+    constructor(props) {
+        super(props)
+        this.state = {
+            loading: false
+        }
+    }
     signInWithGoogle = async () => {
-        // this.login()
-        // return;
         try {
-          const result = await Google.logInAsync({
-            iosClientId: PARAMETER.IOS_CLIENT_ID,
-            androidClientId: PARAMETER.ANDROID_CLIENT_ID,
-            scopes: ["profile", "email"]
-          });
+            this.setLoading()
+            const result = await Google.logInAsync({
+                iosClientId: PARAMETER.IOS_CLIENT_ID,
+                androidClientId: PARAMETER.ANDROID_CLIENT_ID,
+                scopes: ["profile", "email"]
+            });
     
-          if (result.type === "success") {
-              console.log("SUCCESS", result);
-                this.loginServerApi()
-          } else {
-            return { cancelled: true };
-          }
+            if (result.type === "success") {
+                //   console.log("SUCCESS", result);
+                this.loginServerApi(result)
+            } else {
+                console.log("Out login")
+            }
         } catch (e) {
-          console.log('Error with login', e);
-          return { error: true };
+            console.log('Error with login', e);
+            return { error: true };
         }
     };
 
-    loginServerApi = async ()=> {
-        try {
-            let res = await axios.post(`${PARAMETER.SERVER_API}/api/login`, {
-                userName: 'tiennt',
-                passName: '12ba4nam'
-            })
-
-            let { data } = res
-            if (data) {
-                console.log(data)
-            }
-        } catch (error) {
-            console.log(error)
-        }
+    setLoading = ()=> {
+        this.setState({
+            loading: !this.state.loading
+        })
     }
 
-    login = ()=> {
+    loginServerApi = async (dataGoogle)=> {
+        try {
+            let res = await axios.post(`${PARAMETER.SERVER}/androi/auth/google`, {
+                idToken: dataGoogle.idToken
+            })
+            let { data } = res
+            if (data.success === true){
+                return this.loginSuccess(data.payload)
+            }
+            return this.loginFail()
+
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+    
+    loginSuccess = (data)=> {
         let user = {
-            token: 'Bearer erdrfw0jiktjgiom=rqfeodojmpgwer',
-            userName: 'natriwit',
+            token: data.token,
+            userName: data.email,
             fullName: 'Nguyen Tan Tien',
             avatar: 'image/adsa/dsaf.jpg',
             role: 'student'
@@ -86,16 +97,20 @@ class LoginComponent extends Component {
         this.props.loginFunction(user)
     }
 
+    loginFail = ()=> {
+
+    }
+
     render () {
         return (
             <ImageBackground
-                source={ { uri: require('../../assets/images/illustrators/notebook.svg') } }
+                source={ require('../../assets/images/illustrators/notebook.svg') }
                 style={ styles.imageBackground }
             >      
                 {/* Logo image */}
                 <View style={ styles.container }>
                     <Image 
-                        source={ { uri: require('../../assets/images/logos/logo_black.png') } }
+                        source={ require('../../assets/images/logos/logo_black.png') }
                         style={ styles.imageLogo }
                         resizeMode='cover'
                         PlaceholderContent={<ActivityIndicator />}
@@ -115,15 +130,17 @@ class LoginComponent extends Component {
                         {/* <Card.Divider/> */}
                         <Card.Image
                             style= { { height: 200, marginBottom: 15 } }
-                            source= { { uri: require('../../assets/images/illustrators/gifs/classroom.gif') } }  
+                            source= { require('../../assets/images/illustrators/gifs/classroom.gif') }  
                         />
                         <View style= { styles.marginCard }>
                             <Text>{ LOGIN.introductLogin }</Text>
                         </View>
 
                         {/* Login google */}
+                        <Text>{ this.state.loading ? 'Loading....' : '' }</Text>
                         <TouchableOpacity
                             onPress={ this.signInWithGoogle }
+                            // disabled={true}
                         >
                             <SocialIcon
                                 title= { LOGIN.loginWithGoole }
@@ -150,12 +167,12 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 55
+        paddingTop: 60
     },
     introduce: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 55
+        paddingTop: 60
     },
     imageBackground: {
         flex: 1,
@@ -166,6 +183,6 @@ const styles = StyleSheet.create({
         height: 100
     },
     marginCard: {
-        paddingBottom: 20 
+        paddingBottom: 70 
     }
 });

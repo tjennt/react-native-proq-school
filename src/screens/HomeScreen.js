@@ -164,6 +164,7 @@ export default class HomeScreen extends React.Component {
       })
     }, 1)
   }
+  
   getNewsDetail = () => {
     this.props.navigation.navigate.push('NewsDetail')
   }
