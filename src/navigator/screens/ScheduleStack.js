@@ -16,7 +16,7 @@ export const StudentScheduleStack = createStackNavigator(
         StudentScheduleScreen: {
         screen: StudentScheduleScreen,
         navigationOptions: {
-            title: NAVIGATOR.newsInHome,
+            title: NAVIGATOR.scheduleStudent,
             headerTitleAlign: 'left',
             headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
             headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }

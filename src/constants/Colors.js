@@ -1,6 +1,6 @@
 export const MAIN_PRIMARY = '#2a4054';
 export const MAIN_LIGHT   = '#556b80';
-
+export const MAIN_TEXT    = '#FF725E';
 // 
 export const PRIMARY      = '#2a4054';
 export const LIGHT        = '#ffffff';

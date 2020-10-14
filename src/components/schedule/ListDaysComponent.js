@@ -14,6 +14,8 @@ import { View,
     Avatar, 
     SearchBar } from 'react-native-elements';
 
+import * as COLORS from '../../constants/Colors';
+
 export default class ListDaysComponent extends Component {
     render () {
         const { days, getScheduleDays, buttonStyleSeleted } = this.props;
@@ -48,6 +50,7 @@ const styles = StyleSheet.create({
       borderTopLeftRadius: 50,
       borderBottomLeftRadius: 50,
       borderTopRightRadius: 50,
-      borderBottomRightRadius: 50
+      borderBottomRightRadius: 50,
+      backgroundColor: COLORS.LIGHT
     }
   });

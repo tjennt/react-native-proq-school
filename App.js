@@ -33,7 +33,7 @@ export default class App extends React.Component {
   NavigatorStudent = createMaterialBottomTabNavigator(
     TabNavigatorRender.STUDENT,
     {
-      initialRouteName: 'Home',
+      initialRouteName: 'Schedule',
       activeColor: COLORS.LIGHT,
       inactiveColor: COLORS.LIGHT_HIGHT,
       barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
@@ -62,7 +62,7 @@ export default class App extends React.Component {
         navigator: user.role,
         selectedTabnavigator: user.role
       })
-    }, 1000)
+    }, 1)
   }
 
   render () {

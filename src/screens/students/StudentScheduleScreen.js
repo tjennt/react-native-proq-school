@@ -15,9 +15,12 @@ import STYLE_GOBAL from '../../styles/Global';
 
 // IMPORT COMPONENTS
 import ListDaysComponent from '../../components/schedule/ListDaysComponent';
+import ListScheduleComponent from '../../components/schedule/ListScheduleComponent';
+
+import * as COLORS from '../../constants/Colors';
 
 // IMPORT DATA
-import { Days } from '../../constants/Data';
+import { DAYS } from '../../constants/Data';
 export default class StudentScheduleScreen extends React.Component {
   
   constructor(props) {
@@ -34,16 +37,23 @@ export default class StudentScheduleScreen extends React.Component {
     }
     return styles.ButtonStyle
   }
+  getScheduleDays = (day, index) => {
+    console.log('hello')
+  }
 
   render() {
     return (
-      <View style={STYLE_GOBAL.container}>
-        <ListDaysComponent 
-          days={ Days }
-          buttonStyleSeleted={ this.buttonStyleSeleted }
-          getScheduleDays={ this.getScheduleDays(day.id, index) }
-        />
-        <Text>ScheduleScreen</Text>
+      <View style={{ backgroundColor: COLORS.LIGHT }}>
+        <View style={ styles.ViewListDays }>
+          <ListDaysComponent 
+            days={ DAYS }
+            buttonStyleSeleted={ this.buttonStyleSeleted }
+            getScheduleDays={ this.getScheduleDays }
+          />
+        </View>
+        
+        <ListScheduleComponent />
+
       
       </View>
     )
@@ -58,5 +68,8 @@ const styles = StyleSheet.create({
   ButtonStyleSelected: {
     borderRadius: 50,
     backgroundColor: '#606060'
+  },
+  ViewListDays: {
+    paddingTop: 10
   }
 });

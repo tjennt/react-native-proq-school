@@ -17,7 +17,6 @@ import { Image,
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // IMPORT LOGIN GOOGLE
-// import * as Google from 'expo-google-sign-in';
 import * as Google from "expo-google-app-auth";
 
 import * as COLORS from '../../constants/Colors';
@@ -42,6 +41,13 @@ class LoginComponent extends Component {
         }
     }
     signInWithGoogle = async () => {
+        
+        // LOGIN DON'T NEED LOGIN
+        this.loginSuccess({
+            token: 'eyeafa23rewgds',
+            email: 'toma.nguyen675@gmail.com'
+        })
+
         try {
             this.setLoading()
             const result = await Google.logInAsync({
@@ -51,8 +57,9 @@ class LoginComponent extends Component {
             });
     
             if (result.type === "success") {
-                //   console.log("SUCCESS", result);
+                
                 this.loginServerApi(result)
+
             } else {
                 console.log("Out login")
             }
@@ -98,7 +105,7 @@ class LoginComponent extends Component {
     }
 
     loginFail = ()=> {
-
+        
     }
 
     render () {

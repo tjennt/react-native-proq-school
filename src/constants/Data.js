@@ -1,4 +1,9 @@
-export const Days = [
+export const DAYS = [
+    {
+        id: 0,
+        label: 'Tất cả',
+        value: 0
+    },
     {
         id: 1,
         label: 'Thứ 2',
