@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { 
     View,
-    StyleSheet
+    StyleSheet,
+    ScrollView
   } from 'react-native';
 
 import { Button, 
@@ -51,9 +52,9 @@ export default class StudentScheduleScreen extends React.Component {
             getScheduleDays={ this.getScheduleDays }
           />
         </View>
-        
-        <ListScheduleComponent />
-
+        <ScrollView style={{ height: 550 }}>
+          <ListScheduleComponent />
+        </ScrollView>
       
       </View>
     )

@@ -22,6 +22,7 @@ export default class ListDaysComponent extends Component {
         return (
             <ScrollView horizontal={ true } 
             style={ styles.ScrollView } >
+              
               {
                 days.map((day, index)=> (
                   <Button
@@ -32,6 +33,7 @@ export default class ListDaysComponent extends Component {
                   ></Button>
                 ))
               }
+              
               
             </ScrollView>
         )

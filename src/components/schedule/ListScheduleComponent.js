@@ -14,12 +14,19 @@ import { View,
     ThemeProvider, 
     ListItem, 
     Avatar, 
-    SearchBar } from 'react-native-elements';
+    SearchBar,
+    Badge } from 'react-native-elements';
 
 import * as COLORS from '../../constants/Colors';
 
 // IMPORT PARAMETER
 import * as PARAMETER from '../../constants/Parameter';
+
+// IMPORT LIBRARY
+import {Ionicons,
+    MaterialIcons,
+    AntDesign 
+} from 'react-native-vector-icons';
 
 const list = [
     {
@@ -54,6 +61,46 @@ const list = [
         studyTime: 'Ca 1',
         description: 'Bua nay vo hoc cho vui thoi'
     },
+    {
+        name: 'Lập trình python',
+        code: 'python1',
+        date: '2020/13/10',
+        nameDay: 'TH',
+        studyTime: 'Ca 1',
+        description: 'Bua nay vo hoc cho vui thoi'
+    },
+    {
+        name: 'Lập trình python',
+        code: 'python1',
+        date: '2020/13/10',
+        nameDay: 'TH',
+        studyTime: 'Ca 1',
+        description: 'Bua nay vo hoc cho vui thoi'
+    },
+    {
+        name: 'Lập trình python',
+        code: 'python1',
+        date: '2020/13/10',
+        nameDay: 'TH',
+        studyTime: 'Ca 1',
+        description: 'Bua nay vo hoc cho vui thoi'
+    },
+    {
+        name: 'Lập trình python',
+        code: 'python1',
+        date: '2020/13/10',
+        nameDay: 'TH',
+        studyTime: 'Ca 1',
+        description: 'Bua nay vo hoc cho vui thoi'
+    },
+    {
+        name: 'Lập trình python',
+        code: 'python1',
+        date: '2020/13/10',
+        nameDay: 'TH',
+        studyTime: 'Ca 1',
+        description: 'Bua nay vo hoc cho vui thoi'
+    }
 ];
 
 export default class ListScheduleComponent extends Component {
@@ -63,19 +110,48 @@ export default class ListScheduleComponent extends Component {
     renderItem = ({ item }) => (
         <ListItem 
             bottomDivider
+            style={{ marginBottom: 10 }}
             onPress={ ()=> { this.moreInfoSchedule(item.description) } } 
         >
-            <View style={ styles.AvatarSchedule }>
-                <Text style={styles.text}>{ item.nameDay }</Text>
-            </View>
+            {/* <View style={ styles.AvatarSchedule }> */}
+                {/* <ImageBackground 
+                    style={{ height:100 }}
+                    source={ require('../../assets/images/illustrators/book_schedule.png') }
+                    blurRadius={1}
+                ></ImageBackground> */}
+                {/* <Text style={styles.text}>{ item.nameDay }</Text> */}
+
+            {/* </View> */}
 
             {/* CONTENT */}
             <ListItem.Content>
+                
+                {/* First content */}
+                <ListItem.Content style={ styles.ContentRow }>
+                    
+                    <ListItem.Title style={styles.text}>
+                        <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
+                        <Text style={ styles.TextDateTime }>
+                        {item.date}
+                        </Text>
+                        <Text style={ { marginLeft: 5, fontSize: 13 } }>( Thứ 2 - Ca 1)</Text>
+                    </ListItem.Title>
+                    <Badge
+                        badgeStyle={{ padding: 15 }}
+                        textStyle={{ fontWeight: 'bold' }}
+                        value={ item.code.toUpperCase() }
+                        status="success" />
+                </ListItem.Content>
+
+                {/* Bottom content */}
+                <ListItem.Content style={ styles.ContentRow }>
+
+                    <ListItem.Title style={{ flex: 1 }}>{item.name}</ListItem.Title>
             
-                <ListItem.Title>{item.name} ( { item.code } )</ListItem.Title>
-            
-                <ListItem.Subtitle> { item.studyTime } - {item.date} </ListItem.Subtitle>
-            
+                    <ListItem.Subtitle style={{ flex: 1, textAlign: 'right' }}>7:30 - 9:30 </ListItem.Subtitle>
+                
+                </ListItem.Content>
+                
             </ListItem.Content>
         </ListItem>
     )
@@ -116,20 +192,27 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     AvatarSchedule: {
-        width: 70,
-        height: 70,
+        width: 100,
+        height: 100,
         backgroundColor: '#ccc',
-        borderRightColor: '#000'
+        borderRadius: 10
     },
     text: {
-        textAlign: 'center',
-        fontWeight: 'bold',
-        fontSize: 30,
-        color: COLORS.MAIN_TEXT
+        flex: 1
+        // transform: [{ rotate: '40deg' }]
     },
     studyTime: {
         fontSize: 12,
         textAlign: 'center', 
         paddingTop: 2
+    },
+    ContentRow: {
+        width: '100%',
+        flexDirection: "row",
+    },
+    TextDateTime: {
+        fontSize: 17,
+        fontWeight: 'bold',
+        marginLeft: 5
     }
 });

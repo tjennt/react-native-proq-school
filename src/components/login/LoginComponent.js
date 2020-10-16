@@ -47,6 +47,7 @@ class LoginComponent extends Component {
             token: 'eyeafa23rewgds',
             email: 'toma.nguyen675@gmail.com'
         })
+        return;
 
         try {
             this.setLoading()
@@ -174,12 +175,12 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 60
+        paddingTop: 30
     },
     introduce: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 60
+        paddingTop: 30
     },
     imageBackground: {
         flex: 1,
@@ -190,6 +191,6 @@ const styles = StyleSheet.create({
         height: 100
     },
     marginCard: {
-        paddingBottom: 70 
+        paddingBottom: 40 
     }
 });
