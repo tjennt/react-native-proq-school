@@ -95,9 +95,12 @@ class LoginComponent extends Component {
     loginSuccess = (data)=> {
         let user = {
             token: data.token,
-            userName: data.email,
-            fullName: 'Nguyen Tan Tien',
+            email: data.email,
+            studentCode: 'ps09110',
+            userName: 'tienntps09110',
+            fullName: 'Nguyễn Tấn Tiền',
             avatar: 'image/adsa/dsaf.jpg',
+            className: 'WD14301',
             role: 'student'
         }
 

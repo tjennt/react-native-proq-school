@@ -4799,6 +4799,11 @@ react-native-gesture-handler@~1.7.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-image-modal@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/react-native-image-modal/-/react-native-image-modal-1.0.12.tgz#a822bd6d695ab31cf57383bd037ad8e4b1f1e76b"
+  integrity sha512-5W+Z7hrLj9VQJOeqc3MjoM1uQxr89xJ6plCNzsy9BiKGpjdCHdKxO3fq8bK3LayuKSUQ04WxIprkMHNnbQjRRA==
+
 react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"

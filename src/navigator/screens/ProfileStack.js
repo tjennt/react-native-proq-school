@@ -13,15 +13,12 @@ import * as COLORS from '../../constants/Colors';
 const ProfileStack = createStackNavigator(
     {
         ProfileScreen: {
-        screen: ProfileScreen,
-        navigationOptions: {
-            title: NAVIGATOR.newsInHome,
-            headerTitleAlign: 'left',
-            headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
-            headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
-        }
+            screen: ProfileScreen,
+            navigationOptions: {
+                title: '',
+                headerTransparent: true
+            } 
         },
-        
     },
     {
         initialRouteName: 'ProfileScreen'

@@ -33,7 +33,7 @@ export default class App extends React.Component {
   NavigatorStudent = createMaterialBottomTabNavigator(
     TabNavigatorRender.STUDENT,
     {
-      initialRouteName: 'Schedule',
+      initialRouteName: 'Profile',
       activeColor: COLORS.LIGHT,
       inactiveColor: COLORS.LIGHT_HIGHT,
       barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },

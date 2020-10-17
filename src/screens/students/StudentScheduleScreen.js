@@ -27,7 +27,7 @@ export default class StudentScheduleScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedDay: null
+      selectedDay: 0
     }
   }
 

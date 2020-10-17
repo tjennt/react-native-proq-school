@@ -113,16 +113,6 @@ export default class ListScheduleComponent extends Component {
             style={{ marginBottom: 10 }}
             onPress={ ()=> { this.moreInfoSchedule(item.description) } } 
         >
-            {/* <View style={ styles.AvatarSchedule }> */}
-                {/* <ImageBackground 
-                    style={{ height:100 }}
-                    source={ require('../../assets/images/illustrators/book_schedule.png') }
-                    blurRadius={1}
-                ></ImageBackground> */}
-                {/* <Text style={styles.text}>{ item.nameDay }</Text> */}
-
-            {/* </View> */}
-
             {/* CONTENT */}
             <ListItem.Content>
                 
@@ -137,7 +127,7 @@ export default class ListScheduleComponent extends Component {
                         <Text style={ { marginLeft: 5, fontSize: 13 } }>( Thứ 2 - Ca 1)</Text>
                     </ListItem.Title>
                     <Badge
-                        badgeStyle={{ padding: 15 }}
+                        badgeStyle={{ padding: 12 }}
                         textStyle={{ fontWeight: 'bold' }}
                         value={ item.code.toUpperCase() }
                         status="success" />
@@ -207,8 +197,8 @@ const styles = StyleSheet.create({
         paddingTop: 2
     },
     ContentRow: {
-        width: '100%',
         flexDirection: "row",
+        width: '100%'
     },
     TextDateTime: {
         fontSize: 17,

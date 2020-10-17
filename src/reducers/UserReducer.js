@@ -2,9 +2,12 @@ import * as USER_ACTION from '../actions/UserActions';
 
 const user = {
     token: null,
+    email: null,
+    studentCode: null,
     userName: null,
     fullName: null,
     avatar: null,
+    className: null,
     role: null
 };
 
@@ -16,9 +19,12 @@ export default (state = user, action) => {
 
         return {...state, 
             token: action.user.token,
+            email: action.user.email,
+            studentCode: action.user.studentCode,
             userName : action.user.userName, 
             fullName : action.user.fullName, 
             avatar: action.user.avatar,
+            className: action.user.className,
             role: action.user.role
         };
         
@@ -26,9 +32,12 @@ export default (state = user, action) => {
 
         return {...state, 
             token : null, 
+            email: null,
+            studentCode: null,
             userName : null, 
             fullName : null, 
             avatar: null,
+            className: null,
             role: null
         };
 
