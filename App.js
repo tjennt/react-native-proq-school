@@ -16,6 +16,9 @@ import * as TabNavigatorRender from './src/navigator/TabNavigator';
 // IMPORT COLORS
 import * as COLORS from './src/constants/Colors';
 
+// IMPORT PARAMETER
+import * as PARAMETER from './src/constants/Parameter';
+
 // IMPORT REDUX
 import {Provider} from 'react-redux';
 import store from './src/store';
@@ -28,28 +31,6 @@ export default class App extends React.Component {
     loading: false,
     user: {}
   }
-    
-  // NAVIGATOR STUDENT
-  NavigatorStudent = createMaterialBottomTabNavigator(
-    TabNavigatorRender.STUDENT,
-    {
-      initialRouteName: 'Profile',
-      activeColor: COLORS.LIGHT,
-      inactiveColor: COLORS.LIGHT_HIGHT,
-      barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
-    }
-  );
-
-  // NAVIGATOR TEACHER
-  NavigatorTeacher = createMaterialBottomTabNavigator(
-    TabNavigatorRender.TEACHER,
-    {
-      initialRouteName: 'Home',
-      activeColor: COLORS.LIGHT,
-      inactiveColor: COLORS.LIGHT_HIGHT,
-      barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
-    }
-  )
     
   // LOGIN
   login = (user) => {
@@ -65,18 +46,43 @@ export default class App extends React.Component {
     }, 1)
   }
 
-  render () {
-    const NavigatorStudent = createAppContainer(this.NavigatorStudent)
-    const NavigatorTeacher = createAppContainer(this.NavigatorTeacher)
+  // Navigator
+  Navigator() {
+    const NavigatorStudent = createAppContainer(createMaterialBottomTabNavigator(
+      TabNavigatorRender.STUDENT,
+      {
+        initialRouteName: 'Profile',
+        activeColor: COLORS.LIGHT,
+        inactiveColor: COLORS.LIGHT_HIGHT,
+        barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+      }
+    ))
 
-    let Navigator = NavigatorTeacher;
-    if (this.state.selectedTabnavigator == 'student'){
-      Navigator = NavigatorStudent
+    const NavigatorTeacher = createAppContainer(createMaterialBottomTabNavigator(
+      TabNavigatorRender.TEACHER,
+      {
+        initialRouteName: 'Home',
+        activeColor: COLORS.LIGHT,
+        inactiveColor: COLORS.LIGHT_HIGHT,
+        barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+      }
+    ))
+
+    if (this.state.selectedTabnavigator == PARAMETER.STUDENT_ROLE){
+      
+      return <NavigatorStudent />
     }
+
+    return <NavigatorTeacher />
+
+  }
+
+  render () {
+
     if (this.state.navigator ==  null) {
       return (
         <Provider store = {store}>
-          <LoginComponent title="LOGIN"
+          <LoginComponent
             loading = {this.state.loading}
             loginFunction = { this.login }
           />
@@ -86,7 +92,7 @@ export default class App extends React.Component {
 
     return (
       <Provider store = {store}>
-        <Navigator />
+        { this.Navigator() }
       </Provider>
     )
   }

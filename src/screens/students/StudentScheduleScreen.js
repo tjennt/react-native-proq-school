@@ -39,7 +39,11 @@ export default class StudentScheduleScreen extends React.Component {
     return styles.ButtonStyle
   }
   getScheduleDays = (day, index) => {
-    console.log('hello')
+    this.setState({
+      selectedDay: index
+    })
+
+    // console.log('hello')
   }
 
   render() {
@@ -68,7 +72,7 @@ const styles = StyleSheet.create({
   },
   ButtonStyleSelected: {
     borderRadius: 50,
-    backgroundColor: '#606060'
+    backgroundColor: COLORS.MAIN_TEXT
   },
   ViewListDays: {
     paddingTop: 10

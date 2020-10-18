@@ -55,9 +55,10 @@ export default class HomeScreen extends React.Component {
 
   async componentDidMount() {
     try {
+      
       let categories  = await this.handleAxiosCategories()
       let news        = await this.handleAxiosNews()
-      // let loadScreent = await this.handleLoadScreen()
+      
       if (categories && news) {
         this.setState({
           loadingNews: false
@@ -65,27 +66,14 @@ export default class HomeScreen extends React.Component {
       }
 
     } catch (error) {
-      
+      console.log(error)
     }
-  }
-
-  // LOAD SCREEN
-  handleLoadScreen = async ()=> {
-    const { navigation } = this.props;
-    await navigation.navigate('StudentScheduleScreen')
-    await navigation.navigate('ProfileScreen')
-    await navigation.navigate('StudentSubjectScreen')
-    await navigation.navigate('More')
-    await navigation.navigate('HomeScreen')
-    // await navigation.navigate('HLEL')
-    
-    return true
   }
 
   // AXIOS GET CATEGORIES
   handleAxiosCategories = async ()=> {
     try {
-      let res = await axios.get(`${PARAMETER.SERVER_API}/api/categories`)
+      let res = await axios.get(`${PARAMETER.SERVER_API}${PARAMETER.API_NAME.categories}`)
       let { data } = res 
       this.setState({
         categories: data
@@ -100,7 +88,7 @@ export default class HomeScreen extends React.Component {
 
   handleAxiosNews = async ()=> {
     try {
-      let res = await axios.get(`${PARAMETER.SERVER_API}/api/news`)
+      let res = await axios.get(`${PARAMETER.SERVER_API}${PARAMETER.API_NAME.news}`)
       let { data } = res 
       this.setState({
         axiosNews: data
@@ -157,7 +145,7 @@ export default class HomeScreen extends React.Component {
       loadingNews: true
     })
 
-    console.log('CLICK')
+    // console.log('CLICK')
     setTimeout(()=> {
       this.setState({
         loadingNews: false
@@ -168,34 +156,44 @@ export default class HomeScreen extends React.Component {
   getNewsDetail = () => {
     this.props.navigation.navigate.push('NewsDetail')
   }
+
+  // View load list or loader
+  viewNewsOrLoader() {
+    const { news, loadingNews } = this.state;
+    const { navigation } = this.props;
+    
+    if (loadingNews) {
+
+      return <LoaderListNewsComponent loading={ loadingNews } />
+
+    } else {
+
+     return <ListNewsComponent 
+              navigation = { navigation }
+              moreNews = { this.moreNews }
+              news={ news } 
+            />
+    }
+  }
   render() {
     const { search, searchLoading, categories, news, loadingNews } = this.state;
     const { navigation } = this.props;
-    let viewNewsOrLoader;
-    if (loadingNews) {
-      viewNewsOrLoader = <LoaderListNewsComponent loading={ loadingNews } />
-    } else {
-      
-      viewNewsOrLoader = <ListNewsComponent 
-                          navigation = { navigation }
-                          moreNews = { this.moreNews }
-                          news={ news } />
-    }
+
     return (
       <View style={{ backgroundColor: COLORS.LIGHT }}>
         {/* <Header title={ NAVIGATOR.home } /> */}
-        <SearchBar
+        {/* <SearchBar
           placeholder= { APP.searchInput }
           onChangeText={this.updateSearch}
           value={search}
           platform="android"
           showLoading = { searchLoading }
-        />
+        /> */}
         <Text>{ search }</Text>
         <View style={ { flexDirection: "column" } }>
           
           {/* CATEGORY HORIZONTAL TRUE */}
-          <View style={ {  flexDirection: "row", marginTop: 0 } }>
+          <View style={ {  flexDirection: "row" } }>
             {/* LIST CATEGORIES */}
             <ListCategoriesComponent 
               categories={ categories }
@@ -205,9 +203,10 @@ export default class HomeScreen extends React.Component {
           </View>
 
           {/* POSTS IN CATEGORY */}
-          <View style={ { flexDirection: 'column', marginTop: 15 } }>
+          <View style={ { flexDirection: 'column'} }>
               
-              { viewNewsOrLoader }
+              { this.viewNewsOrLoader() }
+
           </View>
 
         </View>

@@ -127,7 +127,7 @@ export default class ListScheduleComponent extends Component {
                         <Text style={ { marginLeft: 5, fontSize: 13 } }>( Thứ 2 - Ca 1)</Text>
                     </ListItem.Title>
                     <Badge
-                        badgeStyle={{ padding: 12 }}
+                        badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
                         textStyle={{ fontWeight: 'bold' }}
                         value={ item.code.toUpperCase() }
                         status="success" />
