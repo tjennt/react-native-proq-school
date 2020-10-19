@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         width: '100%',
         height: 100,
+        backgroundColor: '#fff',
         borderRadius: 10,
         shadowColor: "#000",
         shadowOffset: {
@@ -65,13 +66,13 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 5,
+        elevation: 5
     },
     ViewIcon: {
         flex: 0.2,
         justifyContent: 'center'
     },
-        ViewContentInfo: {
+    ViewContentInfo: {
         flex: 0.8,
         justifyContent: 'center'
     },

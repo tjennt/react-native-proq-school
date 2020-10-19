@@ -27,7 +27,6 @@ export default class ListDaysComponent extends Component {
                 days.map((day, index)=> (
                   <Button
                       title= { day.label }
-                      style={ styles.Button }
                       buttonStyle={ buttonStyleSeleted(index) }
                       onPress={ ()=> { getScheduleDays(day.id, index) } }
                   ></Button>
@@ -41,12 +40,6 @@ export default class ListDaysComponent extends Component {
 }
 
 const styles = StyleSheet.create({
-    Button: {
-      paddingLeft: 5,
-      paddingRight: 5,
-      paddingTop: 5,
-      paddingBottom: 15
-    },
     ScrollView: {
       marginHorizontal: 10,
       borderTopLeftRadius: 50,

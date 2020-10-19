@@ -67,10 +67,20 @@ export default class StudentScheduleScreen extends React.Component {
 
 const styles = StyleSheet.create({
   ButtonStyle: {
+    paddingLeft: 12,
+    paddingRight: 12,
+    paddingTop: 8,
+    paddingBottom: 8,
+    marginRight: 10,
     borderRadius: 50,
     backgroundColor: '#cccccc'
   },
   ButtonStyleSelected: {
+    paddingLeft: 12,
+    paddingRight: 12,
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginRight: 10,
     borderRadius: 50,
     backgroundColor: COLORS.MAIN_TEXT
   },

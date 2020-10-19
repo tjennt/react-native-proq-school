@@ -63,19 +63,15 @@ class ProfileScreen extends Component {
         {/* BACKGROUND, AVATAR, FULL NAME */}
         <ImageBackground
           style={ styles.ImageBackground }
-          source={ require('../assets/images/illustrators/info-student.svg') }
+          source={ require('../assets/images/illustrators/info-student.png') }
         >
 
           <Avatar
-            source={ { 
-              uri: require('../assets/images/demo/anh_the.jpg')
-            } }
+            source={ require('../assets/images/demo/anh_the.jpg') }
             style={ styles.Avatar }
             avatarStyle={styles.AvatarStyle}
           />
-
-          <Text style={ styles.TextName }>{ user.fullName.toUpperCase() }</Text>
-
+        <Text style={ styles.TextName }>{ user.fullName.toUpperCase() }</Text>
         </ImageBackground>
 
 
@@ -112,7 +108,7 @@ const styles = StyleSheet.create({
   },
   AvatarStyle: {
     resizeMode : 'cover',
-    borderRadius: '50%',
+    borderRadius: 55,
     borderWidth: 2,
     borderColor: COLORS.LIGHT
   },

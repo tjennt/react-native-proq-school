@@ -109,8 +109,8 @@ export default class ListScheduleComponent extends Component {
 
     renderItem = ({ item }) => (
         <ListItem 
-            bottomDivider
-            style={{ marginBottom: 10 }}
+            // bottomDivider
+            containerStyle={ styles.ListItemSchedule }
             onPress={ ()=> { this.moreInfoSchedule(item.description) } } 
         >
             {/* CONTENT */}
@@ -122,9 +122,9 @@ export default class ListScheduleComponent extends Component {
                     <ListItem.Title style={styles.text}>
                         <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
                         <Text style={ styles.TextDateTime }>
-                        {item.date}
+                        &nbsp;{item.date}
                         </Text>
-                        <Text style={ { marginLeft: 5, fontSize: 13 } }>( Thứ 2 - Ca 1)</Text>
+                        <Text style={ { fontSize: 13 } }>&nbsp;( Thứ 2 - Ca 1)</Text>
                     </ListItem.Title>
                     <Badge
                         badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
@@ -138,7 +138,7 @@ export default class ListScheduleComponent extends Component {
 
                     <ListItem.Title style={{ flex: 1 }}>{item.name}</ListItem.Title>
             
-                    <ListItem.Subtitle style={{ flex: 1, textAlign: 'right' }}>7:30 - 9:30 </ListItem.Subtitle>
+                    <ListItem.Subtitle style={{ flex: 1, fontSize: 12, textAlign: 'right', marginTop: 5 }}> 7:30 - 9:30 </ListItem.Subtitle>
                 
                 </ListItem.Content>
                 
@@ -174,7 +174,9 @@ export default class ListScheduleComponent extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 10
+        marginTop: 10,
+        paddingLeft: 5,
+        paddingRight: 5
     },
     image: {
         flex: 1,
@@ -189,7 +191,6 @@ const styles = StyleSheet.create({
     },
     text: {
         flex: 1
-        // transform: [{ rotate: '40deg' }]
     },
     studyTime: {
         fontSize: 12,
@@ -204,5 +205,22 @@ const styles = StyleSheet.create({
         fontSize: 17,
         fontWeight: 'bold',
         marginLeft: 5
+    },
+    ListItemSchedule: { 
+        // backgroundColor: '#cccccc',
+        marginTop: 5,
+        marginBottom: 5,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        marginLeft: 5,
+        marginRight: 5
     }
 });

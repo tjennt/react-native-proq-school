@@ -24,7 +24,6 @@ export default class ListNewsComponent extends Component {
                 categories.map((category, index)=> (
                   <Button
                       title= { category.title }
-                      style={ styles.Button }
                       buttonStyle={ buttonStyleSeleted(index) }
                       onPress={ ()=> { getNews(category.id, index) } }
                   ></Button>
@@ -37,12 +36,6 @@ export default class ListNewsComponent extends Component {
 }
 
 const styles = StyleSheet.create({
-    Button: {
-      paddingLeft: 5,
-      paddingRight: 5,
-      paddingTop: 5,
-      paddingBottom: 15
-    },
     ScrollView: {
       marginHorizontal: 10,
       borderTopLeftRadius: 50,

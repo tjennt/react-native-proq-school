@@ -218,11 +218,21 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
     ButtonStyle: {
+      paddingLeft: 12,
+      paddingRight: 12,
+      paddingTop: 8,
+      paddingBottom: 8,
+      marginRight: 10,
       borderRadius: 50,
       backgroundColor: '#cccccc'
     },
     ButtonStyleSelected: {
+      paddingLeft: 12,
+      paddingRight: 12,
+      paddingTop: 8,
+      paddingBottom: 8,
+      marginRight: 10,
       borderRadius: 50,
-      backgroundColor: '#606060'
+      backgroundColor: COLORS.MAIN_TEXT
     }
 });

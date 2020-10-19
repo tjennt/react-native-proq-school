@@ -19,22 +19,18 @@ import * as PARAMETER from '../../constants/Parameter';
 export default class ListNewsComponent extends Component {
     render () {
         const { navigation, news, moreNews } = this.props;
-        let heightScroll = 'unset';
-
-        if (PARAMETER.HEIGHT_SCROLL != 0) {
-          heightScroll = PARAMETER.HEIGHT_SCROLL;
-        }
 
         return (
             <ScrollView 
               horizontal={ false }
-              style={ { height: heightScroll } }
+              style={ styles.ScrollView }
               >
               {
                 news.map((newDetail, index)=> (
                   <ListItem 
                     key={ newDetail.id }
-                    bottomDivider
+                    style={ styles.ListItemNews }
+                    // bottomDivider
                     onPress={ ()=> { 
                       navigation.navigate('NewsDetail', {
                         news: newDetail 
@@ -76,5 +72,22 @@ const styles = StyleSheet.create({
   },
   ButtonMore: {
 
+  },
+  ScrollView: { 
+    // paddingLeft: 5, 
+    // paddingRight: 5, 
+    height: PARAMETER.HEIGHT_SCROLL != 0 ? PARAMETER.HEIGHT_SCROLL - 10 : '0'
+  },
+  ListItemNews: {
+    marginTop: 10,
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   }
 })
