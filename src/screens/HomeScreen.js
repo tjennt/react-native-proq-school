@@ -10,8 +10,7 @@ import { Button,
   Text, 
   ThemeProvider, 
   ListItem, 
-  Avatar, 
-  SearchBar } from 'react-native-elements';
+  Avatar } from 'react-native-elements';
 
 import STYLE_GOBAL from '../styles';
 
@@ -42,8 +41,6 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      search: '',
-      searchLoading: false,
       categories: [],
       axiosNews: [],
       news: [],
@@ -115,20 +112,6 @@ export default class HomeScreen extends React.Component {
     return true
   }
 
-  // Search
-  updateSearch = (text) => {
-    this.setState({
-      searchLoading: true,
-      search: text
-    })
-
-    setTimeout(()=> {
-      this.setState({
-        searchLoading: false
-      })
-    }, 1)
-  }
-
 
   // Selected button
   buttonStyleSeleted = (index) => {
@@ -176,24 +159,16 @@ export default class HomeScreen extends React.Component {
     }
   }
   render() {
-    const { search, searchLoading, categories, news, loadingNews } = this.state;
+    const { categories, news, loadingNews } = this.state;
     const { navigation } = this.props;
 
     return (
       <View style={{ backgroundColor: COLORS.LIGHT }}>
-        {/* <Header title={ NAVIGATOR.home } /> */}
-        {/* <SearchBar
-          placeholder= { APP.searchInput }
-          onChangeText={this.updateSearch}
-          value={search}
-          platform="android"
-          showLoading = { searchLoading }
-        /> */}
-        <Text>{ search }</Text>
-        <View style={ { flexDirection: "column" } }>
+
+        <View style={ styles.ViewRender }>
           
           {/* CATEGORY HORIZONTAL TRUE */}
-          <View style={ {  flexDirection: "row" } }>
+          <View style={ styles.ViewCategories }>
             {/* LIST CATEGORIES */}
             <ListCategoriesComponent 
               categories={ categories }
@@ -234,5 +209,13 @@ const styles = StyleSheet.create({
       marginRight: 10,
       borderRadius: 50,
       backgroundColor: COLORS.MAIN_TEXT
+    },
+    ViewRender: { 
+      flexDirection: "column", 
+      marginTop: 10
+    },
+    ViewCategories: {  
+      flexDirection: "row",
+      paddingBottom: 10
     }
 });
