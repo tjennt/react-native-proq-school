@@ -34,11 +34,12 @@ export default class App extends React.Component {
     
   // LOGIN
   login = (user) => {
-    this.setState({
-      user: user,
-      loading: true
-    })
-    setTimeout(()=> {   
+    // this.setState({
+    //   user: user,
+    //   loading: true
+    // })
+    console.log("LOGINNN", user.role)
+    setTimeout(()=> {
       this.setState({
         navigator: user.role,
         selectedTabnavigator: user.role
@@ -69,7 +70,7 @@ export default class App extends React.Component {
     ))
 
     if (this.state.selectedTabnavigator == PARAMETER.STUDENT_ROLE){
-      
+      console.log(this.state.selectedTabnavigator, PARAMETER.STUDENT_ROLE)
       return <NavigatorStudent />
     }
 

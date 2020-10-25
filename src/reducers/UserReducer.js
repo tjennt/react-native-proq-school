@@ -1,15 +1,6 @@
 import * as USER_ACTION from '../actions/UserActions';
 
-const user = {
-    token: null,
-    email: null,
-    studentCode: null,
-    userName: null,
-    fullName: null,
-    avatar: null,
-    className: null,
-    role: null
-};
+const user = {};
 
 export default (state = user, action) => {
   
@@ -17,16 +8,7 @@ export default (state = user, action) => {
 
     case USER_ACTION.ADD_USER:
 
-        return {...state, 
-            token: action.user.token,
-            email: action.user.email,
-            studentCode: action.user.studentCode,
-            userName : action.user.userName, 
-            fullName : action.user.fullName, 
-            avatar: action.user.avatar,
-            className: action.user.className,
-            role: action.user.role
-        };
+        return state = action.user;
         
     case USER_ACTION.DELETE_USER:
 

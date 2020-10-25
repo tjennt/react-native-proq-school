@@ -12,10 +12,10 @@ export const NAVIGATOR = {
     home: 'Trang Chủ',
     newsInHome: 'TIN TỨC',
     scheduleStudent: 'LỊCH HỌC',
+    subject: 'MÔN HỌC',
     scheduleTeacher: 'LỊCH DẠY',
     personal: 'Cá Nhân',
     schedule: 'Lịch',
-    subject: 'Môn học',
     more: 'Thêm'
 }
 

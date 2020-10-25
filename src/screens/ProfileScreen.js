@@ -56,7 +56,7 @@ class ProfileScreen extends Component {
 
   render() {
     const { user } = this.props
-
+    console.log(user)
     return (
       <ScrollView style={styles.container}>
         
@@ -71,7 +71,7 @@ class ProfileScreen extends Component {
             style={ styles.Avatar }
             avatarStyle={styles.AvatarStyle}
           />
-        <Text style={ styles.TextName }>{ user.fullName.toUpperCase() }</Text>
+        <Text style={ styles.TextName }>{ user.studentId.fullName.toUpperCase() }</Text>
         </ImageBackground>
 
 

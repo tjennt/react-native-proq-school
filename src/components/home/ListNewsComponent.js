@@ -32,7 +32,7 @@ export default class ListNewsComponent extends Component {
                     style={ styles.ListItemNews }
                     // bottomDivider
                     onPress={ ()=> { 
-                      navigation.navigate('NewsDetail', {
+                      navigation.push('NewsDetail', {
                         news: newDetail 
                       }) 
                     } }

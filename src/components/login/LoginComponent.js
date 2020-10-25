@@ -43,11 +43,12 @@ class LoginComponent extends Component {
     signInWithGoogle = async () => {
         
         // LOGIN DON'T NEED LOGIN
-        this.loginSuccess({
-            token: 'eyeafa23rewgds',
-            email: 'toma.nguyen675@gmail.com'
-        })
-        return;
+        // this.loginSuccess({
+        //     token: 'eyeafa23rewgds',
+        //     email: 'toma.nguyen675@gmail.com'
+        // })
+
+        // return;
 
         try {
             this.setLoading()
@@ -58,7 +59,7 @@ class LoginComponent extends Component {
             });
     
             if (result.type === "success") {
-                
+                console.log(result)
                 this.loginServerApi(result)
 
             } else {
@@ -78,13 +79,14 @@ class LoginComponent extends Component {
 
     loginServerApi = async (dataGoogle)=> {
         try {
-            let res = await axios.post(`${PARAMETER.SERVER}/androi/auth/google`, {
-                idToken: dataGoogle.idToken
+            let res = await axios.post(`${PARAMETER.SERVER}/v1/users/android/google/login`, {
+                tokenId: dataGoogle.idToken
             })
             let { data } = res
-            if (data.success === true){
-                return this.loginSuccess(data.payload)
-            }
+            // if (data.success === true){
+                console.log(data.token)
+                return this.loginSuccess(data)
+            // }
             return this.loginFail()
 
         } catch (error) {
@@ -92,18 +94,29 @@ class LoginComponent extends Component {
         }
     }
     
-    loginSuccess = (data)=> {
-        let user = {
-            token: data.token,
-            email: data.email,
-            studentCode: 'ps09110',
-            userName: 'tienntps09110',
-            fullName: 'Nguyễn Tấn Tiền',
-            avatar: 'image/adsa/dsaf.jpg',
-            className: 'WD14301',
-            role: 'student'
-        }
+    loginSuccess = async (dataLogin)=> {
+        const { token } = dataLogin
+        try {
+            let res = await axios.get(`${PARAMETER.SERVER}/v1/student/profile/`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
 
+            let { data } = res
+
+            if (data.success == true) {
+                data.payload.role = dataLogin.access
+                this.props.addUser(data.payload)
+                this.props.loginFunction({
+                    role: dataLogin.access
+                })
+            }
+
+        } catch (error) {
+            console.log("error", error)
+        }
+        return
         this.props.addUser(user)
         this.props.loginFunction(user)
     }

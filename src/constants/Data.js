@@ -40,3 +40,21 @@ export const DAYS = [
         value: 7
     }
 ]
+
+export const TIME = [
+    {
+        id: 1,
+        label: 'Đã học',
+        value: 1
+    },
+    {
+        id: 2,
+        label: 'Đang học',
+        value: 2
+    },
+    {
+        id: 3,
+        label: 'Chưa học',
+        value: 3
+    }
+]

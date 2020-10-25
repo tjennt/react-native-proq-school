@@ -137,7 +137,7 @@ export default class HomeScreen extends React.Component {
   }
   
   getNewsDetail = () => {
-    this.props.navigation.navigate.push('NewsDetail')
+    this.props.navigation.push('NewsDetail')
   }
 
   // View load list or loader

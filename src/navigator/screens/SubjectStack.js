@@ -1,5 +1,7 @@
 // IMPORT COMPONENT
 import StudentSubjectScreen from '../../screens/students/StudentSubjectScreen';
+import StudentScheduleSubjectScreen from '../../screens/students/StudentScheduleSubjectScreen';
+
 import TeacherSubjectScreen from '../../screens/teachers/TeacherSubjectScreen';
 
 import { createStackNavigator } from 'react-navigation-stack';
@@ -15,14 +17,19 @@ export const StudentSubjectStack = createStackNavigator(
     {
         StudentSubjectScreen: {
         screen: StudentSubjectScreen,
-        navigationOptions: {
-            title: NAVIGATOR.newsInHome,
+            navigationOptions: {
+            title: NAVIGATOR.subject,
             headerTitleAlign: 'left',
             headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
             headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
-        }
+            }
         },
-        
+        StudentScheduleSubjectScreen: {
+            screen: StudentScheduleSubjectScreen,
+            navigationOptions: {
+            title: "LỊCH HỌC CỦA MÔN HỌC"
+            }
+        }
     },
     {
         initialRouteName: 'StudentSubjectScreen'
@@ -34,7 +41,7 @@ export const TeacherSubjectStack = createStackNavigator(
         TeacherSubjectScreen: {
         screen: TeacherSubjectScreen,
         navigationOptions: {
-            title: NAVIGATOR.newsInHome,
+            title: NAVIGATOR.subject,
             headerTitleAlign: 'left',
             headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
             headerStyle: { height: 50, backgroundColor: COLORS.MAIN_PRIMARY }
