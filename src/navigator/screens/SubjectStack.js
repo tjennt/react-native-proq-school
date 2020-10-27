@@ -25,10 +25,7 @@ export const StudentSubjectStack = createStackNavigator(
             }
         },
         StudentScheduleSubjectScreen: {
-            screen: StudentScheduleSubjectScreen,
-            navigationOptions: {
-            title: "LỊCH HỌC CỦA MÔN HỌC"
-            }
+            screen: StudentScheduleSubjectScreen
         }
     },
     {

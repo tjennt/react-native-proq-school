@@ -52,12 +52,14 @@ export default class App extends React.Component {
     const NavigatorStudent = createAppContainer(createMaterialBottomTabNavigator(
       TabNavigatorRender.STUDENT,
       {
-        initialRouteName: 'Profile',
+        initialRouteName: 'Subject',
         activeColor: COLORS.LIGHT,
         inactiveColor: COLORS.LIGHT_HIGHT,
         barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
       }
     ))
+
+    // return <NavigatorStudent />
 
     const NavigatorTeacher = createAppContainer(createMaterialBottomTabNavigator(
       TabNavigatorRender.TEACHER,

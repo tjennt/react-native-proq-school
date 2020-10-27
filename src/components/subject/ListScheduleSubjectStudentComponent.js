@@ -30,80 +30,82 @@ import {Ionicons,
 
 const list = [
     {
+        name: 'Lập trình PHP',
+        code: 'PHP',
+        date: '2020/13/10',
+        nameDay: 'MO',
+        studyTime: 'Ca 1',
+        description: 'Bua nay vo hoc cho vui thoi',
+        status: 'future'
+    },
+    {
+        name: 'Lập trình PHP',
+        code: 'PHP',
+        date: '2020/13/10',
+        nameDay: 'MO',
+        studyTime: 'Ca 1',
+        description: 'Bua nay vo hoc cho vui thoi',
+        status: 'future'
+    },
+    {
+        name: 'Lập trình PHP',
+        code: 'PHP',
+        date: '2020/13/10',
+        nameDay: 'MO',
+        studyTime: 'Ca 1',
+        description: 'Bua nay vo hoc cho vui thoi',
+        status: 'future'
+    },
+    {
       name: 'Lập trình PHP',
       code: 'PHP',
       date: '2020/13/10',
       nameDay: 'MO',
       studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
+      description: 'Bua nay vo hoc cho vui thoi',
+      status: 'absent'
     },
     {
-      name: 'Lập trình Javascript',
-      code: 'JS',
-      date: '2020/13/10',
-      nameDay: 'TU',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Kĩ năng làm việc',
-        code: 'KN1023',
+        name: 'Lập trình PHP',
+        code: 'PHP',
         date: '2020/13/10',
-        nameDay: 'WE',
+        nameDay: 'MO',
         studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
+        description: 'Bua nay vo hoc cho vui thoi',
+        status: 'absent'
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
+        name: 'Lập trình PHP',
+        code: 'PHP',
         date: '2020/13/10',
-        nameDay: 'TH',
+        nameDay: 'MO',
         studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
+        description: 'Bua nay vo hoc cho vui thoi',
+        status: 'attendant'
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
+        name: 'Lập trình PHP',
+        code: 'PHP',
         date: '2020/13/10',
-        nameDay: 'TH',
+        nameDay: 'MO',
         studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
+        description: 'Bua nay vo hoc cho vui thoi',
+        status: 'attendant'
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
+        name: 'Lập trình PHP',
+        code: 'PHP',
         date: '2020/13/10',
-        nameDay: 'TH',
+        nameDay: 'MO',
         studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
+        description: 'Bua nay vo hoc cho vui thoi',
+        status: 'attendant'
     },
-    {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    }
+    
+    
 ];
 
-export default class ListSubjectStudentComponent extends Component {
+export default class ListScheduleSubjectStudentComponent extends Component {
 
     constructor (props) {
         super(props)
@@ -127,27 +129,24 @@ export default class ListSubjectStudentComponent extends Component {
                     >
                         <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
                         <Text style={ styles.TextDateTime }>
-                        &nbsp;{item.name}
+                        &nbsp; Thứ 2 - 20/10
                         </Text>
                         <Text style={ { fontSize: 13 } }></Text>
                     </ListItem.Title>
                     <Badge
-                        badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
+                        badgeStyle={{ padding: 12 }}
                         textStyle={{ fontWeight: 'bold' }}
-                        value={ item.code.toUpperCase() }
-                        status="success" />
+                        value={ item.status == 'future' ? 'Chưa học' : item.status == 'absent' ? 'Vắng mặt' : 'Có mặt' }
+                        status={ item.status == 'future' ? 'primary' : item.status == 'absent' ? 'error' : 'success' } />
                 </ListItem.Content>
 
                 {/* Bottom content */}
                 <ListItem.Content style={ styles.ContentRow }>
-
-                {/* <ListItem.Title style={{ flex: 1 }}>2020/20/10 - 2020/20/11</ListItem.Title> */}
-            
                     <ListItem.Subtitle 
                         onPress={ ()=> { this.moreInfoSchedule(item) } }
                         style={{ flex: 1, fontSize: 12, marginTop: 5 }}
                     >
-                            2020/20/10 - 2020/20/11
+                            Giảng viên: tiennt
                         
                     </ListItem.Subtitle>
                     <ListItem.Subtitle 
@@ -165,19 +164,10 @@ export default class ListSubjectStudentComponent extends Component {
 
     moreInfoSchedule = (item) => {
 
-        this.props.navigation.navigate('StudentScheduleSubjectScreen')
-
     }
 
     render () {
-
         const { schedules } = this.props;
-        
-        let heightScroll = 'unset';
-
-        if (PARAMETER.HEIGHT_SCROLL != 0) {
-          heightScroll = PARAMETER.HEIGHT_SCROLL;
-        }
         // console.log(this.props.navigation)
         return (
         <SafeAreaView style={styles.container}>
