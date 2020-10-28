@@ -2,17 +2,21 @@ import React, { Component } from 'react';
 
 import { 
     View,
-    StyleSheet
+    StyleSheet,
+    ImageBackground
 } from 'react-native';
 
 
-import { Badge } from 'react-native-elements';
+import { Badge, Text, Avatar } from 'react-native-elements';
 
 // IMPORT LOCALE
 import { APP } from '../../constants/Locale';
 
 // IMPORT COLORS
 import * as COLORS from '../../constants/Colors';
+
+// IMPORT PARAMETER
+import * as PARAMETER from '../../constants/Parameter';
 
 // IMPORT ICON
 import { 
@@ -34,6 +38,23 @@ export default class ViewInfoStudentComponent extends Component {
 
         return (
             <View style={ styles.ViewAllInfo }>
+                {/* BACKGROUND, AVATAR, FULL NAME */}
+                <ImageBackground
+                style={ styles.ImageBackground }
+                source={ require('../../assets/images/illustrators/info-student.png') }
+                >
+
+                    <Avatar
+                        source={ {
+                        uri: `${PARAMETER.SERVER}/${user.studentId.avatar}`
+                        } }
+                        style={ styles.Avatar }
+                        avatarStyle={styles.AvatarStyle}
+                    />
+
+                    <Text style={ styles.TextName }>{ user.studentId.fullName.toUpperCase() }</Text>
+
+                </ImageBackground>
 
                 <RowProfileComponent 
                     icon={<AntDesign style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'key'} />}
@@ -88,9 +109,34 @@ export default class ViewInfoStudentComponent extends Component {
 }
 
 const styles = StyleSheet.create({
-  ViewAllInfo: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginBottom: 20
-  }
+    ImageBackground: {
+        height: 220,
+        marginBottom: 70
+    },
+    Avatar: {
+        position: 'absolute',
+        left: 20,
+        bottom: -45,
+        width: 100,
+        height: 100,
+    },
+    AvatarStyle: {
+        resizeMode : 'cover',
+        borderRadius: 55,
+        borderWidth: 2,
+        borderColor: COLORS.LIGHT
+    },
+    TextName: {
+        position: 'absolute',
+        left: 135,
+        bottom: -25,
+        padding: 3,
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    ViewAllInfo: {
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginBottom: 20
+    }
 });

@@ -59,21 +59,6 @@ class ProfileScreen extends Component {
     console.log(user)
     return (
       <ScrollView style={styles.container}>
-        
-        {/* BACKGROUND, AVATAR, FULL NAME */}
-        <ImageBackground
-          style={ styles.ImageBackground }
-          source={ require('../assets/images/illustrators/info-student.png') }
-        >
-
-          <Avatar
-            source={ require('../assets/images/demo/anh_the.jpg') }
-            style={ styles.Avatar }
-            avatarStyle={styles.AvatarStyle}
-          />
-        <Text style={ styles.TextName }>{ user.studentId.fullName.toUpperCase() }</Text>
-        </ImageBackground>
-
 
         {/* VIEW INFO */}
         { this.ViewInfo() }
@@ -94,30 +79,5 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 5,
     paddingRight: 5
-  },
-  ImageBackground: {
-    height: 220,
-    marginBottom: 70
-  },
-  Avatar: {
-    position: 'absolute',
-    left: 30,
-    bottom: -55,
-    width: 110,
-    height: 110,
-  },
-  AvatarStyle: {
-    resizeMode : 'cover',
-    borderRadius: 55,
-    borderWidth: 2,
-    borderColor: COLORS.LIGHT
-  },
-  TextName: {
-    position: 'absolute',
-    left: 145,
-    bottom: -35,
-    padding: 3,
-    fontSize: 20,
-    fontWeight: 'bold'
   }
 })

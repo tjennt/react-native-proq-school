@@ -82,10 +82,10 @@ class LoginComponent extends Component {
                 tokenId: dataGoogle.idToken
             })
             let { data } = res
-            // if (data.success === true){
-                console.log(data.token)
-                return this.loginSuccess(data)
-            // }
+            if (data.success === true){
+                // console.log(data)
+                return this.loginSuccess(data.payload)
+            }
             return this.loginFail()
 
         } catch (error) {
@@ -111,7 +111,7 @@ class LoginComponent extends Component {
                     role: dataLogin.access
                 })
             }
-
+            
         } catch (error) {
             console.log("error", error)
         }

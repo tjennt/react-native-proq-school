@@ -18,7 +18,7 @@ export const StudentSubjectStack = createStackNavigator(
         StudentSubjectScreen: {
         screen: StudentSubjectScreen,
             navigationOptions: {
-            title: NAVIGATOR.subject,
+            title: NAVIGATOR.subject.toUpperCase(),
             headerTitleAlign: 'left',
             headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
             headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }

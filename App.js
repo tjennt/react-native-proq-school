@@ -34,17 +34,16 @@ export default class App extends React.Component {
     
   // LOGIN
   login = (user) => {
+    
     // this.setState({
     //   user: user,
     //   loading: true
     // })
-    console.log("LOGINNN", user.role)
-    setTimeout(()=> {
-      this.setState({
-        navigator: user.role,
-        selectedTabnavigator: user.role
-      })
-    }, 1)
+    
+    this.setState({
+      navigator: user.role,
+      selectedTabnavigator: user.role
+    })
   }
 
   // Navigator
