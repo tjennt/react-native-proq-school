@@ -16,13 +16,13 @@ import STYLE_GOBAL from '../../styles/Global';
 
 // IMPORT COMPONENTS
 import ListDaysComponent from '../../components/schedule/ListDaysComponent';
-import ListScheduleComponent from '../../components/schedule/ListScheduleComponent';
+import ListScheduleStudentComponent from '../../components/schedule/ListScheduleStudentComponent';
 
 import * as COLORS from '../../constants/Colors';
 
 // IMPORT DATA
 import { DAYS } from '../../constants/Data';
-export default class StudentScheduleScreen extends React.Component {
+export default class StudentScheduleScreen extends Component {
   
   constructor(props) {
     super(props)
@@ -42,13 +42,11 @@ export default class StudentScheduleScreen extends React.Component {
     this.setState({
       selectedDay: index
     })
-
-    // console.log('hello')
   }
 
   render() {
     return (
-      <View style={{ backgroundColor: COLORS.LIGHT }}>
+      <View style={{ backgroundColor: COLORS.LIGHT, flex: 1 }}>
         <View style={ styles.ViewListDays }>
           <ListDaysComponent 
             days={ DAYS }
@@ -56,9 +54,8 @@ export default class StudentScheduleScreen extends React.Component {
             getScheduleDays={ this.getScheduleDays }
           />
         </View>
-        <ScrollView style={{ height: 550 }}>
-          <ListScheduleComponent />
-        </ScrollView>
+
+        <ListScheduleStudentComponent />
       
       </View>
     )

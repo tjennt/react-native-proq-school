@@ -13,6 +13,7 @@ export const NAVIGATOR = {
     newsInHome: 'TIN TỨC',
     scheduleStudent: 'LỊCH HỌC',
     subject: 'Môn học',
+    subjectTeacher: 'Môn dạy',
     scheduleTeacher: 'LỊCH DẠY',
     personal: 'Cá Nhân',
     schedule: 'Lịch',

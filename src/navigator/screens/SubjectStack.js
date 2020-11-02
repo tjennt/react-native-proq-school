@@ -38,10 +38,10 @@ export const TeacherSubjectStack = createStackNavigator(
         TeacherSubjectScreen: {
         screen: TeacherSubjectScreen,
         navigationOptions: {
-            title: NAVIGATOR.subject,
+            title: NAVIGATOR.subjectTeacher.toUpperCase(),
             headerTitleAlign: 'left',
             headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
-            headerStyle: { height: 50, backgroundColor: COLORS.MAIN_PRIMARY }
+            headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
         }
         },
         

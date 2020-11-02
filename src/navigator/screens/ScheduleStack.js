@@ -34,10 +34,10 @@ export const TeacherScheduleStack = createStackNavigator(
         TeacherScheduleScreen: {
         screen: TeacherScheduleScreen,
         navigationOptions: {
-            title: NAVIGATOR.newsInHome,
+            title: NAVIGATOR.scheduleTeacher,
             headerTitleAlign: 'left',
             headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
-            headerStyle: { height: 50, backgroundColor: COLORS.MAIN_PRIMARY }
+            headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
         }
         },
         

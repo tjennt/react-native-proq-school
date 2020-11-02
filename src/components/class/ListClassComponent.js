@@ -23,87 +23,79 @@ import * as COLORS from '../../constants/Colors';
 import * as PARAMETER from '../../constants/Parameter';
 
 // IMPORT LIBRARY
-import {Ionicons,
+import {MaterialCommunityIcons,
     MaterialIcons,
-    Feather 
+    Fontisto 
 } from 'react-native-vector-icons';
 
 const list = [
     {
-      name: 'Lập trình PHP',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'MO',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-      name: 'Lập trình Javascript',
-      code: 'JS',
-      date: '2020/13/10',
-      nameDay: 'TU',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Kĩ năng làm việc',
-        code: 'KN1023',
-        date: '2020/13/10',
-        nameDay: 'WE',
+        id: 1,
+        name: 'Lập trình PHP',
+        code: 'PHP',
+        dateStart: '13/10',
+        dateEnd: '13/12/2020',
         studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
+        className: 'WD14304',
+        roomName: 'P401'    
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
+        name: 'Lập trình PHP',
+        code: 'PHP',
+        dateStart: '13/10',
+        dateEnd: '13/12/2020',
         studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
+        className: 'WD143241',
+        roomName: 'P401'    
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
+        name: 'Lập trình PHP',
+        code: 'PHP',
+        dateStart: '13/10',
+        dateEnd: '13/12/2020',
         studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
+        className: 'SD12421',
+        roomName: 'P401'    
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
+        name: 'Lập trình PHP',
+        code: 'PHP',
+        dateStart: '13/10',
+        dateEnd: '13/12/2020',
         studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
+        className: 'SLF41241',
+        roomName: 'P401'    
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
+        name: 'Lập trình PHP',
+        code: 'PHP',
+        dateStart: '13/10',
+        dateEnd: '13/12/2020',
+        studyTime: 'Ca 5',
+        className: 'GL341',
+        roomName: 'P401'    
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
+        name: 'Lập trình PHP',
+        code: 'PHP',
+        dateStart: '13/10',
+        dateEnd: '13/12/2020',
         studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
+        className: 'WD14301',
+        roomName: 'P401'    
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
+        name: 'Lập trình PHP',
+        code: 'PHP',
+        dateStart: '13/10',
+        dateEnd: '13/12/2020',
         studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
+        className: 'WD14301',
+        roomName: 'P401'    
     }
 ];
 
-export default class ListSubjectTeacherComponent extends Component {
+export default class ListClassComponent extends Component {
 
     keyExtractor = (item, index) => index.toString()
 
@@ -120,7 +112,7 @@ export default class ListSubjectTeacherComponent extends Component {
                 <ListItem.Content style={ styles.ContentRow }>
                     
                     <ListItem.Title style={styles.text}>
-                        <Feather style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'book'} />    
+                        <MaterialCommunityIcons style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'bookmark-outline'} />    
                         <Text style={ styles.TextDateTime }>
                         &nbsp;{ item.name }
                         </Text>
@@ -128,16 +120,20 @@ export default class ListSubjectTeacherComponent extends Component {
                     <Badge
                         badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
                         textStyle={{ fontWeight: 'bold' }}
-                        value={ item.code.toUpperCase() }
+                        value={ item.className.toUpperCase() }
                         status="success" />
                 </ListItem.Content>
 
                 {/* Bottom content */}
                 <ListItem.Content style={ styles.ContentRow }>
 
-                    <ListItem.Title style={{ flex: 1 }}>Số lớp dạy: 4</ListItem.Title>
+                    <ListItem.Title style={{ flex: 0.6, fontSize: 13 }}>
+                    { item.dateStart } - { item.dateEnd } ( { item.studyTime } )
+                    </ListItem.Title>
             
-                    <ListItem.Subtitle style={{ flex: 1, fontSize: 12, textAlign: 'right', marginTop: 5 }}>  </ListItem.Subtitle>
+                    <ListItem.Subtitle style={{ flex: 0.4, fontSize: 12, textAlign: 'right', marginTop: 5 }}>
+                        Room: { item.roomName.toUpperCase() }
+                    </ListItem.Subtitle>
                 
                 </ListItem.Content>
                 

@@ -7,7 +7,8 @@ import { View,
     StatusBar,
     SafeAreaView,
     FlatList,
-    ImageBackground } from 'react-native';
+    ImageBackground, 
+    InteractionManager} from 'react-native';
   
   import { Button, 
     Text, 
@@ -30,80 +31,78 @@ import {Ionicons,
 
 const list = [
     {
-      name: 'Lập trình PHP',
+      name: 'Học Laravel',
       code: 'PHP',
       date: '2020/13/10',
-      nameDay: 'MO',
+      nameDay: 'Thứ 2',
+      nameClass: 'WD14301',
+      roomCode: 'P401',
       studyTime: 'Ca 1',
       description: 'Bua nay vo hoc cho vui thoi'
     },
     {
-      name: 'Lập trình Javascript',
-      code: 'JS',
-      date: '2020/13/10',
-      nameDay: 'TU',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Kĩ năng làm việc',
-        code: 'KN1023',
+        name: 'Học Laravel',
+        code: 'PHP',
         date: '2020/13/10',
-        nameDay: 'WE',
+        nameDay: 'Thứ 2',
+        nameClass: 'WD14301',
+        roomCode: 'P401',
         studyTime: 'Ca 1',
         description: 'Bua nay vo hoc cho vui thoi'
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
+        name: 'Học Laravel',
+        code: 'PHP',
         date: '2020/13/10',
-        nameDay: 'TH',
+        nameDay: 'Thứ 2',
+        nameClass: 'WD14301',
+        roomCode: 'P401',
         studyTime: 'Ca 1',
         description: 'Bua nay vo hoc cho vui thoi'
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
+        name: 'Học Laravel',
+        code: 'PHP',
         date: '2020/13/10',
-        nameDay: 'TH',
+        nameDay: 'Thứ 2',
+        nameClass: 'WD14301',
+        roomCode: 'P401',
         studyTime: 'Ca 1',
         description: 'Bua nay vo hoc cho vui thoi'
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
+        name: 'Học Laravel',
+        code: 'PHP',
         date: '2020/13/10',
-        nameDay: 'TH',
+        nameDay: 'Thứ 2',
+        nameClass: 'WD14301',
+        roomCode: 'P401',
         studyTime: 'Ca 1',
         description: 'Bua nay vo hoc cho vui thoi'
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
+        name: 'Học Laravel',
+        code: 'PHP',
         date: '2020/13/10',
-        nameDay: 'TH',
+        nameDay: 'Thứ 2',
+        nameClass: 'WD14301',
+        roomCode: 'P401',
         studyTime: 'Ca 1',
         description: 'Bua nay vo hoc cho vui thoi'
     },
     {
-        name: 'Lập trình python',
-        code: 'python1',
+        name: 'Học Laravel',
+        code: 'PHP',
         date: '2020/13/10',
-        nameDay: 'TH',
+        nameDay: 'Thứ 2',
+        nameClass: 'WD14301',
+        roomCode: 'P401',
         studyTime: 'Ca 1',
         description: 'Bua nay vo hoc cho vui thoi'
     },
-    {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    }
 ];
 
-export default class ListScheduleComponent extends Component {
+export default class ListScheduleTeacherComponent extends Component {
 
     keyExtractor = (item, index) => index.toString()
 
@@ -122,24 +121,25 @@ export default class ListScheduleComponent extends Component {
                     <ListItem.Title style={styles.text}>
                         <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
                         <Text style={ styles.TextDateTime }>
-                        &nbsp;{item.date}
+                            &nbsp;{ item.nameDay } - { item.studyTime } 
                         </Text>
-                        <Text style={ { fontSize: 13 } }>&nbsp;( Thứ 2 - Ca 1)</Text>
                     </ListItem.Title>
-                    <Badge
-                        badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
-                        textStyle={{ fontWeight: 'bold' }}
-                        value={ item.code.toUpperCase() }
-                        status="success" />
+
+                    <ListItem.Subtitle style={{ flex: 1, fontSize: 13, textAlign: 'right', marginTop: 5 }}> { item.date } </ListItem.Subtitle>
+                
                 </ListItem.Content>
 
                 {/* Bottom content */}
-                <ListItem.Content style={ styles.ContentRow }>
+                <ListItem.Content style={ styles.ContentRowBottom }>
 
-                    <ListItem.Title style={{ flex: 1 }}>{item.name}</ListItem.Title>
+                    <ListItem.Title style={{ flex: 1 }}>{ item.code.toUpperCase() } - { item.name.toLowerCase() }</ListItem.Title>
             
-                    <ListItem.Subtitle style={{ flex: 1, fontSize: 12, textAlign: 'right', marginTop: 5 }}> 7:30 - 9:30 </ListItem.Subtitle>
-                
+                    <Badge
+                        badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
+                        textStyle={{ fontWeight: 'bold' }}
+                        value={ item.nameClass.toUpperCase() + ' - ' + item.roomCode.toUpperCase() }
+                        status="success" />
+
                 </ListItem.Content>
                 
             </ListItem.Content>
@@ -153,12 +153,6 @@ export default class ListScheduleComponent extends Component {
     render () {
         const { schedules } = this.props;
         
-        let heightScroll = 'unset';
-
-        if (PARAMETER.HEIGHT_SCROLL != 0) {
-          heightScroll = PARAMETER.HEIGHT_SCROLL;
-        }
-
         return (
         <SafeAreaView style={styles.container}>
             <FlatList
@@ -200,6 +194,11 @@ const styles = StyleSheet.create({
     ContentRow: {
         flexDirection: "row",
         width: '100%'
+    },
+    ContentRowBottom: {
+        flexDirection: "row",
+        width: '100%',
+        marginTop: 10
     },
     TextDateTime: {
         fontSize: 17,

@@ -21,9 +21,9 @@ import ListSubjectStudentComponent from '../../components/subject/ListSubjectStu
 import * as COLORS from '../../constants/Colors';
 
 // IMPORT DATA
-import { TIME } from '../../constants/Data';
+import { TIME_STUDENT } from '../../constants/Data';
 
-export default class StudentSubjectScreen extends React.Component {
+export default class StudentSubjectScreen extends Component {
   
   constructor(props) {
     super(props)
@@ -52,7 +52,7 @@ export default class StudentSubjectScreen extends React.Component {
       <View style={{ backgroundColor: COLORS.LIGHT }}>
         <View style={ styles.ViewListTime }>
           <ListTimeComponent 
-            time={ TIME }
+            time={ TIME_STUDENT }
             buttonStyleSeleted={ this.buttonStyleSeleted }
             getSubject={ this.getSubject }
           />

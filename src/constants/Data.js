@@ -41,7 +41,7 @@ export const DAYS = [
     }
 ]
 
-export const TIME = [
+export const TIME_STUDENT = [
     {
         id: 1,
         label: 'Đã học',
@@ -55,6 +55,24 @@ export const TIME = [
     {
         id: 3,
         label: 'Chưa học',
+        value: 3
+    }
+]
+
+export const TIME_TEACHER = [
+    {
+        id: 1,
+        label: 'Đã dạy',
+        value: 1
+    },
+    {
+        id: 2,
+        label: 'Đang dạy',
+        value: 2
+    },
+    {
+        id: 3,
+        label: 'Chưa dạy',
         value: 3
     }
 ]

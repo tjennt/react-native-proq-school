@@ -25,7 +25,7 @@ import * as PARAMETER from '../../constants/Parameter';
 // IMPORT LIBRARY
 import {Ionicons,
     MaterialIcons,
-    Feather 
+    AntDesign 
 } from 'react-native-vector-icons';
 
 const list = [
@@ -103,7 +103,7 @@ const list = [
     }
 ];
 
-export default class ListSubjectTeacherComponent extends Component {
+export default class ListScheduleStudentComponent extends Component {
 
     keyExtractor = (item, index) => index.toString()
 
@@ -120,10 +120,11 @@ export default class ListSubjectTeacherComponent extends Component {
                 <ListItem.Content style={ styles.ContentRow }>
                     
                     <ListItem.Title style={styles.text}>
-                        <Feather style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'book'} />    
+                        <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
                         <Text style={ styles.TextDateTime }>
-                        &nbsp;{ item.name }
+                        &nbsp;{item.date}
                         </Text>
+                        <Text style={ { fontSize: 13 } }>&nbsp;( Thứ 2 - Ca 1)</Text>
                     </ListItem.Title>
                     <Badge
                         badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
@@ -135,9 +136,9 @@ export default class ListSubjectTeacherComponent extends Component {
                 {/* Bottom content */}
                 <ListItem.Content style={ styles.ContentRow }>
 
-                    <ListItem.Title style={{ flex: 1 }}>Số lớp dạy: 4</ListItem.Title>
+                    <ListItem.Title style={{ flex: 1 }}>{item.name}</ListItem.Title>
             
-                    <ListItem.Subtitle style={{ flex: 1, fontSize: 12, textAlign: 'right', marginTop: 5 }}>  </ListItem.Subtitle>
+                    <ListItem.Subtitle style={{ flex: 1, fontSize: 12, textAlign: 'right', marginTop: 5 }}> 7:30 - 9:30 </ListItem.Subtitle>
                 
                 </ListItem.Content>
                 
@@ -199,7 +200,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: 5
     },
-    ListItemSchedule: {
+    ListItemSchedule: { 
+        // backgroundColor: '#cccccc',
         marginTop: 5,
         marginBottom: 5,
         backgroundColor: '#fff',

@@ -74,9 +74,7 @@ const styles = StyleSheet.create({
 
   },
   ScrollView: { 
-    // paddingLeft: 5, 
-    // paddingRight: 5, 
-    height: PARAMETER.HEIGHT_SCROLL != 0 ? PARAMETER.HEIGHT_SCROLL - 10 : '0'
+  
   },
   ListItemNews: {
     marginTop: 10,

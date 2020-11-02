@@ -169,7 +169,7 @@ export default class HomeScreen extends React.Component {
           
           {/* CATEGORY HORIZONTAL TRUE */}
           <View style={ styles.ViewCategories }>
-            {/* LIST CATEGORIES */}
+
             <ListCategoriesComponent 
               categories={ categories }
               getNews={ this.getNews }
