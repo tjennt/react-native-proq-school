@@ -52,7 +52,6 @@ class LoginComponent extends Component {
         try {
             this.setLoading()
             const result = await Google.logInAsync({
-                iosClientId: PARAMETER.IOS_CLIENT_ID,
                 androidClientId: PARAMETER.ANDROID_CLIENT_ID,
                 scopes: ["profile", "email"]
             });

@@ -29,78 +29,7 @@ import {Ionicons,
     AntDesign 
 } from 'react-native-vector-icons';
 
-const list = [
-    {
-      name: 'Học Laravel',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'Thứ 2',
-      nameClass: 'WD14301',
-      roomCode: 'P401',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Học Laravel',
-        code: 'PHP',
-        date: '2020/13/10',
-        nameDay: 'Thứ 2',
-        nameClass: 'WD14301',
-        roomCode: 'P401',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Học Laravel',
-        code: 'PHP',
-        date: '2020/13/10',
-        nameDay: 'Thứ 2',
-        nameClass: 'WD14301',
-        roomCode: 'P401',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Học Laravel',
-        code: 'PHP',
-        date: '2020/13/10',
-        nameDay: 'Thứ 2',
-        nameClass: 'WD14301',
-        roomCode: 'P401',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Học Laravel',
-        code: 'PHP',
-        date: '2020/13/10',
-        nameDay: 'Thứ 2',
-        nameClass: 'WD14301',
-        roomCode: 'P401',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Học Laravel',
-        code: 'PHP',
-        date: '2020/13/10',
-        nameDay: 'Thứ 2',
-        nameClass: 'WD14301',
-        roomCode: 'P401',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Học Laravel',
-        code: 'PHP',
-        date: '2020/13/10',
-        nameDay: 'Thứ 2',
-        nameClass: 'WD14301',
-        roomCode: 'P401',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-];
+
 
 export default class ListScheduleTeacherComponent extends Component {
 
@@ -110,7 +39,7 @@ export default class ListScheduleTeacherComponent extends Component {
         <ListItem 
             // bottomDivider
             containerStyle={ styles.ListItemSchedule }
-            onPress={ ()=> { this.moreInfoSchedule(item.description) } } 
+            onPress={ ()=> { this.moreInfoSchedule(item) } } 
         >
             {/* CONTENT */}
             <ListItem.Content>
@@ -146,8 +75,9 @@ export default class ListScheduleTeacherComponent extends Component {
         </ListItem>
     )
 
-    moreInfoSchedule = (description) => {
-        alert(description)
+    moreInfoSchedule = (item) => {
+        console.log(this.props)
+        this.props.navigation.push('TeacherScheduleClassScreen')
     }
 
     render () {
@@ -157,7 +87,7 @@ export default class ListScheduleTeacherComponent extends Component {
         <SafeAreaView style={styles.container}>
             <FlatList
                 keyExtractor={this.keyExtractor}
-                data={list}
+                data={schedules}
                 renderItem={this.renderItem}
             />
         </SafeAreaView>

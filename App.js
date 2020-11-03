@@ -70,7 +70,7 @@ export default class App extends React.Component {
       }
     ))
 
-    // return <NavigatorTeacher />
+    return <NavigatorTeacher />
 
     if (this.state.selectedTabnavigator == PARAMETER.STUDENT_ROLE){
       console.log(this.state.selectedTabnavigator, PARAMETER.STUDENT_ROLE)
@@ -82,11 +82,11 @@ export default class App extends React.Component {
   }
 
   render () {
-    // return (
-    //   <Provider store = {store}>
-    //     { this.Navigator() }
-    //   </Provider>
-    // )
+    return (
+      <Provider store = {store}>
+        { this.Navigator() }
+      </Provider>
+    )
     if (this.state.navigator ==  null) {
       return (
         <Provider store = {store}>
