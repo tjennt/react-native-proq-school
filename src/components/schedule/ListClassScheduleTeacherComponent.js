@@ -22,10 +22,68 @@ import {Ionicons,
     MaterialIcons,
     AntDesign 
 } from 'react-native-vector-icons';
-import ToggleSwitch from 'toggle-switch-react-native'
+
 import Toggle from 'react-native-toggle-element';
 
+// Service 
+import * as HelperService from '../../services/HelperService';
+
 export default class ListClassScheduleTeacherComponent extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+          classSchedule: [
+            {
+              name: 'Nguyễn Tấn Tiền',
+              studentCode: 'PS09110',
+              avatar: 'iamge/sa/sasda.jpg',
+              status: true
+            },
+            {
+              name: 'Nguyễn Tấn Tiền',
+              studentCode: 'PS09110',
+              avatar: 'iamge/sa/sasda.jpg',
+              status: false
+            },{
+              name: 'Nguyễn Tấn Tiền',
+              studentCode: 'PS09110',
+              avatar: 'iamge/sa/sasda.jpg',
+              status: false
+            },{
+              name: 'Nguyễn Tấn Tiền',
+              studentCode: 'PS09110',
+              avatar: 'iamge/sa/sasda.jpg',
+              status: true
+            },{
+              name: 'Nguyễn Tấn Tiền',
+              studentCode: 'PS09110',
+              avatar: 'iamge/sa/sasda.jpg',
+              status: false
+            },{
+              name: 'Nguyễn Tấn Tiền',
+              studentCode: 'PS09110',
+              avatar: 'iamge/sa/sasda.jpg',
+              status: false
+            },
+          ]
+        }
+    }
+    
+    attendance = (item, index)=> {
+    
+    console.log(item)
+    
+    // Call api
+
+    // studentId
+    // subjectId
+    // dateTimeNow format new Date('11-20-2020').toISOString()
+
+    
+    console.log(HelperService.getDateNow())
+        
+    }
 
     keyExtractor = (item, index) => index.toString()
 
@@ -33,7 +91,6 @@ export default class ListClassScheduleTeacherComponent extends Component {
         <ListItem 
             // bottomDivider
             containerStyle={ styles.ListItemSchedule }
-            onPress={ ()=> { this.moreInfoSchedule(item) } } 
         >
             {/* CONTENT */}
             <ListItem.Content>
@@ -76,7 +133,8 @@ export default class ListClassScheduleTeacherComponent extends Component {
                                 width: 60,
                                 height: 35
                             }}
-                            onPress={ () => this.props.attendance(item, index) }
+                            animationDuration={ 100 }
+                            onPress={ () => this.attendance(item, index) }
                         />
                     
                     </View>
@@ -87,7 +145,7 @@ export default class ListClassScheduleTeacherComponent extends Component {
     )
 
     render () {
-        const { classSchedule } = this.props;
+        const { classSchedule } = this.state;
         
         return (
         <SafeAreaView style={styles.container}>
@@ -149,7 +207,7 @@ const styles = StyleSheet.create({
     ListItemSchedule: {
         marginTop: 5,
         marginBottom: 5,
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
         borderRadius: 10,
         shadowColor: "#000",
         shadowOffset: {

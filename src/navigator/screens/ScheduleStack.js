@@ -12,7 +12,6 @@ import { LOGIN, NAVIGATOR } from '../../constants/Locale';
 // IMPORT COLORS
 import * as COLORS from '../../constants/Colors';
 
-
 export const StudentScheduleStack = createStackNavigator(
     {
         StudentScheduleScreen: {
@@ -45,7 +44,10 @@ export const TeacherScheduleStack = createStackNavigator(
         TeacherScheduleClassScreen: {
             screen: TeacherScheduleClassScreen,
             navigationOptions: {
-              title: 'ĐIỂM DANH'
+                title: NAVIGATOR.scheduleTeacher,
+                headerTitleAlign: 'left',
+                headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
+                headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
             }
         },
         
@@ -54,5 +56,3 @@ export const TeacherScheduleStack = createStackNavigator(
         initialRouteName: 'TeacherScheduleScreen'
     }
 );
-
-  

@@ -28,49 +28,8 @@ export default class TeacherScheduleClassScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      classSchedule: [
-        {
-          name: 'Nguyễn Tấn Tiền',
-          studentCode: 'PS09110',
-          avatar: 'iamge/sa/sasda.jpg',
-          status: true
-        },
-        {
-          name: 'Nguyễn Tấn Tiền',
-          studentCode: 'PS09110',
-          avatar: 'iamge/sa/sasda.jpg',
-          status: false
-        },{
-          name: 'Nguyễn Tấn Tiền',
-          studentCode: 'PS09110',
-          avatar: 'iamge/sa/sasda.jpg',
-          status: false
-        },{
-          name: 'Nguyễn Tấn Tiền',
-          studentCode: 'PS09110',
-          avatar: 'iamge/sa/sasda.jpg',
-          status: true
-        },{
-          name: 'Nguyễn Tấn Tiền',
-          studentCode: 'PS09110',
-          avatar: 'iamge/sa/sasda.jpg',
-          status: false
-        },{
-          name: 'Nguyễn Tấn Tiền',
-          studentCode: 'PS09110',
-          avatar: 'iamge/sa/sasda.jpg',
-          status: false
-        },
-      ]
+      classSubjectId: ''
     }
-  }
-
-  attendance = (item, index)=> {
-    
-    console.log(item, index)
-    
-    // Call api
-
   }
 
   render() {
@@ -78,10 +37,7 @@ export default class TeacherScheduleClassScreen extends Component {
     return (
       <View style={{ backgroundColor: COLORS.LIGHT, flex: 1 }}>
         
-        <ListClassScheduleTeacherComponent 
-          classSchedule={classSchedule}
-          attendance={ this.attendance }
-        />
+        <ListClassScheduleTeacherComponent />
       
       </View>
     )
