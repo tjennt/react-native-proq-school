@@ -142,7 +142,10 @@ export default class ListClassComponent extends Component {
     )
 
     moreInfoSchedule = (description) => {
-        alert(description)
+        this.props.navigation.push('TeacherSubjectScheduleScreen',{
+            subjectCode: 'PHP',
+            classCode: 'WD14301'
+        })
     }
 
     render () {

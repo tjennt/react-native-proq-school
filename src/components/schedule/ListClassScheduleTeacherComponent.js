@@ -71,9 +71,7 @@ export default class ListClassScheduleTeacherComponent extends Component {
     }
     
     attendance = (item, index)=> {
-    
-    console.log(item)
-    
+        
     // Call api
 
     // studentId
@@ -118,9 +116,8 @@ export default class ListClassScheduleTeacherComponent extends Component {
                         <Toggle 
                             value={ item.status }
                             thumbButton={{
-                                width: 35,
-                                height: 35,
-                                radius: 30,
+                                width: 30,
+                                height: 30,
                                 activeBackgroundColor: COLORS.LIGHT,
                                 inActiveBackgroundColor: COLORS.LIGHT
                             }}
@@ -130,8 +127,8 @@ export default class ListClassScheduleTeacherComponent extends Component {
                                 borderActiveColor: COLORS.MAIN_PRIMARY,
                                 borderInActiveColor: COLORS.MAIN_PRIMARY,
                                 borderWidth: 0.4,
-                                width: 60,
-                                height: 35
+                                width: 50,
+                                height: 30
                             }}
                             animationDuration={ 100 }
                             onPress={ () => this.attendance(item, index) }

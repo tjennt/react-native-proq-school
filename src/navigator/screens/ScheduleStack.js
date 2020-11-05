@@ -44,13 +44,12 @@ export const TeacherScheduleStack = createStackNavigator(
         TeacherScheduleClassScreen: {
             screen: TeacherScheduleClassScreen,
             navigationOptions: {
-                title: NAVIGATOR.scheduleTeacher,
+                title: NAVIGATOR.attendance.toUpperCase(),
                 headerTitleAlign: 'left',
                 headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
                 headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
             }
         },
-        
     },
     {
         initialRouteName: 'TeacherScheduleScreen'

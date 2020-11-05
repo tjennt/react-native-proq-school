@@ -77,7 +77,7 @@ export default class ListScheduleTeacherComponent extends Component {
 
     moreInfoSchedule = (item) => {
         console.log(this.props)
-        this.props.navigation.push('TeacherScheduleClassScreen')
+        this.props.navigation.push( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen')
     }
 
     render () {

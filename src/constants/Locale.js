@@ -15,6 +15,7 @@ export const NAVIGATOR = {
     subject: 'Môn học',
     subjectTeacher: 'Môn dạy',
     scheduleTeacher: 'LỊCH DẠY',
+    attendance: 'Điểm danh',
     personal: 'Cá Nhân',
     schedule: 'Lịch',
     more: 'Thêm'
