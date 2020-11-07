@@ -35,7 +35,10 @@
     - expo web
     - expo eject
 ```
-
+### MORE
+```
+- Set lan: set REACT_NATIVE_PACKAGER_HOSTNAME= ip_lan
+```
 
 ### INFO GOOGLE PLAY
 ```

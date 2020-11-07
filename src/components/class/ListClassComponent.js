@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
 
 import { View, 
-    StyleSheet, 
-    Dimensions, 
-    ScrollView, 
-    StatusBar,
+    StyleSheet,
     SafeAreaView,
     FlatList,
-    ImageBackground } from 'react-native';
+    TouchableOpacity } from 'react-native';
   
-  import { Button, 
+  import {
     Text, 
-    ThemeProvider, 
-    ListItem, 
-    Avatar, 
-    SearchBar,
+    ListItem,
     Badge } from 'react-native-elements';
 
 import * as COLORS from '../../constants/Colors';
@@ -103,45 +97,49 @@ export default class ListClassComponent extends Component {
         <ListItem 
             // bottomDivider
             containerStyle={ styles.ListItemSchedule }
-            onPress={ ()=> { this.moreInfoSchedule(item.description) } } 
         >
-            {/* CONTENT */}
-            <ListItem.Content>
-                
-                {/* First content */}
-                <ListItem.Content style={ styles.ContentRow }>
+            <TouchableOpacity
+                style={ { flex: 1 } }
+                onPress={ ()=> { this.navigateSubjectSchedule(item) } } 
+            >
+                {/* CONTENT */}
+                <ListItem.Content>
                     
-                    <ListItem.Title style={styles.text}>
-                        <MaterialCommunityIcons style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'bookmark-outline'} />    
-                        <Text style={ styles.TextDateTime }>
-                        &nbsp;{ item.name }
-                        </Text>
-                    </ListItem.Title>
-                    <Badge
-                        badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
-                        textStyle={{ fontWeight: 'bold' }}
-                        value={ item.className.toUpperCase() }
-                        status="success" />
-                </ListItem.Content>
+                    {/* First content */}
+                    <ListItem.Content style={ styles.ContentRow }>
+                        
+                        <ListItem.Title style={styles.text}>
+                            <MaterialCommunityIcons style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'bookmark-outline'} />    
+                            <Text style={ styles.TextDateTime }>
+                            &nbsp;{ item.name }
+                            </Text>
+                        </ListItem.Title>
+                        <Badge
+                            badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
+                            textStyle={{ fontWeight: 'bold' }}
+                            value={ item.className.toUpperCase() }
+                            status="success" />
+                    </ListItem.Content>
 
-                {/* Bottom content */}
-                <ListItem.Content style={ styles.ContentRow }>
+                    {/* Bottom content */}
+                    <ListItem.Content style={ styles.ContentRow }>
 
-                    <ListItem.Title style={{ flex: 0.6, fontSize: 13 }}>
-                    { item.dateStart } - { item.dateEnd } ( { item.studyTime } )
-                    </ListItem.Title>
-            
-                    <ListItem.Subtitle style={{ flex: 0.4, fontSize: 12, textAlign: 'right', marginTop: 5 }}>
-                        Room: { item.roomName.toUpperCase() }
-                    </ListItem.Subtitle>
+                        <ListItem.Title style={{ flex: 0.6, fontSize: 13 }}>
+                        { item.dateStart } - { item.dateEnd } ( { item.studyTime } )
+                        </ListItem.Title>
                 
+                        <ListItem.Subtitle style={{ flex: 0.4, fontSize: 12, textAlign: 'right', marginTop: 5 }}>
+                            Room: { item.roomName.toUpperCase() }
+                        </ListItem.Subtitle>
+                    
+                    </ListItem.Content>
+                    
                 </ListItem.Content>
-                
-            </ListItem.Content>
+            </TouchableOpacity>
         </ListItem>
     )
 
-    moreInfoSchedule = (description) => {
+    navigateSubjectSchedule = (item) => {
         this.props.navigation.push('TeacherSubjectScheduleScreen',{
             subjectCode: 'PHP',
             classCode: 'WD14301'

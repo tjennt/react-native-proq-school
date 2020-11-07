@@ -94,6 +94,7 @@ const list = [
       description: 'Bua nay vo hoc cho vui thoi'
   },
 ];
+
 export default class TeacherSubjectScheduleScreen extends Component {
   
   static navigationOptions = ({ navigation }) => ({
