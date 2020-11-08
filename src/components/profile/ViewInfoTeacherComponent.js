@@ -33,6 +33,7 @@ export default class ViewInfoTeacherComponent extends Component {
 
     render () {
         const { user } = this.props;
+        console.log("TEACHER", user)
         return (
             <View style={ styles.ViewAllInfo }>
 
@@ -50,26 +51,15 @@ export default class ViewInfoTeacherComponent extends Component {
                         avatarStyle={styles.AvatarStyle}
                     />
 
-                    <Text style={ styles.TextName }>{ user.teacherId.fullName.toUpperCase() }</Text>
+                    {/* <Text style={ styles.TextName }>{ user }</Text> */}
 
                 </ImageBackground>
 
-                <RowProfileComponent 
-                    icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'code'} />}
-                    label={ APP.codeTeacher }
-                    value={user.studentCode.toUpperCase()}
-                />
 
                 <RowProfileComponent 
                     icon={<Fontisto style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'email'} />}
                     label={ APP.emailAddress }
                     value={user.email}
-                />
-
-                <RowProfileComponent 
-                    icon={<MaterialCommunityIcons style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'door-open'} />}
-                    label="Tên lớp học"
-                    value={user.className.toUpperCase()}
                 />
 
             </View>

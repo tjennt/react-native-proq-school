@@ -2,8 +2,9 @@
 // LOCALE LOGIN
 export const LOGIN = {
     appName: 'PROQ SCHOOL',
+    login: 'Đăng nhập',
     welcome: 'Chào Mừng',
-    loginWithGoole: 'Đăng nhập với google',
+    loginWithGoole: 'Tiếp tục với google',
     introductLogin: 'AP PROQ là ứng dụng hỗ trợ sinh viên xem điểm, lịch học và cập nhật tin tức nhanh nhất!'
 }
 

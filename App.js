@@ -51,7 +51,7 @@ export default class App extends React.Component {
     const NavigatorStudent = createAppContainer(createMaterialBottomTabNavigator(
       TabNavigatorRender.STUDENT,
       {
-        initialRouteName: 'Subject',
+        initialRouteName: 'Home',
         activeColor: COLORS.LIGHT,
         inactiveColor: COLORS.LIGHT_HIGHT,
         barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
@@ -70,7 +70,7 @@ export default class App extends React.Component {
       }
     ))
 
-    return <NavigatorTeacher />
+    // return <NavigatorTeacher />
 
     if (this.state.selectedTabnavigator == PARAMETER.STUDENT_ROLE){
       console.log(this.state.selectedTabnavigator, PARAMETER.STUDENT_ROLE)
@@ -82,11 +82,14 @@ export default class App extends React.Component {
   }
 
   render () {
-    return (
-      <Provider store = {store}>
-        { this.Navigator() }
-      </Provider>
-    )
+
+    // Code view
+    // return (
+    //   <Provider store = {store}>
+    //     { this.Navigator() }
+    //   </Provider>
+    // )
+
     if (this.state.navigator ==  null) {
       return (
         <Provider store = {store}>

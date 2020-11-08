@@ -69,38 +69,38 @@ export default class ViewInfoStudentComponent extends Component {
                 <RowProfileComponent 
                     icon={<MaterialCommunityIcons style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'door-open'} />}
                     label={ APP.className }
-                    value={user.studentId.classId.className.toUpperCase()}
+                    value={user.studentId.classId.className.toUpperCase() ?? '-'}
                 />
 
                 <RowProfileComponent 
                     icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'code'} />}
                     label={ APP.codeStudent }
-                    value={user.studentId.studentCode.toUpperCase()}
+                    value={user.studentId.studentCode.toUpperCase() ?? '-'}
                 />
                 <RowProfileComponent 
                     icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'code'} />}
                     label={ "Số CMND" }
-                    value={user.studentId.identityNumber }
+                    value={user.studentId.identityNumber  ?? '-'}
                 />
                 <RowProfileComponent 
                     icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'code'} />}
                     label={ "Ngày sinh" }
-                    value={user.studentId.dob}
+                    value={user.studentId.dob  ?? '-'}
                 />
                 <RowProfileComponent 
                     icon={<Fontisto style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'email'} />}
                     label={ "Địa chỉ" }
-                    value={user.studentId.address}
+                    value={user.studentId.address  ?? '-'}
                 />
                 <RowProfileComponent 
                     icon={<Fontisto style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'email'} />}
                     label={ "Số điện thoại" }
-                    value={user.studentId.phone}
+                    value={user.studentId.phone  ?? '-'}
                 />
                 <RowProfileComponent 
                     icon={<Fontisto style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'email'} />}
                     label={ APP.emailAddress }
-                    value={user.email}
+                    value={user.email  ?? '-'}
                 />
 
             </View>
