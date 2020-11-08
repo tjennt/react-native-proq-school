@@ -4,17 +4,25 @@ import { View,
     StyleSheet,
     SafeAreaView,
     FlatList,
-    TouchableOpacity } from 'react-native';
+    TouchableOpacity,
+    Button } from 'react-native';
   
   import {
     Text, 
     ListItem,
     Badge } from 'react-native-elements';
 
+// IMPORT COMPONECT EMPTY DATA
+import EmptyData from '../../components/Helpers/EmptyData';
+
 import * as COLORS from '../../constants/Colors';
 
 // IMPORT PARAMETER
 import * as PARAMETER from '../../constants/Parameter';
+
+// IMPORT REDUX
+import * as actions from '../../actions';
+import { connect } from 'react-redux';
 
 // IMPORT LIBRARY
 import {MaterialCommunityIcons,
@@ -22,75 +30,20 @@ import {MaterialCommunityIcons,
     Fontisto 
 } from 'react-native-vector-icons';
 
-const list = [
-    {
-        id: 1,
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        dateStart: '13/10',
-        dateEnd: '13/12/2020',
-        studyTime: 'Ca 1',
-        className: 'WD14304',
-        roomName: 'P401'    
-    },
-    {
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        dateStart: '13/10',
-        dateEnd: '13/12/2020',
-        studyTime: 'Ca 1',
-        className: 'WD143241',
-        roomName: 'P401'    
-    },
-    {
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        dateStart: '13/10',
-        dateEnd: '13/12/2020',
-        studyTime: 'Ca 1',
-        className: 'SD12421',
-        roomName: 'P401'    
-    },
-    {
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        dateStart: '13/10',
-        dateEnd: '13/12/2020',
-        studyTime: 'Ca 1',
-        className: 'SLF41241',
-        roomName: 'P401'    
-    },
-    {
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        dateStart: '13/10',
-        dateEnd: '13/12/2020',
-        studyTime: 'Ca 5',
-        className: 'GL341',
-        roomName: 'P401'    
-    },
-    {
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        dateStart: '13/10',
-        dateEnd: '13/12/2020',
-        studyTime: 'Ca 1',
-        className: 'WD14301',
-        roomName: 'P401'    
-    },
-    {
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        dateStart: '13/10',
-        dateEnd: '13/12/2020',
-        studyTime: 'Ca 1',
-        className: 'WD14301',
-        roomName: 'P401'    
+// IMPORT AXIOS
+import axios from 'axios';
+
+class ListClassComponent extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            classList: []
+        }
     }
-];
-
-export default class ListClassComponent extends Component {
-
+    componentDidMount() {
+        this.getClassApi()
+    }
     keyExtractor = (item, index) => index.toString()
 
     renderItem = ({ item }) => (
@@ -111,13 +64,13 @@ export default class ListClassComponent extends Component {
                         <ListItem.Title style={styles.text}>
                             <MaterialCommunityIcons style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'bookmark-outline'} />    
                             <Text style={ styles.TextDateTime }>
-                            &nbsp;{ item.name }
+                            &nbsp;{ item.subject.name }
                             </Text>
                         </ListItem.Title>
                         <Badge
                             badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
                             textStyle={{ fontWeight: 'bold' }}
-                            value={ item.className.toUpperCase() }
+                            value={ item.class.name.toUpperCase() }
                             status="success" />
                     </ListItem.Content>
 
@@ -125,7 +78,7 @@ export default class ListClassComponent extends Component {
                     <ListItem.Content style={ styles.ContentRow }>
 
                         <ListItem.Title style={{ flex: 0.6, fontSize: 13 }}>
-                        { item.dateStart } - { item.dateEnd } ( { item.studyTime } )
+                        { item.listDays[0] } - { item.listDays[item.listDays.length - 1] } ( Ca { item.shift } )
                         </ListItem.Title>
                 
                         <ListItem.Subtitle style={{ flex: 0.4, fontSize: 12, textAlign: 'right', marginTop: 5 }}>
@@ -146,20 +99,56 @@ export default class ListClassComponent extends Component {
         })
     }
 
+    // Call api
+    getClassApi = async ()=> {
+        const { user } = this.props
+        try {
+            let res = await axios.get(`${PARAMETER.SERVER}/v1/teacher/schedulesClass/`, {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
+
+            let { data } = res
+
+            if (data.success == true) {
+                this.setState({
+                    classList: data.payload
+                })
+            }
+        } catch (error) {
+            console.log("ERROR", error)
+        }
+    }
+
+    listViewOrEmpty = ()=> {
+        const { classList } = this.state
+        if(classList.length != 0) {
+            return <FlatList
+                keyExtractor={this.keyExtractor}
+                data={classList}
+                renderItem={this.renderItem}
+            />
+        }
+        return <EmptyData />
+    }
+
     render () {
         const { schedules } = this.props;
 
         return (
         <SafeAreaView style={styles.container}>
-            <FlatList
-                keyExtractor={this.keyExtractor}
-                data={list}
-                renderItem={this.renderItem}
-            />
+            { this.listViewOrEmpty() }
         </SafeAreaView>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps, null)(ListClassComponent);
 
 const styles = StyleSheet.create({
     container: {

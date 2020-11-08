@@ -102,7 +102,7 @@ class LoginComponent extends Component {
     loginSuccess = async (dataLogin)=> {
         const { token } = dataLogin
         try {
-            let res = await axios.get(`${PARAMETER.SERVER}/v1/student/profile/`, {
+            let res = await axios.get(`${PARAMETER.SERVER}/v1/${dataLogin.access}/profile/`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -111,8 +111,9 @@ class LoginComponent extends Component {
             let { data } = res
 
             if (data.success == true) {
-                console.log(data)
+                // console.log("INFO", data)
                 data.payload.role = dataLogin.access
+                data.payload.token = token
                 this.props.addUser(data.payload)
                 this.props.loginFunction({
                     role: dataLogin.access

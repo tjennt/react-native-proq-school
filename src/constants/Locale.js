@@ -29,8 +29,12 @@ export const APP = {
     time: 'Thời gian',
     more: 'Xem thêm',
     studentName: 'Sinh viên',
+    teacherName: 'Giảng viên',
     codeStudent: 'Mã số sinh viên',
     codeTeacher: 'Mã số giáo viên',
+    specialization: 'Chuyên nghành',
+    dob: 'Ngày sinh',
+    phoneNumber: 'Số điện thoại',
     emailAddress: 'Địa chỉ email',
     className: 'Tên lớp học',
     roleName: 'Chức vụ'

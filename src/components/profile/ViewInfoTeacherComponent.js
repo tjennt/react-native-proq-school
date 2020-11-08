@@ -20,10 +20,10 @@ import * as PARAMETER from '../../constants/Parameter';
 
 // IMPORT ICON
 import { 
+    AntDesign,
     Feather,
     Fontisto,
-    MaterialCommunityIcons
-   } from 'react-native-vector-icons';
+    FontAwesome } from 'react-native-vector-icons';
    
 // IMPORT COMPONENT
 import RowProfileComponent from './RowProfileComponent';
@@ -45,23 +45,57 @@ export default class ViewInfoTeacherComponent extends Component {
 
                     <Avatar
                         source={ {
-                        uri: `${PARAMETER.SERVER}/${user.teacherId.avatar}`
+                        uri: `${PARAMETER.SERVER}/${user.avatar}`
                         } }
                         style={ styles.Avatar }
                         avatarStyle={styles.AvatarStyle}
                     />
 
-                    {/* <Text style={ styles.TextName }>{ user }</Text> */}
+                    <Text style={ styles.TextName }>{ user.fullname }</Text>
 
                 </ImageBackground>
 
 
+                <RowProfileComponent 
+                    icon={<AntDesign style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'key'} />}
+                    label={ APP.roleName }
+                    value={ <Badge
+                        badgeStyle={ { padding: 10, backgroundColor: COLORS.MAIN_TEXT } }
+                        textStyle={{ fontWeight: 'bold' }}
+                        value={ APP.teacherName }
+                      /> }
+                />
+                
+                <RowProfileComponent 
+                    icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'code'} />}
+                    label={ APP.codeTeacher }
+                    value={user.teacherCode}
+                />
+
+                <RowProfileComponent 
+                    icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'bookmark'} />}
+                    label={ APP.specialization }
+                    value={user.specialization}
+                />
+                
                 <RowProfileComponent 
                     icon={<Fontisto style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'email'} />}
                     label={ APP.emailAddress }
                     value={user.email}
                 />
 
+                <RowProfileComponent 
+                    icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'smartphone'} />}
+                    label={ APP.phoneNumber }
+                    value={user.phone}
+                />
+
+                <RowProfileComponent 
+                    icon={<FontAwesome style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'birthday-cake'} />}
+                    label={ APP.dob }
+                    value={user.dob}
+                />
+                
             </View>
         )
     }
