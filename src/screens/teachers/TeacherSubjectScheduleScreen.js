@@ -22,83 +22,14 @@ import * as COLORS from '../../constants/Colors';
 
 // IMPORT DATA
 import { DAYS } from '../../constants/Data';
-const list = [
-  {
-    name: 'Học Laravel',
-    code: 'PHP',
-    date: '2020/13/10',
-    nameDay: 'Thứ 2',
-    nameClass: 'WD14301',
-    roomCode: 'P401',
-    studyTime: 'Ca 1',
-    description: 'Bua nay vo hoc cho vui thoi'
-  },
-  {
-      name: 'Học Laravel',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'Thứ 2',
-      nameClass: 'WD14301',
-      roomCode: 'P401',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-  },
-  {
-      name: 'Học Laravel',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'Thứ 2',
-      nameClass: 'WD14301',
-      roomCode: 'P401',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-  },
-  {
-      name: 'Học Laravel',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'Thứ 2',
-      nameClass: 'WD14301',
-      roomCode: 'P401',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-  },
-  {
-      name: 'Học Laravel',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'Thứ 2',
-      nameClass: 'WD14301',
-      roomCode: 'P401',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-  },
-  {
-      name: 'Học Laravel',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'Thứ 2',
-      nameClass: 'WD14301',
-      roomCode: 'P401',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-  },
-  {
-      name: 'Học Laravel',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'Thứ 2',
-      nameClass: 'WD14301',
-      roomCode: 'P401',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-  },
-];
+
+// IMPORT COMPONECT EMPTY DATA
+import EmptyData from '../../components/Helpers/EmptyData';
 
 export default class TeacherSubjectScheduleScreen extends Component {
   
   static navigationOptions = ({ navigation }) => ({
-    title: `${navigation.getParam('subjectCode')} - ${navigation.getParam('classCode')}`,
+    title: `${navigation.getParam('data').subject.name.toUpperCase()} - ${navigation.getParam('data').class.name}`,
     headerTitleAlign: 'left',
     headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
     headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
@@ -126,8 +57,26 @@ export default class TeacherSubjectScheduleScreen extends Component {
     })
   }
 
+  viewListScheduleOrEmptyData = ()=> {
+    const { navigation } = this.props
+
+    if (navigation.getParam('data').listDays.length == 0) {
+      return (
+        <EmptyData />
+      )
+    }
+    return (
+      <ListScheduleTeacherComponent
+        data={navigation.getParam('data')}
+        navigation={navigation}
+        screenName='TeacherSubjectScheduleClassScreen'
+      />
+    )
+  }
+
   render() {
     const { navigation } = this.props
+    // console.log("SUBJEJEE", this.props);
     return (
       <View style={{ backgroundColor: COLORS.LIGHT, flex: 1 }}>
         {/* <View style={ styles.ViewListDays }>
@@ -138,11 +87,7 @@ export default class TeacherSubjectScheduleScreen extends Component {
           />
         </View> */}
         
-        <ListScheduleTeacherComponent 
-          schedules={list} 
-          navigation={navigation}
-          screenName='TeacherSubjectScheduleClassScreen'
-        />
+        { this.viewListScheduleOrEmptyData() }
       
       </View>
     )

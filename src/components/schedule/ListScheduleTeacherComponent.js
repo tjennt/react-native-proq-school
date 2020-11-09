@@ -22,7 +22,8 @@ import {Ionicons,
     AntDesign 
 } from 'react-native-vector-icons';
 
-
+// IMPORT HELPERS
+import * as HelperService from '../../services/HelperService';
 
 export default class ListScheduleTeacherComponent extends Component {
 
@@ -65,46 +66,52 @@ export default class ListScheduleTeacherComponent extends Component {
     }
     keyExtractor = (item, index) => index.toString()
 
-    renderItem = ({ item }) => (
-        <ListItem containerStyle={ styles.ListItemSchedule }>
-            <TouchableOpacity
-                style={ { flex: 1 } }
-                onPress={ ()=> { this.chooseBottomSheet(item) } } 
-            >
-                {/* CONTENT */}
-                <ListItem.Content>
-                    
-                    {/* First content */}
-                    <ListItem.Content style={ styles.ContentRow }>
+    renderItem = ({ item }) => {
+        const { data } = this.props
+        return (
+            <ListItem containerStyle={ styles.ListItemSchedule }>
+                <TouchableOpacity
+                    style={ { flex: 1 } }
+                    onPress={ ()=> { this.chooseBottomSheet(item) } } 
+                >
+                    {/* CONTENT */}
+                    <ListItem.Content>
                         
-                        <ListItem.Title style={styles.text}>
-                            <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
-                            <Text style={ styles.TextDateTime }>
-                                &nbsp;{ item.nameDay } - { item.studyTime } 
-                            </Text>
-                        </ListItem.Title>
+                        {/* First content */}
+                        <ListItem.Content style={ styles.ContentRow }>
+                            
+                            <ListItem.Title style={styles.text}>
+                                <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
+                                <Text style={ styles.TextDateTime }>
+                                    &nbsp;{ HelperService.getDateName(item) } - 
+                                    {/* { item.studyTime } */}
+                                </Text>
+                            </ListItem.Title>
 
-                        <ListItem.Subtitle style={{ flex: 1, fontSize: 13, textAlign: 'right', marginTop: 5 }}> { item.date } </ListItem.Subtitle>
+                            <ListItem.Subtitle style={{ flex: 1, fontSize: 13, textAlign: 'right', marginTop: 5 }}>
+                                { HelperService.getDateFormat(item) } 
+                            </ListItem.Subtitle>
+                        
+                        </ListItem.Content>
+
+                        {/* Bottom content */}
+                        <ListItem.Content style={ styles.ContentRowBottom }>
+
+                            <ListItem.Title style={{ flex: 1 }}>{ data.subject.name.toUpperCase() } - { 'Môn học thú vị' }</ListItem.Title>
                     
+                            <Badge
+                                badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
+                                textStyle={{ fontWeight: 'bold' }}
+                                value={ data.class.name.toUpperCase() }
+                                status="success" />
+
+                        </ListItem.Content>
+                        
                     </ListItem.Content>
-
-                    {/* Bottom content */}
-                    <ListItem.Content style={ styles.ContentRowBottom }>
-
-                        <ListItem.Title style={{ flex: 1 }}>{ item.code.toUpperCase() } - { item.name.toLowerCase() }</ListItem.Title>
-                
-                        <Badge
-                            badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
-                            textStyle={{ fontWeight: 'bold' }}
-                            value={ item.nameClass.toUpperCase() + ' - ' + item.roomCode.toUpperCase() }
-                            status="success" />
-
-                    </ListItem.Content>
-                    
-                </ListItem.Content>
-            </TouchableOpacity>
-        </ListItem>
-    )
+                </TouchableOpacity>
+            </ListItem>
+        )
+    }
 
     chooseBottomSheet = (item)=> {
         this.setState({
@@ -122,14 +129,13 @@ export default class ListScheduleTeacherComponent extends Component {
     }
 
     render () {
-        const { schedules } = this.props;
+        const { data } = this.props;
         const { isVisible, sheetList, dataSheet } = this.state
-        
         return (
         <SafeAreaView style={styles.container}>
             <FlatList
                 keyExtractor={this.keyExtractor}
-                data={schedules}
+                data={data.listDays}
                 renderItem={this.renderItem}
             />
 

@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 
 import { ActivityIndicator,
-    StyleSheet, 
-    ImageBackground,
-    View,
+    StyleSheet,
     TouchableOpacity, 
-    ScrollView} from 'react-native';
+    ImageBackground,
+    View } from 'react-native';
 
 import { Image,
+    Avatar,
+    Accessory,
     Text,
     SocialIcon,
-    Card,
-    Input,
-    Button } from 'react-native-elements';
+    Card } from 'react-native-elements';
 
 // IMPORT LIBRARY
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -33,17 +32,12 @@ import * as PARAMETER from '../../constants/Parameter';
 // IMPORT AXIOS
 import axios from 'axios';
 
-// IMPORT SVG BACKGROUND 
-
 class LoginComponent extends Component {
     
     constructor(props) {
         super(props)
         this.state = {
-            loading: false,
-            loginType: true,
-            userName: '',
-            password: ''
+            loading: false
         }
     }
     signInWithGoogle = async () => {
@@ -54,20 +48,20 @@ class LoginComponent extends Component {
         //     email: 'toma.nguyen675@gmail.com'
         // })
         // return;
-        this.setState({ loading: true })
 
         try {
+            this.setState({ loading: true })
             const result = await Google.logInAsync({
+                iosClientId: PARAMETER.IOS_CLIENT_ID,
                 androidClientId: PARAMETER.ANDROID_CLIENT_ID,
                 scopes: ["profile", "email"]
             });
     
             if (result.type === "success") {
-                console.log(result)
-                return this.loginServerApi(result)
-
+                this.loginServerApi(result)
             } else {
                 this.setState({ loading: false })
+                console.log("Out login")
             }
         } catch (e) {
             console.log('Error with login', e);
@@ -77,13 +71,12 @@ class LoginComponent extends Component {
 
     setLoading = ()=> {
         this.setState({
-            loading: true
+            loading: !this.state.loading
         })
     }
 
     loginServerApi = async (dataGoogle)=> {
         try {
-            console.log('LOGIN SERVER')
             let res = await axios.post(`${PARAMETER.SERVER}/v1/users/android/google/login`, {
                 tokenId: dataGoogle.idToken
             })
@@ -98,22 +91,23 @@ class LoginComponent extends Component {
             console.log("error", error)
         }
     }
-
+    
     loginSuccess = async (dataLogin)=> {
-        const { token } = dataLogin
+        const { token, access } = dataLogin
+        const Faketoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmE2OTcyOGE2ZjQ2OWYwNmQ2ODc1NmQiLCJ0ZWFjaGVySWQiOnsiYXZhdGFyIjoidXBsb2Fkcy91c2VyLWF2YXRhci9kZWZhdWx0LmpwZyIsIl9pZCI6IjVmYTY5NzI4YTZmNDY5ZjA2ZDY4NzU2YiIsInRlYWNoZXJDb2RlIjoiR1YxMTEiLCJmdWxsbmFtZSI6IkNow6J1IFRo4bq_IE5pbmgiLCJwaG9uZSI6IjE2NDc4NDE3MiIsImRvYiI6IjIwLzEwLzE5ODAiLCJzcGVjaWFsaXphdGlvbiI6ImpzIiwiX192IjowLCJjcmVhdGVkQXQiOiIyMDIwLTExLTA3VDEyOjQ2OjMyLjc2MVoiLCJ1cGRhdGVkQXQiOiIyMDIwLTExLTA3VDEyOjQ2OjMyLjc2MVoifSwic3R1ZGVudElkIjpudWxsLCJhY2Nlc3MiOiJ0ZWFjaGVyIiwiaWF0IjoxNjA0ODIyMjYyLCJleHAiOjE2MDU2ODYyNjJ9.N29lWjzGh6xtcL6bdn9PETJWkjFZbmutnJN9eiK-vi0";
         try {
-            let res = await axios.get(`${PARAMETER.SERVER}/v1/${dataLogin.access}/profile/`, {
+            let res = await axios.get(`${PARAMETER.SERVER}/v1/${access}/profile/`, {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${Faketoken}`
                 }
             })
 
             let { data } = res
 
             if (data.success == true) {
-                // console.log("INFO", data)
                 data.payload.role = dataLogin.access
-                data.payload.token = token
+                delete data.payload.token
+                data.payload.token = Faketoken
                 this.props.addUser(data.payload)
                 this.props.loginFunction({
                     role: dataLogin.access
@@ -125,127 +119,62 @@ class LoginComponent extends Component {
         }
     }
 
-    // Login with account
-    signInAccount = async ()=> {
-        alert('LOGIN SUCCESS')
-    }
-
     loginFail = ()=> {
         
     }
 
-    // Button render type login
-    buttonRenderTypeLogin = ()=> {
-        const { loading, loginType } = this.state
-        if (loading){
-            return (
-                <View></View>
-            )
-        }
+    render () {
+        const { loading } = this.state
         return (
-            <TouchableOpacity 
-                style={ { paddingTop: 5, paddingBottom: 20, paddingRight: 15 } }
-                onPress={ ()=>{ this.setState({ loginType: !loginType }) } }
-                >
-                <Text style={ { textAlign: 'right' } }>
-                    { !loginType ? 'Đăng nhập với google' : 'Đăng nhập với tài khoản' }
-                </Text>
-            </TouchableOpacity>
-        )
-    }
+            <ImageBackground
+                source={ require('../../assets/images/illustrators/notebook.png') }
+                style={ styles.imageBackground }
+            >      
+                {/* Logo image */}
+                <View style={ styles.container }>
+                    <Image 
+                        source={ require('../../assets/images/logos/logo_black.png') }
+                        style={ styles.imageLogo }
+                        resizeMode='cover'
+                        PlaceholderContent={<ActivityIndicator />}
+                    >
+                    </Image>
+                    <Text h4 style={ { fontWeight: 'bold' } }> 
+                        { LOGIN.appName }
+                    </Text>
 
-    // Login google or account
-    viewLoginGoogleOrAccount = ()=> {
-        const { userName, password } = this.state
-        return (
-            <View style={ { paddingTop: 15 } }>
-                <Text style={ styles.TextInputAccout }>Tài khoản</Text>
-                <Input
-                    placeholder="proschool"
-                    rightIcon={{ type: 'font-awesome', name: 'user', size:15 }}
-                    inputContainerStyle={ { 
-                        fontSize: 10
-                    } }
-                    labelStyle={{fontSize: 5}}
-                    onChangeText={value => this.setState({ userName: value })}
-                />
-                <Text style={ styles.TextInputAccout }>Mật khẩu</Text>
-                <Input
-                    rightIcon={{ type: 'font-awesome', name: 'key', size:15 }}
-                    placeholder="••••••••"
-                    secureTextEntry={true}
-                    onChangeText={value => this.setState({ password: value })}
-                />
-                <View style={ { flexDirection: "row", alignSelf: 'center' } }>
-                    <Button
-                        buttonStyle={ {
-                            borderColor: COLORS.PRIMARY,
-                            width: '100%',
-                            marginTop: 5,
-                            padding: 15,
-                            borderRadius: 30
-                        } }
-                        titleStyle={ {
-                            color: COLORS.PRIMARY
-                        } }
-                        disabled={ userName.length != 0 && password.length != 0 ? false : true }
-                        title="Đăng nhập"
-                        type="outline"
-                        onPress={ ()=> { this.signInAccount() } }
-                    ></Button>
-                    <SocialIcon
-                        title= { LOGIN.loginWithGoole }
-                        light
-                        type= 'google'
-                        onPress={ ()=> { this.signInWithGoogle() } }
-                    />
                 </View>
 
-            </View>
-        )
-    }
+                {/* Introduce */}
+                <View style= { styles.introduce }>
+                    <Card style= { {width: 200 } }>
+                        <Text style= { { fontSize: 17, fontWeight: 'bold' } }> { LOGIN.welcome }</Text>
+                        
+                        {/* <Card.Divider/> */}
+                        <Card.Image
+                            style= { { height: 200, marginBottom: 15 } }
+                            source= { require('../../assets/images/illustrators/gifs/classroom.gif') }  
+                        />
+                        <View style= { styles.marginCard }>
+                            <Text>{ LOGIN.introductLogin }</Text>
+                        </View>
 
-    render () {
-        const { loginType } = this.state
-
-        return (
-            // loading={this.state.loading}
-            <ImageBackground
-                style={ styles.imageBackground }
-                source={ require('../../assets/images/illustrators/notebook.png') }
-            >
-                <ScrollView>      
-                    {/* Logo image */}
-                    <View style={ styles.container }>
-                        <Image 
-                            source={ require('../../assets/images/logos/logo_black.png') }
-                            style={ styles.imageLogo }
-                            resizeMode='cover'
-                            PlaceholderContent={<ActivityIndicator />}
+                        {/* Login google */}
+                        {/* <Text>{ this.state.loading ? 'Loading....' : '' }</Text> */}
+                        <TouchableOpacity
+                            onPress={ this.signInWithGoogle }
+                            // disabled={true}
                         >
-                        </Image>
-                        <Text h4 style={ { fontWeight: 'bold' } }> 
-                            { LOGIN.appName }
-                        </Text>
+                            <SocialIcon
+                                title= { LOGIN.loginWithGoole }
+                                button
+                                type= 'google'
+                                loading={loading}
+                            />
+                        </TouchableOpacity>
+                    </Card>
+                </View>
 
-                    </View>
-
-                    {/* Introduce */}
-                    <View style= { styles.introduce }>
-                        <Card style= { {} }>
-                        
-                            <Text style= { { fontSize: 18, fontWeight: 'bold', textAlign: 'center' } }> { LOGIN.login.toUpperCase() }</Text>
-
-                            <View style= { styles.marginCard }>
-                                { this.viewLoginGoogleOrAccount() }
-                            </View>
-
-                            {/* <Text>{ LOGIN.introductLogin }</Text> */}
-                        
-                        </Card>
-                    </View>
-
-                </ScrollView>
             </ImageBackground>
         )
     }
@@ -261,12 +190,12 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 60
+        paddingTop: 30
     },
     introduce: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 40
+        paddingTop: 30
     },
     imageBackground: {
         flex: 1,
@@ -277,10 +206,6 @@ const styles = StyleSheet.create({
         height: 100
     },
     marginCard: {
-        paddingBottom: 20
-    },
-    TextInputAccout: {
-        paddingLeft: 10,
-        fontWeight: '700'
+        paddingBottom: 40 
     }
 });

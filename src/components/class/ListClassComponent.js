@@ -33,6 +33,9 @@ import {MaterialCommunityIcons,
 // IMPORT AXIOS
 import axios from 'axios';
 
+// IMPORT HELPERS
+import * as HelperService from '../../services/HelperService';
+
 class ListClassComponent extends Component {
 
     constructor(props) {
@@ -78,11 +81,11 @@ class ListClassComponent extends Component {
                     <ListItem.Content style={ styles.ContentRow }>
 
                         <ListItem.Title style={{ flex: 0.6, fontSize: 13 }}>
-                        { item.listDays[0] } - { item.listDays[item.listDays.length - 1] } ( Ca { item.shift } )
+                            { HelperService.getDateFormat(item.startAt, 'date_time') } - { HelperService.getDateFormat(item.endAt) }
                         </ListItem.Title>
                 
                         <ListItem.Subtitle style={{ flex: 0.4, fontSize: 12, textAlign: 'right', marginTop: 5 }}>
-                            Room: { item.roomName.toUpperCase() }
+                            Ca học: { item.shift }
                         </ListItem.Subtitle>
                     
                     </ListItem.Content>
@@ -94,8 +97,13 @@ class ListClassComponent extends Component {
 
     navigateSubjectSchedule = (item) => {
         this.props.navigation.push('TeacherSubjectScheduleScreen',{
-            subjectCode: 'PHP',
-            classCode: 'WD14301'
+            data: {
+                idClassSubject: item._id,
+                listDays: item.listDays,
+                shift: item.shift,
+                class: item.class,
+                subject: item.subject
+            }
         })
     }
 
