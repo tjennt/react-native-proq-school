@@ -36,12 +36,16 @@ import axios from 'axios';
 // IMPORT HELPERS
 import * as HelperService from '../../services/HelperService';
 
+// Loader
+import Loader from '../loader/loaderModalComponent';
+
 class ListClassComponent extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            classList: []
+            classList: [],
+            loadingNavigator: false
         }
     }
     componentDidMount() {
@@ -96,15 +100,29 @@ class ListClassComponent extends Component {
     )
 
     navigateSubjectSchedule = (item) => {
-        this.props.navigation.push('TeacherSubjectScheduleScreen',{
-            data: {
-                idClassSubject: item._id,
-                listDays: item.listDays,
-                shift: item.shift,
-                class: item.class,
-                subject: item.subject
-            }
-        })
+        const { loadingNavigator } = this.state
+        const { navigation } = this.props
+        let self = this
+        try {
+            self.setState({loadingNavigator: true})
+            
+            setTimeout(()=> {
+                navigation.push('TeacherSubjectScheduleScreen',{
+                    data: {
+                        idClassSubject: item._id,
+                        listDays: item.listDays,
+                        shift: item.shift,
+                        class: item.class,
+                        subject: item.subject
+                    }
+                })
+                self.setState({loadingNavigator: false})
+
+            }, 1)
+            
+        } catch (error) {
+            console.log('ERROR', error)
+        }
     }
 
     // Call api
@@ -143,9 +161,11 @@ class ListClassComponent extends Component {
 
     render () {
         const { schedules } = this.props;
+        const { loadingNavigator } = this.state;
 
         return (
         <SafeAreaView style={styles.container}>
+            <Loader loading={loadingNavigator} />
             { this.listViewOrEmpty() }
         </SafeAreaView>
         )
