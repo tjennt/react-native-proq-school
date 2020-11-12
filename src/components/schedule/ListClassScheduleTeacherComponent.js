@@ -17,6 +17,9 @@ import * as COLORS from '../../constants/Colors';
 // IMPORT PARAMETER
 import * as PARAMETER from '../../constants/Parameter';
 
+// IMPORT COMPONECT EMPTY DATA
+import EmptyData from '../../components/Helpers/EmptyData';
+
 // IMPORT LIBRARY
 import {Ionicons,
     MaterialIcons,
@@ -28,59 +31,24 @@ import Toggle from 'react-native-toggle-element';
 // Service 
 import * as HelperService from '../../services/HelperService';
 
-export default class ListClassScheduleTeacherComponent extends Component {
+// IMPORT AXIOS
+import axios from 'axios';
+
+// IMPORT REDUX
+import * as actions from '../../actions';
+import { connect } from 'react-redux';
+
+class ListClassScheduleTeacherComponent extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-          classSchedule: [
-            {
-              name: 'Nguyễn Tấn Tiền',
-              studentCode: 'PS09110',
-              avatar: 'iamge/sa/sasda.jpg',
-              status: true
-            },
-            {
-              name: 'Nguyễn Tấn Tiền',
-              studentCode: 'PS09110',
-              avatar: 'iamge/sa/sasda.jpg',
-              status: false
-            },{
-              name: 'Nguyễn Tấn Tiền',
-              studentCode: 'PS09110',
-              avatar: 'iamge/sa/sasda.jpg',
-              status: false
-            },{
-              name: 'Nguyễn Tấn Tiền',
-              studentCode: 'PS09110',
-              avatar: 'iamge/sa/sasda.jpg',
-              status: true
-            },{
-              name: 'Nguyễn Tấn Tiền',
-              studentCode: 'PS09110',
-              avatar: 'iamge/sa/sasda.jpg',
-              status: false
-            },{
-              name: 'Nguyễn Tấn Tiền',
-              studentCode: 'PS09110',
-              avatar: 'iamge/sa/sasda.jpg',
-              status: false
-            },
-          ]
+          classSchedule: []
         }
     }
-    
-    attendance = (item, index)=> {
-        
-    // Call api
 
-    // studentId
-    // subjectId
-    // dateTimeNow format new Date('11-20-2020').toISOString()
-
-    
-    console.log(HelperService.getDateNow())
-        
+    componentDidMount() {
+        return this.getListStudentScheduleClassDay()
     }
 
     keyExtractor = (item, index) => index.toString()
@@ -101,13 +69,15 @@ export default class ListClassScheduleTeacherComponent extends Component {
                         rounded={true}
                         style={ styles.Avatar }
                         avatarStyle={ styles.AvatarStyle }
-                        source={ require('../../assets/images/demo/anh_the.jpg') } />
+                        source={ {
+                            uri: `${PARAMETER.SERVER}/${item.student.avatar}`
+                        } } />
                     
                     {/* Full name and student code */}
                     <ListItem.Content style={styles.text}>
 
-                        <ListItem.Title>{item.name}</ListItem.Title>
-                        <ListItem.Subtitle style={ { fontSize: 12 } }>{item.studentCode}</ListItem.Subtitle>
+                        <ListItem.Title>{ item.student.fullName }</ListItem.Title>
+                        <ListItem.Subtitle style={ { fontSize: 12 } }>{ item.student._id }</ListItem.Subtitle>
 
                     </ListItem.Content>
 
@@ -141,20 +111,93 @@ export default class ListClassScheduleTeacherComponent extends Component {
         </ListItem>
     )
 
+    // Axios get list student
+    getListStudentScheduleClassDay = async ()=> {
+        const { classSubject, user } = this.props
+        try {
+            let res = await axios.get(
+                `${PARAMETER.SERVER}/v1/teacher/schedules/${classSubject.idClassSubject}`, {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                },
+                params: {
+                    date: classSubject.day
+                }
+            })
+
+            let { data } = res
+
+            if (data.success == true) {
+                console.log(data.payload)
+                this.setState({
+                    classSchedule: data.payload
+                })
+            }
+        } catch (error) {
+            console.log("ERROR", error)
+        }
+    }
+    
+    // Axios attentdance
+    attendance = async (item, index)=> {
+        const { classSubject, user } = this.props
+        
+        try {
+            let res = await axios.post(
+                `${PARAMETER.SERVER}/v1/teacher/schedules/`, 
+            {
+                schedulesClass: classSubject.idClassSubject,
+                status: true,
+                student: item.student._id,
+                date: HelperService.getDateFormat(item.date, 'month_day_year')
+            },
+            {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
+
+            let { data } = res
+            
+            if (data.success == true) {
+                console.log(data)
+            }
+        } catch (e) {
+            console.log("ERROR", e)
+        }
+        
+            
+    }
+    
+    // View render
+    viewRenderListOrEmpty = ()=> {
+        const { classSchedule } = this.state
+        if (classSchedule.length == 0) {
+            return <EmptyData />
+        }
+
+        return <FlatList
+            keyExtractor={this.keyExtractor}
+            data={classSchedule}
+            renderItem={this.renderItem}
+        />
+    }
     render () {
         const { classSchedule } = this.state;
         
         return (
         <SafeAreaView style={styles.container}>
-            <FlatList
-                keyExtractor={this.keyExtractor}
-                data={classSchedule}
-                renderItem={this.renderItem}
-            />
+            { this.viewRenderListOrEmpty() }
         </SafeAreaView>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps, null)(ListClassScheduleTeacherComponent);
 
 const styles = StyleSheet.create({
     container: {

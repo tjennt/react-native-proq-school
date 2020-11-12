@@ -11,7 +11,7 @@ export const getDateFormat = (date, format = 'date_time_year')=> {
     }
     
     let dateObj = new Date(date)
-    let month = dateObj.getMonth()
+    let month = dateObj.getMonth() + 1
     let day = String(dateObj.getDate()).padStart(2, '0')
     let year = dateObj.getFullYear()
     
@@ -20,6 +20,9 @@ export const getDateFormat = (date, format = 'date_time_year')=> {
     switch(format) {
         case 'date_time':
             result = day  + '/'+ month 
+        break
+        case 'month_day_year':
+            result = month + '-' + day + '-'+ year 
         break
         default: 
             result = day  + '/'+ month  + '/' + year

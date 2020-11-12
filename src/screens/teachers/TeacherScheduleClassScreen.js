@@ -34,10 +34,14 @@ export default class TeacherScheduleClassScreen extends Component {
 
   render() {
     const { classSchedule } = this.state
+    const { navigation } = this.props
+    
     return (
       <View style={{ backgroundColor: COLORS.LIGHT, flex: 1 }}>
         
-        <ListClassScheduleTeacherComponent />
+        <ListClassScheduleTeacherComponent
+          classSubject={ navigation.getParam('classSubject') }
+        />
       
       </View>
     )

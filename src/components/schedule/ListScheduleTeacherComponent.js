@@ -39,8 +39,9 @@ export default class ListScheduleTeacherComponent extends Component {
                     style: {},
                     onPress: ()=> {
                         this.setState({ isVisible: false })
+
                         this.props.navigation.push( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
-                            dayStudy: this.state.dataSheet
+                            classSubject: this.state.dataSheet
                         })
                      }
                 },
@@ -83,8 +84,8 @@ export default class ListScheduleTeacherComponent extends Component {
                             <ListItem.Title style={styles.text}>
                                 <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
                                 <Text style={ styles.TextDateTime }>
-                                    &nbsp;{ HelperService.getDateName(item) } - 
-                                    {/* { item.studyTime } */}
+                                    &nbsp; { HelperService.getDateName(item) } - 
+                                    (Ca { data.shift })
                                 </Text>
                             </ListItem.Title>
 
@@ -114,9 +115,11 @@ export default class ListScheduleTeacherComponent extends Component {
     }
 
     chooseBottomSheet = (item)=> {
+        const { data } = this.props
         this.setState({
             dataSheet: {
-                ...item
+                idClassSubject: data.idClassSubject,
+                day: item
             },
             isVisible: true
         })
@@ -129,7 +132,7 @@ export default class ListScheduleTeacherComponent extends Component {
     }
 
     render () {
-        const { data } = this.props;
+        const { data, navigation } = this.props
         const { isVisible, sheetList, dataSheet } = this.state
         return (
         <SafeAreaView style={styles.container}>
