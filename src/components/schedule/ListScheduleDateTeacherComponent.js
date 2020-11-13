@@ -26,9 +26,10 @@ import {Ionicons,
 import * as HelperService from '../../services/HelperService';
 
 // IMPORT COMPONECT EMPTY DATA
-import EmptyData from '../../components/Helpers/EmptyData';
+import EmptyData from '../Helpers/EmptyData';
+import axios from 'axios';
 
-export default class ListScheduleTeacherComponent extends Component {
+class ListScheduleDateTeacherComponent extends Component {
 
     constructor(props) {
         super(props)
@@ -72,13 +73,14 @@ export default class ListScheduleTeacherComponent extends Component {
     }
     
     componentDidMount() {
-        const { data } = this.props 
-        setTimeout(()=> {
-            this.setState({
-                listDays: data.listDays,
-                loading: false
-            })
-        }, 1)
+        // const { data } = this.props 
+        // setTimeout(()=> {
+        //     this.setState({
+        //         listDays: data.listDays,
+        //         loading: false
+        //     })
+        // }, 1)
+        return this.getListSchedule()
     }
 
     keyExtractor = (item, index) => index.toString()
@@ -128,6 +130,25 @@ export default class ListScheduleTeacherComponent extends Component {
                 </TouchableOpacity>
             </ListItem>
         )
+    }
+
+    getListSchedule = async ()=> {
+        console.log(`${PARAMETER.SERVER}/v1/teacher/schedules/`)
+        try {
+            let res = await axios.get(`${PARAMETER.SERVER}/v1/teacher/schedules/`,{
+                headers: {
+                    // 'Authorization': `Bearer ${user.token}`
+                }
+            })
+            console.log(res)
+            // let { data } = res
+            // if (data.success) {
+            //     console.log(data)
+            // }
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     chooseBottomSheet = (item)=> {

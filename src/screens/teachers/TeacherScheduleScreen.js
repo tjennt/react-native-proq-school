@@ -16,7 +16,7 @@ import STYLE_GOBAL from '../../styles/Global';
 
 // IMPORT COMPONENTS
 import ListDaysComponent from '../../components/schedule/ListDaysComponent';
-import ListScheduleTeacherComponent from '../../components/schedule/ListScheduleTeacherComponent';
+import ListScheduleDateTeacherComponent from '../../components/schedule/ListScheduleDateTeacherComponent';
 
 import * as COLORS from '../../constants/Colors';
 
@@ -130,7 +130,7 @@ export default class TeacherScheduleScreen extends Component {
           />
         </View>
         
-        <ListScheduleTeacherComponent schedules={list} navigation={navigation} />
+        <ListScheduleDateTeacherComponent navigation={navigation} />
       
       </View>
     )

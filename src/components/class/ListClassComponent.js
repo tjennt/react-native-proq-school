@@ -36,21 +36,19 @@ import axios from 'axios';
 // IMPORT HELPERS
 import * as HelperService from '../../services/HelperService';
 
-// Loader
-import Loader from '../loader/loaderModalComponent';
-
 class ListClassComponent extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
             classList: [],
-            loadingNavigator: false
+            loading: true
         }
     }
     componentDidMount() {
         this.getClassApi()
     }
+    
     keyExtractor = (item, index) => index.toString()
 
     renderItem = ({ item }) => (
@@ -100,25 +98,20 @@ class ListClassComponent extends Component {
     )
 
     navigateSubjectSchedule = (item) => {
-        const { loadingNavigator } = this.state
         const { navigation } = this.props
         let self = this
         try {
-            self.setState({loadingNavigator: true})
             
-            setTimeout(()=> {
-                navigation.push('TeacherSubjectScheduleScreen',{
-                    data: {
-                        idClassSubject: item._id,
-                        listDays: item.listDays,
-                        shift: item.shift,
-                        class: item.class,
-                        subject: item.subject
-                    }
-                })
-                self.setState({loadingNavigator: false})
+            navigation.push('TeacherSubjectScheduleScreen',{
+                data: {
+                    idClassSubject: item._id,
+                    listDays: item.listDays,
+                    shift: item.shift,
+                    class: item.class,
+                    subject: item.subject
+                }
+            })
 
-            }, 1)
             
         } catch (error) {
             console.log('ERROR', error)
@@ -139,16 +132,18 @@ class ListClassComponent extends Component {
 
             if (data.success == true) {
                 this.setState({
-                    classList: data.payload
+                    classList: data.payload,
+                    loading: false
                 })
             }
         } catch (error) {
+            this.setState({loading: false})
             console.log("ERROR", error)
         }
     }
 
     listViewOrEmpty = ()=> {
-        const { classList } = this.state
+        const { classList, loading } = this.state
         if(classList.length != 0) {
             return <FlatList
                 keyExtractor={this.keyExtractor}
@@ -156,16 +151,14 @@ class ListClassComponent extends Component {
                 renderItem={this.renderItem}
             />
         }
-        return <EmptyData />
+        return <EmptyData loading={loading} />
     }
 
     render () {
         const { schedules } = this.props;
-        const { loadingNavigator } = this.state;
 
         return (
         <SafeAreaView style={styles.container}>
-            <Loader loading={loadingNavigator} />
             { this.listViewOrEmpty() }
         </SafeAreaView>
         )

@@ -76,7 +76,6 @@ export default class TeacherSubjectScheduleScreen extends Component {
 
   render() {
     const { navigation } = this.props
-    // console.log("SUBJEJEE", this.props);
     return (
       <View style={{ backgroundColor: COLORS.LIGHT, flex: 1 }}>
         {/* <View style={ styles.ViewListDays }>

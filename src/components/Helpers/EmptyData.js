@@ -13,12 +13,34 @@ import { View,
     ListItem, 
     Avatar, 
     SearchBar } from 'react-native-elements';
+// 
+import * as Colors from '../../constants/Colors';
 
 export default class EmptyData extends Component {
+    
+    constructor(props) {
+        super(props)
+    }
+
+    checkLoadingOrEmpty = ()=> {
+        const { loading, stopLoad } = this.props
+        if ( loading) {
+            return <ActivityIndicator
+                size="large"
+                color={Colors.MAIN_PRIMARY} 
+                animating={true} />
+        }
+        if (stopLoad) {
+            return 
+        }
+        return <Text style={ { textAlign: 'center' } }>Không có dữ liệu...</Text>
+    }
     render () {
         return (
             <View style={ { flex: 1, justifyContent: 'center' } }>
-                <Text style={ { textAlign: 'center' } }>Không có dữ liệu...</Text>
+                {
+                    this.checkLoadingOrEmpty()
+                }
             </View>
         )
     }

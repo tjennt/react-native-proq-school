@@ -43,7 +43,8 @@ class ListClassScheduleTeacherComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-          classSchedule: []
+          classSchedule: [],
+          loading: true
         }
     }
 
@@ -128,9 +129,9 @@ class ListClassScheduleTeacherComponent extends Component {
             let { data } = res
 
             if (data.success == true) {
-                console.log(data.payload)
                 this.setState({
-                    classSchedule: data.payload
+                    classSchedule: data.payload,
+                    loading: false
                 })
             }
         } catch (error) {
@@ -147,7 +148,7 @@ class ListClassScheduleTeacherComponent extends Component {
                 `${PARAMETER.SERVER}/v1/teacher/schedules/`, 
             {
                 schedulesClass: classSubject.idClassSubject,
-                status: true,
+                status: !item.status,
                 student: item.student._id,
                 date: HelperService.getDateFormat(item.date, 'month_day_year')
             },
@@ -156,12 +157,10 @@ class ListClassScheduleTeacherComponent extends Component {
                     'Authorization': `Bearer ${user.token}`
                 }
             })
-
-            let { data } = res
-            
-            if (data.success == true) {
-                console.log(data)
-            }
+            // let { data } = res
+            // if (data.status) {
+            //     console.log(data)
+            // }
         } catch (e) {
             console.log("ERROR", e)
         }
@@ -171,9 +170,9 @@ class ListClassScheduleTeacherComponent extends Component {
     
     // View render
     viewRenderListOrEmpty = ()=> {
-        const { classSchedule } = this.state
+        const { classSchedule, loading } = this.state
         if (classSchedule.length == 0) {
-            return <EmptyData />
+            return <EmptyData loading={loading} />
         }
 
         return <FlatList
