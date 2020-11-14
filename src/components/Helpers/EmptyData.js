@@ -37,7 +37,12 @@ export default class EmptyData extends Component {
     }
     render () {
         return (
-            <View style={ { flex: 1, justifyContent: 'center' } }>
+            <View style={ { 
+                flex: 1,
+                justifyContent: 'center',
+                flexDirection: "row",
+                justifyContent: "space-around",
+                padding: 10 } }>
                 {
                     this.checkLoadingOrEmpty()
                 }
@@ -47,6 +52,5 @@ export default class EmptyData extends Component {
 }
 
 const styles = StyleSheet.create({
-    ScrollView: {
-    }
-  });
+
+});

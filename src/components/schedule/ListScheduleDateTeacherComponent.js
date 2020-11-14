@@ -16,6 +16,10 @@ import * as COLORS from '../../constants/Colors';
 // IMPORT PARAMETER
 import * as PARAMETER from '../../constants/Parameter';
 
+// IMPORT REDUX
+import * as actions from '../../actions';
+import { connect } from 'react-redux';
+
 // IMPORT LIBRARY
 import {Ionicons,
     MaterialIcons,
@@ -133,18 +137,17 @@ class ListScheduleDateTeacherComponent extends Component {
     }
 
     getListSchedule = async ()=> {
-        console.log(`${PARAMETER.SERVER}/v1/teacher/schedules/`)
+        const { user } = this.props
         try {
             let res = await axios.get(`${PARAMETER.SERVER}/v1/teacher/schedules/`,{
                 headers: {
-                    // 'Authorization': `Bearer ${user.token}`
+                    'Authorization': `Bearer ${user.token}`
                 }
             })
-            console.log(res)
-            // let { data } = res
-            // if (data.success) {
-            //     console.log(data)
-            // }
+            let { data } = res
+            if (data.success) {
+                console.log(data)
+            }
 
         } catch (error) {
             console.log(error)
@@ -209,6 +212,13 @@ class ListScheduleDateTeacherComponent extends Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps, null)(ListScheduleDateTeacherComponent);
+
 
 const styles = StyleSheet.create({
     container: {

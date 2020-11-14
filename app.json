@@ -29,7 +29,7 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "com.webiosandroid.all"
+      "package": "ca.brentvatne.growlerprowler"
     }
   }
 }
