@@ -36,6 +36,9 @@ import LoaderListNewsComponent from '../components/loader/LoaderListNewsComponen
 // IMPORT AXIOS
 import axios from 'axios';
 
+// IMPORT COMPONECT EMPTY DATA
+import EmptyData from '../components/Helpers/EmptyData';
+
 export default class HomeScreen extends React.Component {
   
   constructor(props) {
@@ -50,23 +53,14 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  async componentDidMount() {
-    try {
-      
-      let categories  = await this.handleAxiosCategories()
-      let news        = await this.handleAxiosNews()
-      
-      if (categories && news) {
-        this.setState({
-          loadingNews: false
-        })
-      }
-
-    } catch (error) {
-      console.log(error)
-    }
+  componentDidMount() {    
+      this.getListNewsAndCategories()
   }
 
+  getListNewsAndCategories = async ()=> {
+    await this.handleAxiosCategories()
+    await this.handleAxiosNews()
+  }
   // AXIOS GET CATEGORIES
   handleAxiosCategories = async ()=> {
     try {
@@ -88,10 +82,10 @@ export default class HomeScreen extends React.Component {
       let res = await axios.get(`${PARAMETER.SERVER_API}${PARAMETER.API_NAME.news}`)
       let { data } = res 
       this.setState({
-        axiosNews: data
+        news: data,
+        loadingNews: false
       })
-      this.moreNews()
-      // console.log(data)
+      // this.moreNews()
     } catch (error) {
       console.log(error)
     }
@@ -142,31 +136,17 @@ export default class HomeScreen extends React.Component {
 
   // View load list or loader
   viewNewsOrLoader() {
-    const { news, loadingNews } = this.state;
-    const { navigation } = this.props;
+    const { categories, news, loadingNews } = this.state
+    const { navigation } = this.props
     
     if (loadingNews) {
 
-      return <LoaderListNewsComponent loading={ loadingNews } />
+      return <EmptyData loading={ loadingNews } />
 
     } else {
-
-     return <ListNewsComponent 
-              navigation = { navigation }
-              moreNews = { this.moreNews }
-              news={ news } 
-            />
-    }
-  }
-  render() {
-    const { categories, news, loadingNews } = this.state;
-    const { navigation } = this.props;
-
-    return (
-      <View style={{ backgroundColor: COLORS.LIGHT }}>
-
-        <View style={ styles.ViewRender }>
-          
+     return (
+          <View style={ styles.ViewRender }>
+              
           {/* CATEGORY HORIZONTAL TRUE */}
           <View style={ styles.ViewCategories }>
 
@@ -180,12 +160,27 @@ export default class HomeScreen extends React.Component {
           {/* POSTS IN CATEGORY */}
           <View style={ { flexDirection: 'column'} }>
               
-              { this.viewNewsOrLoader() }
+            <ListNewsComponent
+              navigation = { navigation }
+              moreNews = { this.moreNews }
+              news={ news } 
+            />
 
           </View>
 
         </View>
+     )
+    }
+  }
+  render() {
+    const { categories, news, loadingNews } = this.state;
+    const { navigation } = this.props;
 
+    return (
+      <View style={{ flex:1, backgroundColor: COLORS.LIGHT }}>
+        {
+          this.viewNewsOrLoader()
+        }
       </View>
     )
   }
@@ -210,7 +205,7 @@ const styles = StyleSheet.create({
       borderRadius: 50,
       backgroundColor: COLORS.MAIN_TEXT
     },
-    ViewRender: { 
+    ViewRender: {
       flexDirection: "column", 
       marginTop: 10
     },

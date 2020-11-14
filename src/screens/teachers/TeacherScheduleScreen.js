@@ -16,13 +16,84 @@ import STYLE_GOBAL from '../../styles/Global';
 
 // IMPORT COMPONENTS
 import ListDaysComponent from '../../components/schedule/ListDaysComponent';
-import ListScheduleTeacherComponent from '../../components/schedule/ListScheduleTeacherComponent';
+import ListScheduleDateTeacherComponent from '../../components/schedule/ListScheduleDateTeacherComponent';
 
 import * as COLORS from '../../constants/Colors';
 
 // IMPORT DATA
 import { DAYS } from '../../constants/Data';
-
+const list = [
+  {
+    name: 'Học Laravel',
+    code: 'PHP',
+    date: '2020/13/10',
+    nameDay: 'Thứ 2',
+    nameClass: 'WD14301',
+    roomCode: 'P401',
+    studyTime: 'Ca 1',
+    description: 'Bua nay vo hoc cho vui thoi'
+  },
+  {
+      name: 'Học Laravel',
+      code: 'PHP',
+      date: '2020/13/10',
+      nameDay: 'Thứ 2',
+      nameClass: 'WD14301',
+      roomCode: 'P401',
+      studyTime: 'Ca 1',
+      description: 'Bua nay vo hoc cho vui thoi'
+  },
+  {
+      name: 'Học Laravel',
+      code: 'PHP',
+      date: '2020/13/10',
+      nameDay: 'Thứ 2',
+      nameClass: 'WD14301',
+      roomCode: 'P401',
+      studyTime: 'Ca 1',
+      description: 'Bua nay vo hoc cho vui thoi'
+  },
+  {
+      name: 'Học Laravel',
+      code: 'PHP',
+      date: '2020/13/10',
+      nameDay: 'Thứ 2',
+      nameClass: 'WD14301',
+      roomCode: 'P401',
+      studyTime: 'Ca 1',
+      description: 'Bua nay vo hoc cho vui thoi'
+  },
+  {
+      name: 'Học Laravel',
+      code: 'PHP',
+      date: '2020/13/10',
+      nameDay: 'Thứ 2',
+      nameClass: 'WD14301',
+      roomCode: 'P401',
+      studyTime: 'Ca 1',
+      description: 'Bua nay vo hoc cho vui thoi'
+  },
+  {
+      name: 'Học Laravel',
+      code: 'PHP',
+      date: '2020/13/10',
+      nameDay: 'Thứ 2',
+      nameClass: 'WD14301',
+      roomCode: 'P401',
+      studyTime: 'Ca 1',
+      description: 'Bua nay vo hoc cho vui thoi'
+  },
+  {
+      name: 'Học Laravel',
+      code: 'PHP',
+      date: '2020/13/10',
+      nameDay: 'Thứ 2',
+      nameClass: 'WD14301',
+      roomCode: 'P401',
+      studyTime: 'Ca 1',
+      description: 'Bua nay vo hoc cho vui thoi'
+  },
+];
 export default class TeacherScheduleScreen extends Component {
   
   constructor(props) {
@@ -48,6 +119,7 @@ export default class TeacherScheduleScreen extends Component {
   }
 
   render() {
+    const { navigation } = this.props
     return (
       <View style={{ backgroundColor: COLORS.LIGHT, flex: 1 }}>
         <View style={ styles.ViewListDays }>
@@ -58,7 +130,7 @@ export default class TeacherScheduleScreen extends Component {
           />
         </View>
         
-        <ListScheduleTeacherComponent />
+        <ListScheduleDateTeacherComponent navigation={navigation} />
       
       </View>
     )

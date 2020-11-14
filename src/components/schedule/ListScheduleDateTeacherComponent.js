@@ -16,6 +16,10 @@ import * as COLORS from '../../constants/Colors';
 // IMPORT PARAMETER
 import * as PARAMETER from '../../constants/Parameter';
 
+// IMPORT REDUX
+import * as actions from '../../actions';
+import { connect } from 'react-redux';
+
 // IMPORT LIBRARY
 import {Ionicons,
     MaterialIcons,
@@ -26,9 +30,10 @@ import {Ionicons,
 import * as HelperService from '../../services/HelperService';
 
 // IMPORT COMPONECT EMPTY DATA
-import EmptyData from '../../components/Helpers/EmptyData';
+import EmptyData from '../Helpers/EmptyData';
+import axios from 'axios';
 
-export default class ListScheduleTeacherComponent extends Component {
+class ListScheduleDateTeacherComponent extends Component {
 
     constructor(props) {
         super(props)
@@ -72,13 +77,14 @@ export default class ListScheduleTeacherComponent extends Component {
     }
     
     componentDidMount() {
-        const { data } = this.props 
-        setTimeout(()=> {
-            this.setState({
-                listDays: data.listDays,
-                loading: false
-            })
-        }, 1)
+        // const { data } = this.props 
+        // setTimeout(()=> {
+        //     this.setState({
+        //         listDays: data.listDays,
+        //         loading: false
+        //     })
+        // }, 1)
+        return this.getListSchedule()
     }
 
     keyExtractor = (item, index) => index.toString()
@@ -128,6 +134,24 @@ export default class ListScheduleTeacherComponent extends Component {
                 </TouchableOpacity>
             </ListItem>
         )
+    }
+
+    getListSchedule = async ()=> {
+        const { user } = this.props
+        try {
+            let res = await axios.get(`${PARAMETER.SERVER}/v1/teacher/schedules/`,{
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
+            let { data } = res
+            if (data.success) {
+                console.log(data)
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     chooseBottomSheet = (item)=> {
@@ -188,6 +212,13 @@ export default class ListScheduleTeacherComponent extends Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps, null)(ListScheduleDateTeacherComponent);
+
 
 const styles = StyleSheet.create({
     container: {

@@ -43,25 +43,23 @@ class LoginComponent extends Component {
     signInWithGoogle = async () => {
         
         // LOGIN DON'T NEED LOGIN
-        this.loginSuccess({
-            token: 'eyeafa23rewgds',
-            email: 'toma.nguyen675@gmail.com'
-        })
+        // this.loginSuccess({
+        //     token: 'eyeafa23rewgds',
+        //     email: 'toma.nguyen675@gmail.com'
+        // })
         // return;
 
         try {
-            this.setLoading()
+            this.setState({ loading: true })
             const result = await Google.logInAsync({
-                iosClientId: PARAMETER.IOS_CLIENT_ID,
                 androidClientId: PARAMETER.ANDROID_CLIENT_ID,
                 scopes: ["profile", "email"]
             });
     
             if (result.type === "success") {
-                console.log(result)
                 this.loginServerApi(result)
-
             } else {
+                this.setState({ loading: false })
                 console.log("Out login")
             }
         } catch (e) {
@@ -94,11 +92,12 @@ class LoginComponent extends Component {
     }
     
     loginSuccess = async (dataLogin)=> {
-        const { token } = dataLogin
+        const { token, access } = dataLogin
+        const Faketoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmE2OTcyOGE2ZjQ2OWYwNmQ2ODc1NmQiLCJ0ZWFjaGVySWQiOnsiYXZhdGFyIjoidXBsb2Fkcy91c2VyLWF2YXRhci9kZWZhdWx0LmpwZyIsIl9pZCI6IjVmYTY5NzI4YTZmNDY5ZjA2ZDY4NzU2YiIsInRlYWNoZXJDb2RlIjoiR1YxMTEiLCJmdWxsbmFtZSI6IkNow6J1IFRo4bq_IE5pbmgiLCJwaG9uZSI6IjE2NDc4NDE3MiIsImRvYiI6IjIwLzEwLzE5ODAiLCJzcGVjaWFsaXphdGlvbiI6ImpzIiwiX192IjowLCJjcmVhdGVkQXQiOiIyMDIwLTExLTA3VDEyOjQ2OjMyLjc2MVoiLCJ1cGRhdGVkQXQiOiIyMDIwLTExLTA3VDEyOjQ2OjMyLjc2MVoifSwic3R1ZGVudElkIjpudWxsLCJhY2Nlc3MiOiJ0ZWFjaGVyIiwiaWF0IjoxNjA0ODIyMjYyLCJleHAiOjE2MDU2ODYyNjJ9.N29lWjzGh6xtcL6bdn9PETJWkjFZbmutnJN9eiK-vi0";
         try {
-            let res = await axios.get(`${PARAMETER.SERVER}/v1/student/profile/`, {
+            let res = await axios.get(`${PARAMETER.SERVER}/v1/${access}/profile/`, {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${Faketoken}`
                 }
             })
 
@@ -106,6 +105,8 @@ class LoginComponent extends Component {
 
             if (data.success == true) {
                 data.payload.role = dataLogin.access
+                delete data.payload.token
+                data.payload.token = Faketoken
                 this.props.addUser(data.payload)
                 this.props.loginFunction({
                     role: dataLogin.access
@@ -122,9 +123,10 @@ class LoginComponent extends Component {
     }
 
     render () {
+        const { loading } = this.state
         return (
             <ImageBackground
-                source={ require('../../assets/images/illustrators/notebook.svg') }
+                source={ require('../../assets/images/illustrators/notebook.png') }
                 style={ styles.imageBackground }
             >      
                 {/* Logo image */}
@@ -157,7 +159,7 @@ class LoginComponent extends Component {
                         </View>
 
                         {/* Login google */}
-                        <Text>{ this.state.loading ? 'Loading....' : '' }</Text>
+                        {/* <Text>{ this.state.loading ? 'Loading....' : '' }</Text> */}
                         <TouchableOpacity
                             onPress={ this.signInWithGoogle }
                             // disabled={true}
@@ -166,7 +168,7 @@ class LoginComponent extends Component {
                                 title= { LOGIN.loginWithGoole }
                                 button
                                 type= 'google'
-                                loading={this.props.loading}
+                                loading={loading}
                             />
                         </TouchableOpacity>
                     </Card>

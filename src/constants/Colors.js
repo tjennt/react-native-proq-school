@@ -8,3 +8,5 @@ export const LIGHT        = '#ffffff';
 
 // 
 export const LIGHT_HIGHT = '#92c5c2';
+
+export const GRAY = '#cccccc';

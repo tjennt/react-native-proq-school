@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import { View, 
     StyleSheet, 
-    Dimensions, 
-    ScrollView,
+    SafeAreaView, 
+    FlatList,
     ActivityIndicator 
      } from 'react-native';
 
@@ -17,51 +17,62 @@ import { APP } from '../../constants/Locale';
 import * as PARAMETER from '../../constants/Parameter';
 
 export default class ListNewsComponent extends Component {
-    render () {
-        const { navigation, news, moreNews } = this.props;
 
-        return (
-            <ScrollView 
-              horizontal={ false }
-              style={ styles.ScrollView }
-              >
-              {
-                news.map((newDetail, index)=> (
-                  <ListItem 
-                    key={ newDetail.id }
-                    style={ styles.ListItemNews }
-                    // bottomDivider
-                    onPress={ ()=> { 
-                      navigation.push('NewsDetail', {
-                        news: newDetail 
-                      }) 
-                    } }
-                  >
-                  <Avatar 
-                    avatarStyle={{ borderRadius: 10 }}
-                    size="large"
-                    source= { { uri: newDetail.image } }
-                    PlaceholderContent={<ActivityIndicator />}
-                  />
-                  <ListItem.Content>
-                  <ListItem.Title>{newDetail.title} { newDetail.id }</ListItem.Title>
-                    <ListItem.Subtitle >{newDetail.shortDescription}</ListItem.Subtitle>
-                  </ListItem.Content>
-                </ListItem>
-                ))
-              }
-              <View style={ styles.ViewButon }>
-                <Button 
-                  title={ APP.more }
-                  type="clear"
-                  buttonStyle={ styles.ButtonMore }
-                  onPress={ ()=>{ moreNews() } }
-                ></Button>
-              </View>
-            </ScrollView>
-        )
-    }
+  keyExtractor = (item, index) => index.toString()
+
+  renderItem = ({ item }) => {
+    const { navigation } = this.props
+    return (
+      <ListItem
+        style={ styles.ListItemNews }
+        // bottomDivider
+        onPress={ ()=> { 
+          navigation.push('NewsDetail', {
+            news: item 
+          }) 
+        } }
+      >
+        <Avatar 
+          avatarStyle={{ borderRadius: 10 }}
+          size="large"
+          source= { { uri: item.image } }
+          PlaceholderContent={<ActivityIndicator />}
+        />
+        <ListItem.Content>
+        <ListItem.Title>{item.title} { item.id }</ListItem.Title>
+          <ListItem.Subtitle >{item.shortDescription}</ListItem.Subtitle>
+        </ListItem.Content>
+      </ListItem>
+    )
+
+  }
+
+  render () {
+    const { navigation, news, moreNews } = this.props;
+
+    return (
+        <SafeAreaView 
+          horizontal={ false }
+          style={ styles.ScrollView }
+          >
+            <FlatList
+            keyExtractor={this.keyExtractor}
+            data={news}
+            renderItem={this.renderItem}
+        />
+        </SafeAreaView>
+    )
+  }
 }
+
+{/* <View style={ styles.ViewButon }>
+<Button 
+  title={ APP.more }
+  type="clear"
+  buttonStyle={ styles.ButtonMore }
+  onPress={ ()=>{ moreNews() } }
+></Button>
+</View> */}
 
 const styles = StyleSheet.create({
   ViewButon: {

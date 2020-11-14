@@ -35,7 +35,10 @@
     - expo web
     - expo eject
 ```
-
+### MORE
+```
+- Set lan: set REACT_NATIVE_PACKAGER_HOSTNAME= ip_lan
+```
 
 ### INFO GOOGLE PLAY
 ```
@@ -54,4 +57,17 @@ Chức năng chính:
   + Xem thông tin cá nhân.
   + Xem thời khóa biểu dạy.
   + Xem môn đang dạy và lịch dạy.
+```
+
+
+KEY STORE
+```
+Accessing credentials for tienntps09110 in project proq_school
+Saving Keystore to E:\tailieu\react\myNewProject\proq_school.jks
+Keystore credentials
+  Keystore password: b75a75a9d61b4227b3a29190aac224a6
+  Key alias:         QHRpZW5udHBzMDkxMTAvcHJvcV9zY2hvb2w=
+  Key password:      24db2bfbfe164f70ae9012e49cb7fe33
+
+  Path to Keystore:  E:\tailieu\react\myNewProject\proq_school.jks
 ```

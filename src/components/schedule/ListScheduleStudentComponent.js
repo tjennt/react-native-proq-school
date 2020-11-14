@@ -152,7 +152,6 @@ export default class ListScheduleStudentComponent extends Component {
 
     render () {
         const { schedules } = this.props;
-
         return (
         <SafeAreaView style={styles.container}>
             <FlatList

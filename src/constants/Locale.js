@@ -2,8 +2,9 @@
 // LOCALE LOGIN
 export const LOGIN = {
     appName: 'PROQ SCHOOL',
+    login: 'Đăng nhập',
     welcome: 'Chào Mừng',
-    loginWithGoole: 'Đăng nhập với google',
+    loginWithGoole: 'Tiếp tục với google',
     introductLogin: 'AP PROQ là ứng dụng hỗ trợ sinh viên xem điểm, lịch học và cập nhật tin tức nhanh nhất!'
 }
 
@@ -15,6 +16,7 @@ export const NAVIGATOR = {
     subject: 'Môn học',
     subjectTeacher: 'Môn dạy',
     scheduleTeacher: 'LỊCH DẠY',
+    attendance: 'Điểm danh',
     personal: 'Cá Nhân',
     schedule: 'Lịch',
     more: 'Thêm'
@@ -27,8 +29,12 @@ export const APP = {
     time: 'Thời gian',
     more: 'Xem thêm',
     studentName: 'Sinh viên',
+    teacherName: 'Giảng viên',
     codeStudent: 'Mã số sinh viên',
     codeTeacher: 'Mã số giáo viên',
+    specialization: 'Chuyên nghành',
+    dob: 'Ngày sinh',
+    phoneNumber: 'Số điện thoại',
     emailAddress: 'Địa chỉ email',
     className: 'Tên lớp học',
     roleName: 'Chức vụ'

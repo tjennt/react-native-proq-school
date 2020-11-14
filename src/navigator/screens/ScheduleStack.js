@@ -1,6 +1,8 @@
 // IMPORT COMPONENT
 import StudentScheduleScreen from '../../screens/students/StudentScheduleScreen';
 import TeacherScheduleScreen from '../../screens/teachers/TeacherScheduleScreen';
+import TeacherScheduleClassScreen from '../../screens/teachers/TeacherScheduleClassScreen';
+
 
 import { createStackNavigator } from 'react-navigation-stack';
 
@@ -9,7 +11,6 @@ import { LOGIN, NAVIGATOR } from '../../constants/Locale';
 
 // IMPORT COLORS
 import * as COLORS from '../../constants/Colors';
-
 
 export const StudentScheduleStack = createStackNavigator(
     {
@@ -34,17 +35,23 @@ export const TeacherScheduleStack = createStackNavigator(
         TeacherScheduleScreen: {
         screen: TeacherScheduleScreen,
         navigationOptions: {
-            title: NAVIGATOR.scheduleTeacher,
-            headerTitleAlign: 'left',
-            headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
-            headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
-        }
+                title: NAVIGATOR.scheduleTeacher,
+                headerTitleAlign: 'left',
+                headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
+                headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+            }
         },
-        
+        TeacherScheduleClassScreen: {
+            screen: TeacherScheduleClassScreen,
+            navigationOptions: {
+                title: NAVIGATOR.attendance.toUpperCase(),
+                headerTitleAlign: 'left',
+                headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
+                headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+            }
+        },
     },
     {
         initialRouteName: 'TeacherScheduleScreen'
     }
 );
-
-  
