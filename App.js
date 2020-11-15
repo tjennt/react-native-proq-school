@@ -73,7 +73,7 @@ export default class App extends React.Component {
     // return <NavigatorTeacher />
 
     if (this.state.selectedTabnavigator == PARAMETER.STUDENT_ROLE){
-      console.log(this.state.selectedTabnavigator, PARAMETER.STUDENT_ROLE)
+      // console.log(this.state.selectedTabnavigator, PARAMETER.STUDENT_ROLE)
       return <NavigatorStudent />
     }
 

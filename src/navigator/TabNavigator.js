@@ -4,6 +4,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 // IMPORT SCREEN STACK
+import LoginComponent from '../components/login/LoginComponent';
 import HomeStack from './screens/HomeStack';
 import ProfileStack from './screens/ProfileStack';
 import { StudentScheduleStack, TeacherScheduleStack } from './screens/ScheduleStack';

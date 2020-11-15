@@ -29,7 +29,7 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "wit.reactnative.proqschool"
+      "package": "ca.brentvatne.growlerprowler"
     }
   }
 }
