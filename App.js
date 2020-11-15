@@ -1,7 +1,7 @@
 import React from 'react';
 
 // IMPORT REACT NATIVE
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Text, TextInput } from 'react-native';
 
 // IMPORT COMPOMENT
 import LoginComponent from './src/components/login/LoginComponent';
@@ -23,15 +23,31 @@ import * as PARAMETER from './src/constants/Parameter';
 import {Provider} from 'react-redux';
 import store from './src/store';
 
+// IMPORT PUSH NOTIFICATION
+import { registerForPushNotificationsAsync } from './src/services/Notification';
+import * as Notifications from 'expo-notifications'
+
 export default class App extends React.Component {
 
   state = {
     navigator: null,
     selectedTabnavigator: null,
     loading: false,
-    user: {}
+    user: {},
+    tokenNotification: ''
   }
-    
+  
+  async componentDidMount() {
+    let token = await registerForPushNotificationsAsync()
+    console.log(token)
+    this.setState({tokenNotification: token})
+    Notifications.addNotificationReceivedListener(this.handleNotifications)
+  }
+
+  handleNotifications = (notification)=> {
+    console.log(notification)
+  }
+
   // LOGIN
   login = (user) => {
     
@@ -97,6 +113,7 @@ export default class App extends React.Component {
             loading = {this.state.loading}
             loginFunction = { this.login }
           />
+          <TextInput value={ this.state.tokenNotification } />
         </Provider>
       )
     }
