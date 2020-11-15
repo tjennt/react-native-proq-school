@@ -41,18 +41,11 @@ class LoginComponent extends Component {
         }
     }
     signInWithGoogle = async () => {
-        
-        // LOGIN DON'T NEED LOGIN
-        // this.loginSuccess({
-        //     token: 'eyeafa23rewgds',
-        //     email: 'toma.nguyen675@gmail.com'
-        // })
-        // return;
-
         try {
             this.setState({ loading: true })
             const result = await Google.logInAsync({
                 androidClientId: PARAMETER.ANDROID_CLIENT_ID,
+                androidStandaloneAppClientId: PARAMETER.ANDROID_CLIENT_ID,
                 scopes: ["profile", "email"]
             });
     
@@ -97,7 +90,7 @@ class LoginComponent extends Component {
         try {
             let res = await axios.get(`${PARAMETER.SERVER}/v1/${access}/profile/`, {
                 headers: {
-                    'Authorization': `Bearer ${Faketoken}`
+                    'Authorization': `Bearer ${dataLogin.token}`
                 }
             })
 
@@ -105,8 +98,8 @@ class LoginComponent extends Component {
 
             if (data.success == true) {
                 data.payload.role = dataLogin.access
-                delete data.payload.token
-                data.payload.token = Faketoken
+                data.payload.token = dataLogin.token
+                // data.payload.token = Faketoken
                 this.props.addUser(data.payload)
                 this.props.loginFunction({
                     role: dataLogin.access

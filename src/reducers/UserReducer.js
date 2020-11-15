@@ -12,16 +12,7 @@ export default (state = user, action) => {
         
     case USER_ACTION.DELETE_USER:
 
-        return {...state, 
-            token : null, 
-            email: null,
-            studentCode: null,
-            userName : null, 
-            fullName : null, 
-            avatar: null,
-            className: null,
-            role: null
-        };
+        return state = {};
 
     default:
         return state;

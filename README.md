@@ -58,7 +58,17 @@ Chức năng chính:
   + Xem thời khóa biểu dạy.
   + Xem môn đang dạy và lịch dạy.
 ```
+```
+Android config
+-Developer
+  Sha1: F6:02:DA:09:59:FC:72:55:F3:98:ED:4C:10:F1:D8:EE:F9:F0:76:A0
+  package name: host.exp.exponent
 
+-Production
+  Sha1: F6:02:DA:09:59:FC:72:55:F3:98:ED:4C:10:F1:D8:EE:F9:F0:76:A0
+  package name: wit.reactnative.proqschool
+
+```
 
 KEY STORE
 ```
