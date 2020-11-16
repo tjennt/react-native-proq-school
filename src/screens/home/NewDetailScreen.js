@@ -41,7 +41,7 @@ export default class NewDetailScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      opacityImage: 1
     }
   }
 
@@ -51,20 +51,62 @@ export default class NewDetailScreen extends React.Component {
     console.log(this.props)
   }
 
+  handleScroll = (event)=> {
+    
+    let height = event.nativeEvent.contentOffset.y
+    console.log(height)
+    let heightResult = 1
+    if (height >= 10 && height < 40) {
+      heightResult = 0.9
+    }
+    else if (height >= 40 && height < 60){
+      heightResult = 0.8
+    }
+    else if (height >= 60 && height < 80){
+      heightResult = 0.7
+    }
+    else if (height >= 80 && height < 100){
+      heightResult = 0.6
+    }
+    else if (height >= 100 && height < 120){
+      heightResult = 0.5
+    }
+    else if (height >= 120 && height < 140){
+      heightResult = 0.4
+    }
+    else if (height >= 140 && height < 160){
+      heightResult = 0.3
+    }
+    else if (height >= 160 && height < 180){
+      heightResult = 0.2
+    }
+    else if (height >= 180 && height < 200){
+      heightResult = 0.1
+    }
+    else if (height >= 200){
+      heightResult = 0
+    }
+    
+    this.setState({opacityImage: heightResult})
+  }
+  
   render() {
     const news = this.props.navigation.getParam('news');
-
+    const { opacityImage } = this.state
     return (
       <View style={ styles.container }>
         <View style={ styles.viewImage }>
           <Image
             source={{ uri: news.image }}
-            style={ styles.image }
+            style={ [styles.image, { opacity: opacityImage } ] }
             PlaceholderContent={<ActivityIndicator color={ COLORS.MAIN_PRIMARY } />}
           />
         </View>
 
-        <ScrollView style={ styles.scrollView }>
+        <ScrollView 
+          style={ styles.scrollView }
+          onScroll={this.handleScroll}
+        >
           <View style={ styles.viewContent }>
           <Text style={ styles.title }>{ news.title }</Text>
               
@@ -128,7 +170,7 @@ const styles = StyleSheet.create({
   },
   author: { 
     flex: 0.5, 
-    color: '#cccccc' 
+    color: '#cccccc'
   },
   time: { 
     flex: 0.5, 

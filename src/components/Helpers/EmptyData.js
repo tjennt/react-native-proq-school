@@ -4,7 +4,7 @@ import { View,
     StyleSheet, 
     Dimensions, 
     ScrollView, 
-    TouchableOpacity,
+    Image,
     ActivityIndicator } from 'react-native';
   
   import { Button, 
@@ -33,7 +33,13 @@ export default class EmptyData extends Component {
         if (stopLoad) {
             return 
         }
-        return <Text style={ { textAlign: 'center' } }>Không có dữ liệu...</Text>
+        return <View style={ styles.container }>
+            <Image
+                style={styles.EmptyData}
+                source={require('../../assets/images/illustrators/empty-data.png')}
+            />
+            <Text style={ styles.Text }>Không tìm thấy dữ liệu</Text>
+        </View>
     }
     render () {
         return (
@@ -52,5 +58,18 @@ export default class EmptyData extends Component {
 }
 
 const styles = StyleSheet.create({
-
+    container: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    EmptyData: {
+        width: '100%',
+        height: 300
+    },
+    Text: { 
+        color: Colors.MAIN_PRIMARY,
+        fontSize: 20,
+        textAlign: 'center'
+    }
 });
