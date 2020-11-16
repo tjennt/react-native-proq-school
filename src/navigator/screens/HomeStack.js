@@ -2,7 +2,7 @@
 import HomeScreen from '../../screens/HomeScreen';
 import NewsDetail from '../../screens/home/NewDetailScreen';
 
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator, TransitionPresets } from 'react-navigation-stack';
 
 // IMPORT LOCALE
 import { LOGIN, NAVIGATOR } from '../../constants/Locale';
@@ -30,7 +30,10 @@ const HomeStack = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'HomeScreen'
+    initialRouteName: 'HomeScreen',
+    defaultNavigationOptions: {
+      ...TransitionPresets.SlideFromRightIOS,
+    },
   }
 );
 

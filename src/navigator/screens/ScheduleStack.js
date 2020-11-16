@@ -4,7 +4,7 @@ import TeacherScheduleScreen from '../../screens/teachers/TeacherScheduleScreen'
 import TeacherScheduleClassScreen from '../../screens/teachers/TeacherScheduleClassScreen';
 
 
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator, TransitionPresets } from 'react-navigation-stack';
 
 // IMPORT LOCALE
 import { LOGIN, NAVIGATOR } from '../../constants/Locale';
@@ -26,7 +26,10 @@ export const StudentScheduleStack = createStackNavigator(
         
     },
     {
-        initialRouteName: 'StudentScheduleScreen'
+        initialRouteName: 'StudentScheduleScreen',
+        defaultNavigationOptions: {
+            ...TransitionPresets.SlideFromRightIOS,
+        },
     }
 );
 
@@ -52,6 +55,9 @@ export const TeacherScheduleStack = createStackNavigator(
         },
     },
     {
-        initialRouteName: 'TeacherScheduleScreen'
+        initialRouteName: 'TeacherScheduleScreen',
+        defaultNavigationOptions: {
+            ...TransitionPresets.SlideFromRightIOS,
+        },
     }
 );

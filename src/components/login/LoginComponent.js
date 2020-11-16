@@ -4,7 +4,8 @@ import { ActivityIndicator,
     StyleSheet,
     TouchableOpacity, 
     ImageBackground,
-    View } from 'react-native';
+    View,
+    Alert } from 'react-native';
 
 import { Image,
     Avatar,
@@ -40,6 +41,7 @@ class LoginComponent extends Component {
             loading: false
         }
     }
+
     signInWithGoogle = async () => {
         try {
             this.setState({ loading: true })
@@ -53,11 +55,9 @@ class LoginComponent extends Component {
                 this.loginServerApi(result)
             } else {
                 this.setState({ loading: false })
-                console.log("Out login")
             }
         } catch (e) {
             console.log('Error with login', e);
-            return { error: true };
         }
     };
 
@@ -74,13 +74,13 @@ class LoginComponent extends Component {
             })
             let { data } = res
             if (data.success === true){
-                // console.log(data)
                 return this.loginSuccess(data.payload)
             }
             return this.loginFail()
 
         } catch (error) {
             console.log("error", error)
+            return this.loginFail()
         }
     }
     
@@ -112,7 +112,8 @@ class LoginComponent extends Component {
     }
 
     loginFail = ()=> {
-        
+        this.setState({ loading: false })
+        Alert.alert('Cảnh báo', 'Đăng nhập thất bại, vui lòng thử lại!')
     }
 
     render () {

@@ -54,8 +54,8 @@ export default class NewDetailScreen extends React.Component {
   handleScroll = (event)=> {
     
     let height = event.nativeEvent.contentOffset.y
-    console.log(height)
     let heightResult = 1
+
     if (height >= 10 && height < 40) {
       heightResult = 0.9
     }
@@ -154,15 +154,22 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.LIGHT 
   },
-  viewContent: { 
+  viewContent: {
     padding: 10,
-    marginTop: 200,
+    marginTop: 190,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    backgroundColor: COLORS.LIGHT
+    backgroundColor: COLORS.LIGHT,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   scrollView: {
-    height: PARAMETER.HEIGHT_SCROLL != 0 ? PARAMETER.HEIGHT_SCROLL + 200 : 'unset',
   },
   title: {
     fontSize: 22,
@@ -187,7 +194,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    backgroundColor: "#000000"
   },
   image: {
     resizeMode: 'cover',

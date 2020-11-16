@@ -1,7 +1,7 @@
 // IMPORT COMPONENT
 import ProfileScreen from '../../screens/ProfileScreen';
 
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator, TransitionPresets } from 'react-navigation-stack';
 
 // IMPORT LOCALE
 import { LOGIN, NAVIGATOR } from '../../constants/Locale';
@@ -21,7 +21,10 @@ const ProfileStack = createStackNavigator(
         },
     },
     {
-        initialRouteName: 'ProfileScreen'
+        initialRouteName: 'ProfileScreen',
+        defaultNavigationOptions: {
+            ...TransitionPresets.SlideFromRightIOS,
+        },
     }
 );
 

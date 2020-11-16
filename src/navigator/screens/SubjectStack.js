@@ -6,7 +6,7 @@ import TeacherSubjectScreen from '../../screens/teachers/TeacherSubjectScreen';
 import TeacherSubjectScheduleScreen from '../../screens/teachers/TeacherSubjectScheduleScreen';
 import TeacherScheduleClassScreen from '../../screens/teachers/TeacherScheduleClassScreen';
 
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator, TransitionPresets } from 'react-navigation-stack';
 
 // IMPORT LOCALE
 import { LOGIN, NAVIGATOR } from '../../constants/Locale';
@@ -31,7 +31,10 @@ export const StudentSubjectStack = createStackNavigator(
         }
     },
     {
-        initialRouteName: 'StudentSubjectScreen'
+        initialRouteName: 'StudentSubjectScreen',
+        defaultNavigationOptions: {
+            ...TransitionPresets.SlideFromRightIOS,
+        },
     }
 );
 
@@ -60,6 +63,9 @@ export const TeacherSubjectStack = createStackNavigator(
         }
     },
     {
-        initialRouteName: 'TeacherSubjectScreen'
+        initialRouteName: 'TeacherSubjectScreen',
+        defaultNavigationOptions: {
+            ...TransitionPresets.SlideFromRightIOS,
+        },
     }
 );
