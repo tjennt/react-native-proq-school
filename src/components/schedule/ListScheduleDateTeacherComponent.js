@@ -41,6 +41,7 @@ class ListScheduleDateTeacherComponent extends Component {
             dataSheet: {},
             isVisible: false,
             loading: true,
+            stopLoad: true,
             listDays: [],
             sheetList: [
                 {
@@ -77,20 +78,12 @@ class ListScheduleDateTeacherComponent extends Component {
     }
     
     componentDidMount() {
-        // const { data } = this.props 
-        // setTimeout(()=> {
-        //     this.setState({
-        //         listDays: data.listDays,
-        //         loading: false
-        //     })
-        // }, 1)
-        return this.getListSchedule()
+        this.getListSchedule()
     }
 
     keyExtractor = (item, index) => index.toString()
 
     renderItem = ({ item }) => {
-        const { data } = this.props
         return (
             <ListItem containerStyle={ styles.ListItemSchedule }>
                 <TouchableOpacity
@@ -106,13 +99,13 @@ class ListScheduleDateTeacherComponent extends Component {
                             <ListItem.Title style={styles.text}>
                                 <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
                                 <Text style={ styles.TextDateTime }>
-                                    &nbsp; { HelperService.getDateName(item) } - 
-                                    (Ca { data.shift })
+                                    &nbsp; { HelperService.getDateName(HelperService.getDateNow()) } - 
+                                    (Ca { item.shift })
                                 </Text>
                             </ListItem.Title>
 
                             <ListItem.Subtitle style={{ flex: 1, fontSize: 13, textAlign: 'right', marginTop: 5 }}>
-                                { HelperService.getDateFormat(item) } 
+                                { HelperService.getDateFormat(HelperService.getDateNow()) } 
                             </ListItem.Subtitle>
                         
                         </ListItem.Content>
@@ -120,12 +113,14 @@ class ListScheduleDateTeacherComponent extends Component {
                         {/* Bottom content */}
                         <ListItem.Content style={ styles.ContentRowBottom }>
 
-                            <ListItem.Title style={{ flex: 1 }}>{ data.subject.name.toUpperCase() } - { 'Môn học thú vị' }</ListItem.Title>
+                            <ListItem.Title style={{ flex: 1 }}>
+                                { item.subject.name.toUpperCase() } - { 'Môn học thú vị' }
+                            </ListItem.Title>
                     
                             <Badge
                                 badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
                                 textStyle={{ fontWeight: 'bold' }}
-                                value={ data.class.name.toUpperCase() }
+                                value={ item.class.name.toUpperCase() }
                                 status="success" />
 
                         </ListItem.Content>
@@ -146,7 +141,9 @@ class ListScheduleDateTeacherComponent extends Component {
             })
             let { data } = res
             if (data.success) {
-                console.log(data)
+                this.setState({ listDays: data.payload, loading: false })
+            }else {
+                this.setState({ loading: false, stopLoad: false }) 
             }
 
         } catch (error) {
@@ -155,11 +152,10 @@ class ListScheduleDateTeacherComponent extends Component {
     }
 
     chooseBottomSheet = (item)=> {
-        const { data } = this.props
         this.setState({
             dataSheet: {
-                idClassSubject: data.idClassSubject,
-                day: item
+                idClassSubject: item._id,
+                day: HelperService.getDateFormat(HelperService.getDateNow(), 'month_day_year')
             },
             isVisible: true
         })
@@ -172,12 +168,25 @@ class ListScheduleDateTeacherComponent extends Component {
     }
 
     render () {
-        const { data, navigation } = this.props
-        const { isVisible, sheetList, dataSheet, listDays, loading } = this.state
+        const { navigation } = this.props
+        const { isVisible, sheetList, dataSheet, listDays, loading, stopLoad } = this.state
 
         return (
-            <SafeAreaView style={styles.container}>
-                <EmptyData loading={loading} stopLoad={true} />
+            <SafeAreaView 
+                style={ 
+                    [
+                        {
+                            flex: loading == false && stopLoad == false 
+                                    || loading == true && stopLoad == true 
+                                    ? 1 : 0,
+                            paddingTop: loading == false && stopLoad == false 
+                                    || loading == true && stopLoad == true 
+                                    ? 100 : 0 
+                        },
+                          styles.container
+                    ]
+                }>
+                <EmptyData loading={loading} stopLoad={stopLoad} />
                 <FlatList
                     keyExtractor={this.keyExtractor}
                     data={listDays}
@@ -222,7 +231,6 @@ export default connect(mapStateToProps, null)(ListScheduleDateTeacherComponent);
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         marginTop: 10,
         paddingLeft: 5,
         paddingRight: 5

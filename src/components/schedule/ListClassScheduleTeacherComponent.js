@@ -49,7 +49,7 @@ class ListClassScheduleTeacherComponent extends Component {
     }
 
     componentDidMount() {
-        return this.getListStudentScheduleClassDay()
+        this.getListStudentScheduleClassDay()
     }
 
     keyExtractor = (item, index) => index.toString()

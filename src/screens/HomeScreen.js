@@ -39,7 +39,7 @@ import axios from 'axios';
 // IMPORT COMPONECT EMPTY DATA
 import EmptyData from '../components/Helpers/EmptyData';
 
-export default class HomeScreen extends React.Component {
+export default class HomeScreen extends Component {
   
   constructor(props) {
     super(props)

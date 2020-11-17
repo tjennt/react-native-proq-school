@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "PROQ SCHOOL",
+    "name": "Proq School",
     "slug": "proq_school",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -29,7 +29,8 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "wit.reactnative.proqschool"
+      "package": "wit.reactnative.proqschool",
+      "useNextNotificationsApi": true
     }
   }
 }

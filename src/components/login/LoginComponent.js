@@ -86,7 +86,7 @@ class LoginComponent extends Component {
     
     loginSuccess = async (dataLogin)=> {
         const { token, access } = dataLogin
-        const Faketoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmE2OTcyOGE2ZjQ2OWYwNmQ2ODc1NmQiLCJ0ZWFjaGVySWQiOnsiYXZhdGFyIjoidXBsb2Fkcy91c2VyLWF2YXRhci9kZWZhdWx0LmpwZyIsIl9pZCI6IjVmYTY5NzI4YTZmNDY5ZjA2ZDY4NzU2YiIsInRlYWNoZXJDb2RlIjoiR1YxMTEiLCJmdWxsbmFtZSI6IkNow6J1IFRo4bq_IE5pbmgiLCJwaG9uZSI6IjE2NDc4NDE3MiIsImRvYiI6IjIwLzEwLzE5ODAiLCJzcGVjaWFsaXphdGlvbiI6ImpzIiwiX192IjowLCJjcmVhdGVkQXQiOiIyMDIwLTExLTA3VDEyOjQ2OjMyLjc2MVoiLCJ1cGRhdGVkQXQiOiIyMDIwLTExLTA3VDEyOjQ2OjMyLjc2MVoifSwic3R1ZGVudElkIjpudWxsLCJhY2Nlc3MiOiJ0ZWFjaGVyIiwiaWF0IjoxNjA0ODIyMjYyLCJleHAiOjE2MDU2ODYyNjJ9.N29lWjzGh6xtcL6bdn9PETJWkjFZbmutnJN9eiK-vi0";
+        // console.log(dataLogin)
         try {
             let res = await axios.get(`${PARAMETER.SERVER}/v1/${access}/profile/`, {
                 headers: {
@@ -153,7 +153,6 @@ class LoginComponent extends Component {
                         </View>
 
                         {/* Login google */}
-                        {/* <Text>{ this.state.loading ? 'Loading....' : '' }</Text> */}
                         <TouchableOpacity
                             onPress={ this.signInWithGoogle }
                             // disabled={true}

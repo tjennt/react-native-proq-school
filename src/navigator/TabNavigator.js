@@ -7,13 +7,11 @@ import { View, Text } from 'react-native';
 import LoginComponent from '../components/login/LoginComponent';
 import HomeStack from './screens/HomeStack';
 import ProfileStack from './screens/ProfileStack';
+import MoreStack from './screens/MoreStack';
 import { StudentScheduleStack, TeacherScheduleStack } from './screens/ScheduleStack';
 import { StudentSubjectStack, TeacherSubjectStack } from './screens/SubjectStack';
 
 import ProfileScreen from '../screens/ProfileScreen';
-import MoreScreen from '../screens/MoreScreen';
-
-
 
 // IMPORT LIBRARY
 import {Ionicons,
@@ -84,7 +82,7 @@ export const STUDENT = {
         }
     },
     More: {
-    screen: MoreScreen,
+    screen: MoreStack,
     navigationOptions: {
         title: NAVIGATOR.more,
         tabBarIcon: ({ tintColor }) => (
@@ -156,7 +154,7 @@ export const TEACHER = {
         }
     },
     More: {
-    screen: MoreScreen,
+    screen: MoreStack,
     navigationOptions: {
         title: NAVIGATOR.more,
         tabBarIcon: ({ tintColor }) => (

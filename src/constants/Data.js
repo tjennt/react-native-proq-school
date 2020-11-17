@@ -1,7 +1,7 @@
 export const DAYS = [
     {
         id: 0,
-        label: 'Tất cả',
+        label: 'Hôm nay',
         value: 0
     },
     {
