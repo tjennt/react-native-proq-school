@@ -25,8 +25,9 @@ const HomeStack = createStackNavigator(
     NewsDetail: {
       screen: NewsDetail,
       navigationOptions: {
-        title: ''
-      }
+        title: '',
+        headerTintColor: COLORS.LIGHT
+      },
     },
   },
   {

@@ -48,11 +48,11 @@ export default class StudentScheduleScreen extends Component {
     return (
       <View style={{ backgroundColor: COLORS.LIGHT, flex: 1 }}>
         <View style={ styles.ViewListDays }>
-          <ListDaysComponent 
+          {/* <ListDaysComponent 
             days={ DAYS }
             buttonStyleSeleted={ this.buttonStyleSeleted }
             getScheduleDays={ this.getScheduleDays }
-          />
+          /> */}
         </View>
 
         <ListScheduleStudentComponent />

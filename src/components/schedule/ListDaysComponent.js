@@ -28,7 +28,7 @@ export default class ListDaysComponent extends Component {
                   <Button
                       title= { day.label }
                       buttonStyle={ buttonStyleSeleted(index) }
-                      onPress={ ()=> { getScheduleDays(day.id, index) } }
+                      onPress={ ()=> { getScheduleDays(day, index) } }
                   ></Button>
                 ))
               }

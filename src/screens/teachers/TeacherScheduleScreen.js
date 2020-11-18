@@ -20,87 +20,45 @@ import ListScheduleDateTeacherComponent from '../../components/schedule/ListSche
 
 import * as COLORS from '../../constants/Colors';
 
-// IMPORT DATA
-import { DAYS } from '../../constants/Data';
-const list = [
-  {
-    name: 'Học Laravel',
-    code: 'PHP',
-    date: '2020/13/10',
-    nameDay: 'Thứ 2',
-    nameClass: 'WD14301',
-    roomCode: 'P401',
-    studyTime: 'Ca 1',
-    description: 'Bua nay vo hoc cho vui thoi'
-  },
-  {
-      name: 'Học Laravel',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'Thứ 2',
-      nameClass: 'WD14301',
-      roomCode: 'P401',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-  },
-  {
-      name: 'Học Laravel',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'Thứ 2',
-      nameClass: 'WD14301',
-      roomCode: 'P401',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-  },
-  {
-      name: 'Học Laravel',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'Thứ 2',
-      nameClass: 'WD14301',
-      roomCode: 'P401',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-  },
-  {
-      name: 'Học Laravel',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'Thứ 2',
-      nameClass: 'WD14301',
-      roomCode: 'P401',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-  },
-  {
-      name: 'Học Laravel',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'Thứ 2',
-      nameClass: 'WD14301',
-      roomCode: 'P401',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-  },
-  {
-      name: 'Học Laravel',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'Thứ 2',
-      nameClass: 'WD14301',
-      roomCode: 'P401',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-  },
-];
-export default class TeacherScheduleScreen extends Component {
+// IMPORT HELPERS
+import * as HelperService from '../../services/HelperService';
+
+import * as apiSchedule from '../../services/api/schedule';
+
+// IMPORT COMPONECT EMPTY DATA
+import EmptyData from '../../components/Helpers/EmptyData';
+
+import axios from 'axios';
+
+// IMPORT REDUX
+import * as actions from '../../actions';
+import { connect } from 'react-redux';
+
+class TeacherScheduleScreen extends Component {
   
   constructor(props) {
     super(props)
     this.state = {
-      selectedDay: 0
+      days: [],
+      selectedDay: 0,
+      day: {},
+      listDays: [],
+      dateNow: '',
+      dataSheet: {},
+      isVisible: false,
+      loading: true,
+      stopLoad: true
     }
+  }
+
+  async componentDidMount() {
+    let listDays = await HelperService.getDateNowToWeekend()
+      
+    await this.setState({
+      days: listDays,
+      day: listDays[0]
+    })
+    this.getListSchedule()
   }
 
   // Selected button
@@ -110,32 +68,69 @@ export default class TeacherScheduleScreen extends Component {
     }
     return styles.ButtonStyle
   }
-  getScheduleDays = (day, index) => {
+
+  getScheduleDays = async (day, index) => {
     
     // Selected day
-    this.setState({
-      selectedDay: index
+    await this.setState({
+      selectedDay: index,
+      day: day,
+      loading: true,
+      stopLoad: true
     })
+    this.getListSchedule()
   }
 
-  render() {
+  getListSchedule = async ()=> {
+        
+    const { user } = this.props
+    const { day } = this.state
+
+    try {
+        let data = await apiSchedule.getListScheduleApi({user, day})
+        this.setState(data)
+    } catch (error) {
+        console.log(error)
+        this.setState({ loading: false, stopLoad: false })
+    }
+
+  }
+
+  renderListOrEmpty() {
+    const { day, listDays, loading, stopLoad } = this.state
     const { navigation } = this.props
+
+    if(listDays.length == 0) {
+      return <EmptyData loading={loading} stopLoad={stopLoad} />
+    }
+
+    return <ListScheduleDateTeacherComponent listDays={listDays} day={day} navigation={navigation} />
+
+  }
+  render() {
+    const { days } = this.state
     return (
       <View style={{ backgroundColor: COLORS.LIGHT, flex: 1 }}>
         <View style={ styles.ViewListDays }>
           <ListDaysComponent 
-            days={ DAYS }
+            days={ days }
             buttonStyleSeleted={ this.buttonStyleSeleted }
             getScheduleDays={ this.getScheduleDays }
           />
         </View>
-        
-        <ListScheduleDateTeacherComponent navigation={navigation} />
-      
+        {
+          this.renderListOrEmpty()
+        }
       </View>
     )
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps, null)(TeacherScheduleScreen);
 
 const styles = StyleSheet.create({
   ButtonStyle: {

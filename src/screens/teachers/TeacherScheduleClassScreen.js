@@ -15,7 +15,6 @@ import { Button,
 import STYLE_GOBAL from '../../styles/Global';
 
 // IMPORT COMPONENTS
-import ListDaysComponent from '../../components/schedule/ListDaysComponent';
 import ListClassScheduleTeacherComponent from '../../components/schedule/ListClassScheduleTeacherComponent';
 
 import * as COLORS from '../../constants/Colors';

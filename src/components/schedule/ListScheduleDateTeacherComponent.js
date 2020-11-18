@@ -26,69 +26,32 @@ import {Ionicons,
     AntDesign 
 } from 'react-native-vector-icons';
 
-// IMPORT HELPERS
+// IMPORT Service
 import * as HelperService from '../../services/HelperService';
+
+import * as apiSchedule from '../../services/api/schedule';
 
 // IMPORT COMPONECT EMPTY DATA
 import EmptyData from '../Helpers/EmptyData';
 import axios from 'axios';
 
-class ListScheduleDateTeacherComponent extends Component {
+export default class ListScheduleDateTeacherComponent extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            dataSheet: {},
-            isVisible: false,
-            loading: true,
-            stopLoad: true,
-            listDays: [],
-            sheetList: [
-                {
-                    id: 1,
-                    name: 'Điểm danh',
-                    style: {},
-                    onPress: ()=> {
-                        this.setState({ isVisible: false })
-
-                        this.props.navigation.push( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
-                            classSubject: this.state.dataSheet
-                        })
-                     }
-                },
-                {
-                    id: 2,
-                    name: 'Xem danh sách lớp',
-                    style: {}
-                },
-                {
-                    id: 3,
-                    name: 'Xem điểm',
-                    style: {}
-                },
-                {
-                    id: 4,
-                    name: 'Hủy bỏ',
-                    containerStyle: { backgroundColor: '#b71c1c' },
-                    style: { color: '#fff' },
-                    onPress: ()=> { this.setState({ isVisible: false }) }
-                },
-            ]
         }
-    }
-    
-    componentDidMount() {
-        this.getListSchedule()
     }
 
     keyExtractor = (item, index) => index.toString()
 
     renderItem = ({ item }) => {
+        const { day } = this.props
         return (
             <ListItem containerStyle={ styles.ListItemSchedule }>
                 <TouchableOpacity
                     style={ { flex: 1 } }
-                    onPress={ ()=> { this.chooseBottomSheet(item) } } 
+                    onPress={ ()=> { this.navigateSchedule(item, day) } } 
                 >
                     {/* CONTENT */}
                     <ListItem.Content>
@@ -99,13 +62,13 @@ class ListScheduleDateTeacherComponent extends Component {
                             <ListItem.Title style={styles.text}>
                                 <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
                                 <Text style={ styles.TextDateTime }>
-                                    &nbsp; { HelperService.getDateName(HelperService.getDateNow()) } - 
+                                    &nbsp; { day.label } - 
                                     (Ca { item.shift })
                                 </Text>
                             </ListItem.Title>
 
                             <ListItem.Subtitle style={{ flex: 1, fontSize: 13, textAlign: 'right', marginTop: 5 }}>
-                                { HelperService.getDateFormat(HelperService.getDateNow()) } 
+                                { day.value } 
                             </ListItem.Subtitle>
                         
                         </ListItem.Content>
@@ -131,102 +94,33 @@ class ListScheduleDateTeacherComponent extends Component {
         )
     }
 
-    getListSchedule = async ()=> {
-        const { user } = this.props
-        try {
-            let res = await axios.get(`${PARAMETER.SERVER}/v1/teacher/schedules/`,{
-                headers: {
-                    'Authorization': `Bearer ${user.token}`
-                }
-            })
-            let { data } = res
-            if (data.success) {
-                this.setState({ listDays: data.payload, loading: false })
-            }else {
-                this.setState({ loading: false, stopLoad: false }) 
-            }
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    chooseBottomSheet = (item)=> {
-        this.setState({
-            dataSheet: {
+    navigateSchedule = (item, day) => {
+        
+        this.props.navigation.push( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
+            classSubject: {
                 idClassSubject: item._id,
-                day: HelperService.getDateFormat(HelperService.getDateNow(), 'month_day_year')
-            },
-            isVisible: true
+                day: day.value
+            }
         })
-    }
 
-    navigateSchedule = () => {
-        const { dataSheet } = this.state
-
-        this.props.navigation.push( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen')
     }
 
     render () {
-        const { navigation } = this.props
-        const { isVisible, sheetList, dataSheet, listDays, loading, stopLoad } = this.state
-
+        const { navigation, listDays } = this.props
         return (
             <SafeAreaView 
-                style={ 
-                    [
-                        {
-                            flex: loading == false && stopLoad == false 
-                                    || loading == true && stopLoad == true 
-                                    ? 1 : 0,
-                            paddingTop: loading == false && stopLoad == false 
-                                    || loading == true && stopLoad == true 
-                                    ? 100 : 0 
-                        },
-                          styles.container
-                    ]
-                }>
-                <EmptyData loading={loading} stopLoad={stopLoad} />
+                style={styles.container}>
+                
                 <FlatList
                     keyExtractor={this.keyExtractor}
                     data={listDays}
                     renderItem={this.renderItem}
                 />
 
-                {/* BOTTOM SHEET CHOOSE */}
-                <BottomSheet
-                    isVisible={isVisible}
-                    containerStyle={ {
-                        borderRadius: 10
-                    } }
-                >
-                    <ListItem bottomDivider>
-                        <ListItem.Content>
-                            <ListItem.Title style={ styles.ListItemTitleNameClass }>
-                                { dataSheet.nameClass }
-                            </ListItem.Title>
-                        </ListItem.Content>
-                    </ListItem>
-
-                    {sheetList.map((sheet, key) => (
-                        <ListItem key={key} containerStyle={ sheet.containerStyle } onPress={sheet.onPress}>
-                        <ListItem.Content>
-                            <ListItem.Title style={ sheet.style }>{sheet.name}</ListItem.Title>
-                        </ListItem.Content>
-                        </ListItem>
-                    ))}
-                </BottomSheet>
-
             </SafeAreaView>
         )
     }
 }
-
-const mapStateToProps = state => ({
-    user: state.user
-});
-
-export default connect(mapStateToProps, null)(ListScheduleDateTeacherComponent);
 
 
 const styles = StyleSheet.create({

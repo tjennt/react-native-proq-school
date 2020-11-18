@@ -27,6 +27,9 @@ import {Entypo,
   AntDesign 
 } from 'react-native-vector-icons';
 
+// IMPORT HELPER SERVICE
+import { _removeData } from '../services/HelperService';
+
 class MoreScreen extends Component {
   
   static navigationOptions = ({ navigation }) => ({
@@ -38,6 +41,7 @@ class MoreScreen extends Component {
 
   logout = ()=> {
     const { navigation, deleteUser } = this.props
+    _removeData('user')
     deleteUser()
     Updates.reloadAsync()
   }

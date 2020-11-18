@@ -38,7 +38,7 @@ export const TeacherScheduleStack = createStackNavigator(
         TeacherScheduleScreen: {
         screen: TeacherScheduleScreen,
         navigationOptions: {
-                title: NAVIGATOR.scheduleTeacher,
+                title: NAVIGATOR.scheduleTeacherWeek,
                 headerTitleAlign: 'left',
                 headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
                 headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }

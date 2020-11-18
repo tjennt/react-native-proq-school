@@ -33,6 +33,9 @@ import * as PARAMETER from '../../constants/Parameter';
 // IMPORT AXIOS
 import axios from 'axios';
 
+// IMPORT HELPER SERVICE
+import { _storeData, _retrieveData } from '../../services/HelperService';
+
 class LoginComponent extends Component {
     
     constructor(props) {
@@ -40,6 +43,10 @@ class LoginComponent extends Component {
         this.state = {
             loading: false
         }
+    }
+    componentDidMount() {
+        this.setState({loading: true})
+        this.loginWhenAsyncData()
     }
 
     signInWithGoogle = async () => {
@@ -86,7 +93,7 @@ class LoginComponent extends Component {
     
     loginSuccess = async (dataLogin)=> {
         const { token, access } = dataLogin
-        // console.log(dataLogin)
+        console.log(dataLogin)
         try {
             let res = await axios.get(`${PARAMETER.SERVER}/v1/${access}/profile/`, {
                 headers: {
@@ -99,7 +106,11 @@ class LoginComponent extends Component {
             if (data.success == true) {
                 data.payload.role = dataLogin.access
                 data.payload.token = dataLogin.token
-                // data.payload.token = Faketoken
+                
+                _storeData({
+                    key: 'user',
+                    value: JSON.stringify(data)
+                })
                 this.props.addUser(data.payload)
                 this.props.loginFunction({
                     role: dataLogin.access
@@ -111,6 +122,26 @@ class LoginComponent extends Component {
         }
     }
 
+    loginWhenAsyncData = async ()=> {
+        try {
+            let user = await _retrieveData('user')
+            if (user == null) {
+                this.setState({loading: false})
+                return false
+            }
+            user = JSON.parse(user)
+            console.log(user)
+            this.props.addUser(user.payload)
+            
+            this.props.loginFunction({
+                role: user.payload.role
+            })
+            
+        } catch (error) {
+            this.setState({loading: false})
+            console.log(error)
+        }
+    }
     loginFail = ()=> {
         this.setState({ loading: false })
         Alert.alert('Cảnh báo', 'Đăng nhập thất bại, vui lòng thử lại!')
