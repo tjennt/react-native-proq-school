@@ -5,10 +5,14 @@ import {
     TouchableOpacity,
     TouchableHighlight,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    SafeAreaView
   } from 'react-native';
 
-import { Image } from 'react-native-elements';
+import { 
+  Image,
+  ListItem
+ } from 'react-native-elements';
 
 import STYLE_GOBAL from '../styles/Global';
 
@@ -48,7 +52,7 @@ class MoreScreen extends Component {
   
   render() {
     return (
-      <ScrollView style={ styles.ScrollView }>
+      <SafeAreaView style={ styles.SafeAreaView }>
         <View style={ styles.ViewImage }>
           <Image
             source={ require('../assets/images/illustrators/logo.png') }
@@ -61,7 +65,8 @@ class MoreScreen extends Component {
         {/* Menu */}
         <TouchableHighlight 
           style={ styles.TouchableHighlight }
-          onPress={()=> console.log('Chat') }
+          underlayColor={ COLORS.MAIN_BG }
+          onPress={()=> alert('CHAT') }
         >
           <View style={styles.ViewTagMenu}>
             <AntDesign style={[styles.IconTitle]} size={35} name={'message1'} />
@@ -72,7 +77,8 @@ class MoreScreen extends Component {
 
         <TouchableHighlight
           style={ styles.TouchableHighlight }
-          onPress={()=> console.log('Chat') }
+          underlayColor={ COLORS.MAIN_BG }
+          onPress={()=> alert('USERS') }
         >
           <View style={styles.ViewTagMenu}>
             <Feather style={[styles.IconTitle]} size={35} name={'users'} />
@@ -83,7 +89,8 @@ class MoreScreen extends Component {
 
         <TouchableHighlight 
           style={ styles.TouchableHighlight }
-          onPress={()=> console.log('Chat') }
+          underlayColor={ COLORS.MAIN_BG }
+          onPress={()=> alert('SEND') }
         >
           <View style={styles.ViewTagMenu}>
             <Entypo style={[styles.IconTitle]} size={35} name={'notification'} />
@@ -94,7 +101,8 @@ class MoreScreen extends Component {
 
         <TouchableHighlight 
           style={ styles.TouchableHighlight }
-          onPress={()=> console.log('Setting') }
+          underlayColor={ COLORS.MAIN_BG }
+          onPress={()=> alert('Setting') }
         >
           <View style={styles.ViewTagMenu}>
             <AntDesign style={[styles.IconTitle]} size={35} name={'setting'} />
@@ -105,6 +113,7 @@ class MoreScreen extends Component {
 
         <TouchableHighlight 
           style={ styles.TouchableHighlight }
+          underlayColor={ COLORS.MAIN_BG }
           onPress={()=> this.logout() }
         >
           <View style={styles.ViewTagMenu}>
@@ -114,7 +123,7 @@ class MoreScreen extends Component {
           </View>
         </TouchableHighlight>
 
-      </ScrollView>
+      </SafeAreaView>
     )
   }
 }
@@ -126,14 +135,19 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, actions)(MoreScreen);
 
 const styles = StyleSheet.create({
-  ScrollView: {
-    padding: 10
+  SafeAreaView: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingRight: 5
   },
   ViewTagMenu: {
     flexDirection: 'row',
     width: '100%',
     padding: 15,
     backgroundColor: COLORS.LIGHT,
+    // borderRadius: 20,
+    borderBottomRightRadius: 45,
+    borderTopRightRadius: 20,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -160,6 +174,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   TextNext: {
+    marginRight: 10,
     paddingTop: 5,
     fontSize: 17,
     textAlign: 'right',

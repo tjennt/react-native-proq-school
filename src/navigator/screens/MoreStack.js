@@ -13,7 +13,10 @@ import * as COLORS from '../../constants/Colors';
 const MoreStack = createStackNavigator(
   {
     MoreScreen: {
-      screen: MoreScreen
+      screen: MoreScreen,
+      navigationOptions: {
+        //  headerTransparent: true
+      }
     },
   },
   {

@@ -1,3 +1,5 @@
+import React from 'react';
+
 // IMPORT COMPONENT
 import HomeScreen from '../../screens/HomeScreen';
 import NewsDetail from '../../screens/home/NewDetailScreen';
@@ -10,6 +12,10 @@ import { LOGIN, NAVIGATOR } from '../../constants/Locale';
 // IMPORT COLORS
 import * as COLORS from '../../constants/Colors';
 
+// IMPORT LIBRARY
+import {
+  Entypo
+} from 'react-native-vector-icons';
 
 const HomeStack = createStackNavigator(
   {
@@ -33,9 +39,13 @@ const HomeStack = createStackNavigator(
   {
     initialRouteName: 'HomeScreen',
     defaultNavigationOptions: {
-      ...TransitionPresets.SlideFromRightIOS,
+        headerBackImage: ({ tintColor })=> (
+            <Entypo style={[{color: tintColor}]} name="chevron-thin-left" size={25} />
+        ),
+        headerBackTitle: 'Back',
+        ...TransitionPresets.SlideFromRightIOS,
     },
-  }
+}
 );
 
 export default HomeStack;

@@ -36,7 +36,11 @@ export const _retrieveData = async (key) => {
       console.log(error)
     }
 };
-
+/**
+ * Get by key AsyncStorage 
+ * @param key
+ * @returns value
+ */
 export const _removeData = async (key) => {
     try {
         const value = await AsyncStorage.removeItem(key)
@@ -46,6 +50,7 @@ export const _removeData = async (key) => {
           return false
       }
 }
+
 // get date now parse to iso string
 export const getDateNow = ()=> {
     return new Date().toISOString()
@@ -80,9 +85,19 @@ export const getDateFormat = (date, format = 'date_time_year')=> {
     return result
 }
 
+export const getDayNumber = (date)=> {
+    return new Date(date).getDay()
+}
+
 // Get name day viet nam
-export const getDateName = (date)=> {
-    let day = new Date(date).getDay()
+export const getDateName = (date, type = 'date')=> {
+    
+    let day = date
+
+    if (type == 'date') {
+        day = new Date(date).getDay()
+    }
+
     let result
 
     switch(day){

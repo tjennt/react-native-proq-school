@@ -67,7 +67,7 @@ class ListClassComponent extends Component {
                     <ListItem.Content style={ styles.ContentRow }>
                         
                         <ListItem.Title style={styles.text}>
-                            <MaterialCommunityIcons style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'bookmark-outline'} />    
+                            <MaterialCommunityIcons style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'bookmark-outline'} />    
                             <Text style={ styles.TextDateTime }>
                             &nbsp;{ item.subject.name }
                             </Text>
@@ -108,10 +108,11 @@ class ListClassComponent extends Component {
                     listDays: item.listDays,
                     shift: item.shift,
                     class: item.class,
-                    subject: item.subject
+                    subject: item.subject,
+                    weekDays: item.weekDays
                 }
             })
-
+            
             
         } catch (error) {
             console.log('ERROR', error)

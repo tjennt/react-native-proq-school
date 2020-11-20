@@ -125,7 +125,7 @@ export default class ListSubjectStudentComponent extends Component {
                     <ListItem.Title style={styles.text}
                         onPress={ ()=> { this.moreInfoSchedule(item) } } 
                     >
-                        <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
+                        <AntDesign style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
                         <Text style={ styles.TextDateTime }>
                         &nbsp;{item.name}
                         </Text>

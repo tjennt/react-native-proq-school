@@ -31,7 +31,7 @@ export default class EmptyData extends Component {
                 animating={true} />
         }
         if (stopLoad) {
-            return 
+            return <View />
         }
         return <View style={ styles.container }>
             <Image
@@ -41,14 +41,27 @@ export default class EmptyData extends Component {
             <Text style={ styles.Text }>Không tìm thấy dữ liệu</Text>
         </View>
     }
+
+    styleView = ()=> {
+        const { loading, stopLoad } = this.props
+
+        let style = styles.viewContainer
+        if ( loading) {
+            return style
+        }
+        if (stopLoad) {
+            return {}
+        }
+        return style
+    }
+
     render () {
+        const { loading, stopLoad } = this.props
         return (
-            <View style={ { 
-                flex: 1,
-                justifyContent: 'center',
-                flexDirection: "row",
-                justifyContent: "space-around",
-                padding: 10 } }>
+            <View 
+            style={ 
+                this.styleView()
+            }>
                 {
                     this.checkLoadingOrEmpty()
                 }
@@ -62,6 +75,13 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    viewContainer: { 
+        flex: 1,
+        justifyContent: 'center',
+        flexDirection: "row",
+        justifyContent: "space-around",
+        padding: 10 
     },
     EmptyData: {
         width: '100%',

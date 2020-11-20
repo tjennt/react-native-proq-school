@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     TextName: {
         position: 'absolute',
         left: 135,
-        bottom: -25,
+        bottom: -30,
         padding: 3,
         fontSize: 20,
         fontWeight: 'bold'

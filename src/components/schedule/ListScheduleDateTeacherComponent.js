@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
 
 // IMPORT LIBRARY
 import {Ionicons,
-    MaterialIcons,
+    FontAwesome,
     AntDesign 
 } from 'react-native-vector-icons';
 
@@ -45,7 +45,7 @@ export default class ListScheduleDateTeacherComponent extends Component {
 
     keyExtractor = (item, index) => index.toString()
 
-    renderItem = ({ item }) => {
+    renderItem = ({ item, index }) => {
         const { day } = this.props
         return (
             <ListItem containerStyle={ styles.ListItemSchedule }>
@@ -60,7 +60,9 @@ export default class ListScheduleDateTeacherComponent extends Component {
                         <ListItem.Content style={ styles.ContentRow }>
                             
                             <ListItem.Title style={styles.text}>
-                                <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
+                                {
+                                    this.renderIconRandom(index)
+                                }    
                                 <Text style={ styles.TextDateTime }>
                                     &nbsp; { day.label } - 
                                     (Ca { item.shift })
@@ -94,6 +96,18 @@ export default class ListScheduleDateTeacherComponent extends Component {
         )
     }
 
+    renderIconRandom = (index)=> {
+        if (index % 2) {
+            return <AntDesign style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'staro'} />
+        }
+        if (index % 3) {
+            return <FontAwesome style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'leanpub'} />
+        }
+
+        return <FontAwesome style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'leaf'} />
+
+    }
+
     navigateSchedule = (item, day) => {
         
         this.props.navigation.push( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
@@ -107,6 +121,7 @@ export default class ListScheduleDateTeacherComponent extends Component {
 
     render () {
         const { navigation, listDays } = this.props
+        
         return (
             <SafeAreaView 
                 style={styles.container}>
@@ -122,10 +137,10 @@ export default class ListScheduleDateTeacherComponent extends Component {
     }
 }
 
-
 const styles = StyleSheet.create({
     container: {
         marginTop: 10,
+        marginBottom: 65,
         paddingLeft: 5,
         paddingRight: 5
     },
