@@ -28,6 +28,8 @@ import * as HelperService from '../../services/HelperService';
 // IMPORT COMPONECT EMPTY DATA
 import EmptyData from '../../components/Helpers/EmptyData';
 
+import GLOBAL_STYLES from '../../styles';
+
 export default class ListScheduleTeacherComponent extends Component {
 
     constructor(props) {
@@ -98,13 +100,13 @@ export default class ListScheduleTeacherComponent extends Component {
                             
                             <ListItem.Title style={styles.text}>
                                 { this.renderIconRandom(index) }    
-                                <Text style={ styles.TextDateTime }>
+                                <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextDateTime] }>
                                     &nbsp; { HelperService.getDateName(item) } - 
                                     (Ca { data.shift })
                                 </Text>
                             </ListItem.Title>
 
-                            <ListItem.Subtitle style={{ flex: 1, fontSize: 13, textAlign: 'right', marginTop: 5 }}>
+                            <ListItem.Subtitle style={ [GLOBAL_STYLES.TextTitleStyle, styles.SubTitleDate]}>
                                 { HelperService.getDateFormat(item) } 
                             </ListItem.Subtitle>
                         
@@ -113,11 +115,13 @@ export default class ListScheduleTeacherComponent extends Component {
                         {/* Bottom content */}
                         <ListItem.Content style={ styles.ContentRowBottom }>
 
-                            <ListItem.Title style={{ flex: 1 }}>{ data.subject.name.toUpperCase() } - { 'Môn học thú vị' }</ListItem.Title>
+                            <ListItem.Title style={[GLOBAL_STYLES.TextTitleStyle,{ flex: 1 }]}>
+                                { data.subject.name.toUpperCase() } - { 'Tìm hiểu về biến ...' }
+                                </ListItem.Title>
                     
                             <Badge
                                 badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
-                                textStyle={{ fontWeight: 'bold' }}
+                                textStyle={[GLOBAL_STYLES.ButtonStyle]}
                                 value={ data.class.name.toUpperCase() }
                                 status="success" />
 
@@ -241,7 +245,6 @@ const styles = StyleSheet.create({
     },
     TextDateTime: {
         fontSize: 17,
-        fontWeight: 'bold',
         marginLeft: 5
     },
     ListItemSchedule: { 
@@ -263,5 +266,11 @@ const styles = StyleSheet.create({
     },
     ListItemTitleNameClass: {
         fontWeight: 'bold'
+    },
+    SubTitleDate: { 
+        flex: 1, 
+        fontSize: 13, 
+        textAlign: 'right', 
+        marginTop: 5 
     }
 });

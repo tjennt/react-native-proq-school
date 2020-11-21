@@ -146,7 +146,6 @@ export default class HomeScreen extends Component {
     } else {
      return (
           <View style={ styles.ViewRender }>
-              
           {/* CATEGORY HORIZONTAL TRUE */}
           <View style={ styles.ViewCategories }>
 

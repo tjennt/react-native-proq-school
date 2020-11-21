@@ -16,6 +16,8 @@ import { View,
 
 import * as COLORS from '../../constants/Colors';
 
+import GLOBAL_STYLES from '../../styles';
+
 export default class ListDaysComponent extends Component {
     render () {
         const { days, getScheduleDays, buttonStyleSeleted } = this.props;
@@ -27,6 +29,7 @@ export default class ListDaysComponent extends Component {
                 days.map((day, index)=> (
                   <Button
                       title= { day.label }
+                      titleStyle={[GLOBAL_STYLES.ButtonStyle]}
                       buttonStyle={ buttonStyleSeleted(index) }
                       onPress={ ()=> { getScheduleDays(day, index) } }
                   ></Button>

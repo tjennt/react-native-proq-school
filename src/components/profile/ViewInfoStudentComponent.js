@@ -29,6 +29,8 @@ import {
 // IMPORT COMPONENT
 import RowProfileComponent from './RowProfileComponent';
 
+import GLOBAL_STYLES from '../../styles';
+
 export default class ViewInfoStudentComponent extends Component {
     
 
@@ -52,7 +54,9 @@ export default class ViewInfoStudentComponent extends Component {
                         avatarStyle={styles.AvatarStyle}
                     />
 
-                    <Text style={ styles.TextName }>{ user.studentId.fullName.toUpperCase() }</Text>
+                    <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextName] }>
+                        { user.studentId.fullName.toUpperCase() }
+                    </Text>
 
                 </ImageBackground>
 
@@ -61,7 +65,7 @@ export default class ViewInfoStudentComponent extends Component {
                     label={ APP.roleName }
                     value={ <Badge
                         badgeStyle={ { padding: 10, backgroundColor: COLORS.MAIN_TEXT } }
-                        textStyle={{ fontWeight: 'bold' }}
+                        textStyle={[GLOBAL_STYLES.ButtonStyle ]}
                         value={ APP.studentName }
                       /> }
                 />

@@ -8,6 +8,7 @@ import { LOGIN, NAVIGATOR } from '../../constants/Locale';
 
 // IMPORT COLORS
 import * as COLORS from '../../constants/Colors';
+import * as PARAMETER from '../../constants/Parameter';
 
 
 const ProfileStack = createStackNavigator(
@@ -23,6 +24,10 @@ const ProfileStack = createStackNavigator(
     {
         initialRouteName: 'ProfileScreen',
         defaultNavigationOptions: {
+            headerTitleStyle: { 
+                fontFamily: PARAMETER.FONT_BOLD_MAIN,
+                color: COLORS.LIGHT 
+            },
             ...TransitionPresets.SlideFromRightIOS,
         },
     }

@@ -28,6 +28,8 @@ import {
 // IMPORT COMPONENT
 import RowProfileComponent from './RowProfileComponent';
 
+import GLOBAL_STYLES from '../../styles';
+
 export default class ViewInfoTeacherComponent extends Component {
     
 
@@ -51,7 +53,7 @@ export default class ViewInfoTeacherComponent extends Component {
                         avatarStyle={styles.AvatarStyle}
                     />
 
-                    <Text style={ styles.TextName }>{ user.fullname }</Text>
+                    <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextName] }>{ user.fullname }</Text>
 
                 </ImageBackground>
 
@@ -61,7 +63,7 @@ export default class ViewInfoTeacherComponent extends Component {
                     label={ APP.roleName }
                     value={ <Badge
                         badgeStyle={ { padding: 10, backgroundColor: COLORS.MAIN_TEXT } }
-                        textStyle={{ fontWeight: 'bold' }}
+                        textStyle={[GLOBAL_STYLES.ButtonStyle ]}
                         value={ APP.teacherName }
                       /> }
                 />
@@ -124,8 +126,7 @@ const styles = StyleSheet.create({
         left: 135,
         bottom: -30,
         padding: 3,
-        fontSize: 20,
-        fontWeight: 'bold'
+        fontSize: 20
     },
     ViewAllInfo: {
         paddingLeft: 10,

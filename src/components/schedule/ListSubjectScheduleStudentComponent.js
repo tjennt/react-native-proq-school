@@ -28,6 +28,8 @@ import {Ionicons,
     AntDesign 
 } from 'react-native-vector-icons';
 
+import GLOBAL_STYLES from '../../styles';
+
 const list = [
     {
       name: 'Lập trình PHP',
@@ -152,12 +154,6 @@ export default class ListSubjectScheduleStudentComponent extends Component {
 
     render () {
         const { schedules } = this.props;
-        
-        let heightScroll = 'unset';
-
-        if (PARAMETER.HEIGHT_SCROLL != 0) {
-          heightScroll = PARAMETER.HEIGHT_SCROLL;
-        }
 
         return (
         <SafeAreaView style={styles.container}>

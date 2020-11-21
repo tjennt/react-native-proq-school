@@ -16,6 +16,8 @@ import { View,
 // 
 import * as Colors from '../../constants/Colors';
 
+import GLOBAL_STYLES from '../../styles';
+
 export default class EmptyData extends Component {
     
     constructor(props) {
@@ -38,7 +40,7 @@ export default class EmptyData extends Component {
                 style={styles.EmptyData}
                 source={require('../../assets/images/illustrators/empty-data.png')}
             />
-            <Text style={ styles.Text }>Không tìm thấy dữ liệu</Text>
+            <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.Text] }>Không tìm thấy dữ liệu</Text>
         </View>
     }
 

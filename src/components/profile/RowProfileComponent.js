@@ -22,6 +22,8 @@ import * as PARAMETER from '../../constants/Parameter';
 // IMPORT COLORS
 import * as COLORS from '../../constants/Colors';
 
+import GLOBAL_STYLES from '../../styles';
+
 export default class RowProfileComponent extends Component {
     
 
@@ -39,10 +41,10 @@ export default class RowProfileComponent extends Component {
                 <View style={ styles.ViewContentInfo }>
                 
                     <View style={ styles.TextTitle }>
-                    <Text style={ { fontSize: 20, fontWeight: 'bold' } }>{ label }</Text>
+                    <Text style={ [GLOBAL_STYLES.TextTitleStyle, { fontSize: 20 }] }>{ label }</Text>
                     </View>
                     
-                    <Text style={{ flex: 1, fontSize: 16, color: COLORS.MAIN_LIGHT }}>{ value }</Text>
+                    <Text style={ [GLOBAL_STYLES.TextTitleStyle, { flex: 1, fontSize: 16, color: COLORS.MAIN_LIGHT }]}>{ value }</Text>
                 
                 </View>
 

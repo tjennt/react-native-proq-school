@@ -28,6 +28,8 @@ import {Ionicons,
     AntDesign 
 } from 'react-native-vector-icons';
 
+import GLOBAL_STYLES from '../../styles';
+
 const list = [
     {
       name: 'Lập trình PHP',

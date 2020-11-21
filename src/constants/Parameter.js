@@ -17,5 +17,7 @@ export const TEACHER_ROLE = 'teacher';
 export const API_NAME = {
   categories: `/api/categories`,
   news: '/api/news'
-
 }
+
+export const FONT_MAIN = 'quick-sand';
+export const FONT_BOLD_MAIN = 'quick-sand-bold';

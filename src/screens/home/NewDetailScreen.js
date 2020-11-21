@@ -33,6 +33,8 @@ import { connect } from 'react-redux';
 // IMPORT RENDER HTML
 import HTML from "react-native-render-html";
 
+import GLOBAL_STYLES from '../../styles';
+
 export default class NewDetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerTransparent: true
@@ -48,7 +50,7 @@ export default class NewDetailScreen extends React.Component {
   componentDidMount() {
     const { navigation } = this.props;
     // console.log(navigation.getParam('news'))
-    console.log(this.props)
+    // console.log(this.props)
   }
 
   handleScroll = (event)=> {
@@ -108,38 +110,90 @@ export default class NewDetailScreen extends React.Component {
           onScroll={this.handleScroll}
         >
           <View style={ styles.viewContent }>
-          <Text style={ styles.title }>{ news.title }</Text>
+          <Text style={ [styles.title] }>
+            {/* { news.title } */}
+            Thông báo Kết quả thi Tiếng Anh đầu vào Học Kỳ Fall 2020 (K17.1.v1) Ngày thi 14/11/2020
+            </Text>
               
               {/* AUTHOR, TIME */}
               <View style={ { flexDirection: 'row', marginTop: 10 } }>
-                <Text style={ styles.author }>{ APP.author }: hoangvc</Text>
+                <Text style={ [GLOBAL_STYLES.TextStyle, styles.author] }>{ APP.author }: tiennt</Text>
                 <Text 
-                  style={ styles.time }>{ APP.time }: 10/09/2020</Text>
+                  style={ [GLOBAL_STYLES.TextStyle, styles.time] }>{ APP.time }: 10/09/2020</Text>
               </View>
 
               {/* CONTENT */}
               <View style={ styles.viewText }>
-                <Text style={{ fontSize: 20 }}>
-                Hey guys, ở 2 phần trước, chúng ta đã hiểu và cài đặt Redux dùng với React Native, giờ là đến phần quan trọng nhất của Redux, cái mà chúng ta gần như sẽ dùng nó liên tục trong dự án thực tế, đó chính là middleware.
-                Middleware là gì?
-                Xét ví dụ: ở bài 2 khi bấm nút INCREASE thì bộ đếm counter ngay lập tức tăng lên 1 đơn vị:
-                export const counterIncrease 
-                Giờ bài toán đặt ra là: muốn bấm vào button increase nhưng sau 1s bộ đếm counter mới tăng lên 1 đơn vị, vậy phải xử lý ntn?
-                Chúng ta thử modify cái action ở trên thành như này liệu ok ko nhé?
-                export const counterIncrease
-                Nhìn qua thì ok đấy, nhưng bạn thử xem, code chạy lập tức báo lỗi vì sao?
-                vì đơn giản là tác giả Redux nói rằng :)).
-                Actions must be plain objects, use custom middleware for async actions.
-                Nghĩa là bạn ko bao giờ được phép viết “linh tinh” vào thân hàm action kia vì action phải là 1 plain object.
-                Bạn sẽ hỏi tại sao là 1 plain object?
-                Câu trả lời là nếu bạn làm mọi thứ theo cách đơn giản thì khi gặp vấn đề bạn cũng dễ dàng tìm ra nguyên do của nó.
-                plain object mô tả hành động xảy ra theo cách clear nhất, nhìn vào object đó nó giúp bạn hiểu ngay được những gì đang diễn ra trong app và tại sao nó thay đổi.
-                Để giải quyết các vấn đề phát sinh, râu ria lằng ngoằng này, Redux cung cấp 1 thằng mang tên middleware có nhiệm vụ tạo ra side-effect và xử lý trước khi gọi action.
-                Về cơ bản nó là 1 bước trung gian như đúng cái tên của nó nghĩa là nhận các action đầu vào rồi và trả ra cũng là các action.
-                </Text>
+                <Text style={[ GLOBAL_STYLES.TextStyle, { fontSize: 20 }] }></Text>
                 <HTML 
                   // tagsStyles={styles.HTML}
-                  html={ news.description } 
+                  html={ `
+                  <div class="kt-portlet kt-portlet--mobile"><div class="kt-portlet__head"><strong style="box-sizing: border-box;">Lưu ý:</strong></p> <p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Segoe UI&quot;, Arial, Helvetica, sans-serif; font-size: 14px;">
+                          -&nbsp;&nbsp;&nbsp; Sinh viên muốn hủy kết quả miễn giảm và học lại từ level 1A, vui lòng lên trường làm đơn tại phòng CTSV.</p> <ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Segoe UI&quot;, Arial, Helvetica, sans-serif; font-size: 14px;"><li style="box-sizing: border-box;">
+                            CS1 : Tầng 5 -&nbsp;<em style="box-sizing: border-box;">391A Nam Kỳ Khởi Nghĩa, Phường 7,Quận 3, TP. Hồ Chí Minh</em></li> <li style="box-sizing: border-box;">
+                            CS2: &nbsp;Tầng trệt -&nbsp;<em style="box-sizing: border-box;">778/B1 Nguyễn Kiệm, Phường 4,&nbsp;Quận Phú Nhuận, TP. Hồ Chí Minh</em></li> <li style="box-sizing: border-box;">
+                            CS3 :&nbsp;<em style="box-sizing: border-box;">Toà nhà Innovation, lô 24, Công viên phần mềm Quang Trung, Quận 12, Hồ Chí Minh</em></li></ul> <p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Segoe UI&quot;, Arial, Helvetica, sans-serif; font-size: 14px;">
+                          -&nbsp; &nbsp; &nbsp;Hạn chót :&nbsp;<strong style="box-sizing: border-box;"><strong style="box-sizing: border-box;"><span style="box-sizing: border-box; background-color: rgb(255, 255, 0);">25/11/2</span></strong><span style="box-sizing: border-box; background-color: rgb(255, 255, 0);">020. Sau ngày 25/11/2020, yêu cầu hủy điểm sẽ không được giải quyết</span></strong></p> <p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Segoe UI&quot;, Arial, Helvetica, sans-serif; font-size: 14px;">
+                          &nbsp;</p> <hr> <table border="0" cellpadding="0" cellspacing="0" width="787" style="width: 789px;"><colgroup><col> <col> <col> <col> <col> <col span="2"></colgroup> <tbody><tr height="22"><td height="22" style="height: 22px; width: 64px;">
+                                STT</td> <td style="width: 87px;">
+                                MSSV</td> <td style="width: 241px;">
+                                Họ và tên</td> <td style="width: 143px;">
+                                Level miễn giảm</td> <td style="width: 127px;">
+                                Cơ sở</td> <td style="width: 64px;">
+                                Ghi Chú</td> <td style="width: 64px;">
+                                Version</td></tr> <tr height="22"><td height="22" style="height: 22px;">
+                                1</td> <td>
+                                PS19098</td> <td>
+                                Lê Phước&nbsp;Đức</td> <td>
+                                TOPNOTCH 1</td> <td>
+                                FPL HCM</td> <td>
+                                CS1</td> <td>
+                                V1</td></tr> <tr height="22"><td height="22" style="height: 22px;">
+                                2</td> <td>
+                                PS19122</td> <td>
+                                Nguyễn Thị&nbsp;Hạnh</td> <td>
+                                TOPNOTCH 1</td> <td>
+                                FPL HCM</td> <td>
+                                CS2</td> <td>
+                                V1</td></tr> <tr height="22"><td height="22" style="height: 22px;">
+                                3</td> <td>
+                                PS19175</td> <td>
+                                Nguyễn Phi&nbsp;Long</td> <td>
+                                TOPNOTCH 1</td> <td>
+                                FPL HCM</td> <td>
+                                CS1</td> <td>
+                                V1</td></tr> <tr height="22"><td height="22" style="height: 22px;">
+                                4</td> <td>
+                                PS19105</td> <td>
+                                Cao Hoài Bảo&nbsp;Ngọc</td> <td>
+                                TOPNOTCH 1</td> <td>
+                                FPL HCM</td> <td>
+                                CS3</td> <td>
+                                V1</td></tr> <tr height="22"><td height="22" style="height: 22px;">
+                                5</td> <td>
+                                PS19178</td> <td>
+                                Nguyễn Hoàng Bảo&nbsp;Trân</td> <td>
+                                TOPNOTCH 1</td> <td>
+                                FPL HCM</td> <td>
+                                CS1</td> <td>
+                                V1</td></tr> <tr height="22"><td height="22" style="height: 22px;">
+                                6</td> <td>
+                                PS19108</td> <td>
+                                Nguyễn Hữu&nbsp;Trí</td> <td>
+                                TOPNOTCH 1</td> <td>
+                                FPL HCM</td> <td>
+                                CS3</td> <td>
+                                V1</td></tr> <tr height="22"><td height="22" style="height: 22px;">
+                                7</td> <td>
+                                PS19087</td> <td>
+                                Lê Hoàng&nbsp;Việt</td> <td>
+                                TOPNOTCH 1</td> <td>
+                                FPL HCM</td> <td>
+                                CS1</td> <td>
+                                V1</td></tr></tbody></table> <p>
+                          &nbsp;</p> <em>
+                        Người đăng: loannyb<br>
+                        Thời gian: 16:24:06 - 18/11/2020<br></em></div></div>` } 
                   contentWidth={100}
                 />
               </View>
@@ -177,11 +231,11 @@ const styles = StyleSheet.create({
   },
   author: { 
     flex: 0.5, 
-    color: '#cccccc'
+    color: COLORS.MAIN_GRAY
   },
   time: { 
     flex: 0.5, 
-    color: '#cccccc', 
+    color: COLORS.MAIN_GRAY, 
     textAlign: 'right', 
     alignSelf: 'stretch' 
   },

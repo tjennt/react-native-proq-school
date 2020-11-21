@@ -20,6 +20,7 @@ import ListDaysComponent from '../../components/schedule/ListDaysComponent';
 import ListScheduleTeacherComponent from '../../components/schedule/ListScheduleTeacherComponent';
 
 import * as COLORS from '../../constants/Colors';
+import * as PARAMETER from '../../constants/Parameter';
 
 // IMPORT DATA
 // import { DAYS } from '../../constants/Data';
@@ -31,13 +32,17 @@ import EmptyData from '../../components/Helpers/EmptyData';
 import * as HelperService from '../../services/HelperService';
 import { SearchSubjectSchedule } from '../../services/teacher/subject-schedule/SearchSubjectSchedule';
 
+import GLOBAL_STYLES from '../../styles';
 
 export default class TeacherSubjectScheduleScreen extends Component {
   
   static navigationOptions = ({ navigation }) => ({
     title: `MÔN ${navigation.getParam('data').subject.name.toUpperCase()} - LỚP ${navigation.getParam('data').class.name}`,
     headerTitleAlign: 'left',
-    headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
+    headerTitleStyle: { 
+      fontFamily: PARAMETER.FONT_BOLD_MAIN,
+      color: COLORS.LIGHT 
+    },
     headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
   })
 
@@ -123,12 +128,11 @@ export default class TeacherSubjectScheduleScreen extends Component {
 
   viewListScheduleOrEmptyData = ()=> {
     const { navigation } = this.props
-    const { data, loading } = this.state
+    const { data, loading, stopLoad } = this.state
     if (data.listDays.length == 0) {
-      return (
-        <EmptyData />
-      )
+      return <EmptyData />
     }
+
     return <ListScheduleTeacherComponent
         data={data}
         navigation={navigation}
@@ -149,7 +153,7 @@ export default class TeacherSubjectScheduleScreen extends Component {
             getScheduleDays={ this.getScheduleDays }
           />
         </View>
-        <EmptyData loading={loading} stopLoad={!loading} />
+        {/* <EmptyData loading={loading} stopLoad={!loading} /> */}
         { this.viewListScheduleOrEmptyData() }
       </View>
     )

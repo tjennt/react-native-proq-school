@@ -35,6 +35,8 @@ import * as apiSchedule from '../../services/api/schedule';
 import EmptyData from '../Helpers/EmptyData';
 import axios from 'axios';
 
+import GLOBAL_STYLES from '../../styles';
+
 export default class ListScheduleDateTeacherComponent extends Component {
 
     constructor(props) {
@@ -63,13 +65,13 @@ export default class ListScheduleDateTeacherComponent extends Component {
                                 {
                                     this.renderIconRandom(index)
                                 }    
-                                <Text style={ styles.TextDateTime }>
+                                <Text style={ [ GLOBAL_STYLES.TextTitleStyle, styles.TextDateTime] }>
                                     &nbsp; { day.label } - 
                                     (Ca { item.shift })
                                 </Text>
                             </ListItem.Title>
 
-                            <ListItem.Subtitle style={{ flex: 1, fontSize: 13, textAlign: 'right', marginTop: 5 }}>
+                            <ListItem.Subtitle style={[GLOBAL_STYLES.TextStyle, styles.SubTitleDate]}>
                                 { day.value } 
                             </ListItem.Subtitle>
                         
@@ -78,13 +80,13 @@ export default class ListScheduleDateTeacherComponent extends Component {
                         {/* Bottom content */}
                         <ListItem.Content style={ styles.ContentRowBottom }>
 
-                            <ListItem.Title style={{ flex: 1 }}>
-                                { item.subject.name.toUpperCase() } - { 'Môn học thú vị' }
+                            <ListItem.Title style={ [GLOBAL_STYLES.TextStyle, { flex: 1 }] }>
+                                { item.subject.name.toUpperCase() } - { 'Tìm hiểu về biến v...' }
                             </ListItem.Title>
                     
                             <Badge
                                 badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
-                                textStyle={{ fontWeight: 'bold' }}
+                                textStyle={ [GLOBAL_STYLES.TextTitleStyle, { fontWeight: 'bold' }] }
                                 value={ item.class.name.toUpperCase() }
                                 status="success" />
 
@@ -173,8 +175,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     TextDateTime: {
-        fontSize: 17,
-        fontWeight: 'bold',
+        fontSize: 16,
         marginLeft: 5
     },
     ListItemSchedule: { 
@@ -196,5 +197,11 @@ const styles = StyleSheet.create({
     },
     ListItemTitleNameClass: {
         fontWeight: 'bold'
+    },
+    SubTitleDate: { 
+        flex: 1,
+        fontSize: 13,
+        textAlign: 'right',
+        marginTop: 5
     }
 });

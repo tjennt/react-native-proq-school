@@ -15,6 +15,7 @@ import { LOGIN, NAVIGATOR } from '../../constants/Locale';
 
 // IMPORT COLORS
 import * as COLORS from '../../constants/Colors';
+import * as PARAMETER from '../../constants/Parameter';
 
 // IMPORT LIBRARY
 import {
@@ -28,7 +29,6 @@ export const StudentSubjectStack = createStackNavigator(
         navigationOptions: {
             title: NAVIGATOR.subject.toUpperCase(),
             headerTitleAlign: 'left',
-            headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
             headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
         }
         },
@@ -39,6 +39,10 @@ export const StudentSubjectStack = createStackNavigator(
     {
         initialRouteName: 'StudentSubjectScreen',
         defaultNavigationOptions: {
+            headerTitleStyle: { 
+                fontFamily: PARAMETER.FONT_BOLD_MAIN,
+                color: COLORS.LIGHT 
+            },
             headerBackImage: ({ tintColor })=> (
                 <Entypo style={[{color: tintColor}]} name="chevron-thin-left" size={25} />
             ),
@@ -55,7 +59,6 @@ export const TeacherSubjectStack = createStackNavigator(
         navigationOptions: {
             title: NAVIGATOR.subjectTeacher.toUpperCase(),
             headerTitleAlign: 'left',
-            headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
             headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
         }
         },
@@ -71,7 +74,6 @@ export const TeacherSubjectStack = createStackNavigator(
                 title: NAVIGATOR.attendance.toUpperCase(),
                 headerTintColor: COLORS.LIGHT,
                 headerTitleAlign: 'left',
-                headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
                 headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
             }
         }
@@ -79,6 +81,10 @@ export const TeacherSubjectStack = createStackNavigator(
     {
         initialRouteName: 'TeacherSubjectScreen',
         defaultNavigationOptions: {
+            headerTitleStyle: { 
+                fontFamily: PARAMETER.FONT_BOLD_MAIN,
+                color: COLORS.LIGHT 
+            },
             headerBackImage: ({ tintColor })=> (
                 <Entypo style={[{color: tintColor}]} name="chevron-thin-left" size={25} />
             ),

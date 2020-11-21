@@ -11,6 +11,8 @@ import { LOGIN, NAVIGATOR } from '../../constants/Locale';
 
 // IMPORT COLORS
 import * as COLORS from '../../constants/Colors';
+import * as PARAMETER from '../../constants/Parameter';
+
 
 // IMPORT LIBRARY
 import {
@@ -24,7 +26,6 @@ const HomeStack = createStackNavigator(
       navigationOptions: {
         title: NAVIGATOR.newsInHome,
         headerTitleAlign: 'left',
-        headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
         headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
       }
     },
@@ -39,10 +40,13 @@ const HomeStack = createStackNavigator(
   {
     initialRouteName: 'HomeScreen',
     defaultNavigationOptions: {
+        headerTitleStyle: { 
+          fontFamily: PARAMETER.FONT_BOLD_MAIN,
+          color: COLORS.LIGHT 
+        },
         headerBackImage: ({ tintColor })=> (
             <Entypo style={[{color: tintColor}]} name="chevron-thin-left" size={25} />
         ),
-        headerBackTitle: 'Back',
         ...TransitionPresets.SlideFromRightIOS,
     },
 }

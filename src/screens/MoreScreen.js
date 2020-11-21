@@ -34,14 +34,16 @@ import {Entypo,
 // IMPORT HELPER SERVICE
 import { _removeData } from '../services/HelperService';
 
+import GLOBAL_STYLES from '../styles';
+
 class MoreScreen extends Component {
   
-  static navigationOptions = ({ navigation }) => ({
-    title: 'MENU',
-    headerTitleAlign: 'left',
-    headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
-    headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
-  })
+  // static navigationOptions = ({ navigation }) => ({
+  //   title: 'MENU',
+  //   headerTitleAlign: 'left',
+  //   headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
+  //   headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+  // })
 
   logout = ()=> {
     const { navigation, deleteUser } = this.props
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
     color: COLORS.DARK,
     paddingTop: 5,
     fontSize: 17,
-    fontWeight: 'bold'
+    ...GLOBAL_STYLES.TextTitleStyle
   },
   IconTitle: {
     color: COLORS.MAIN_TEXT,
@@ -187,11 +189,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   TextCopyRight: { 
-    fontSize: 20, 
-    fontWeight: 'bold', 
+    fontSize: 20,  
     paddingTop: 5, 
     paddingBottom: 5, 
-    textAlign: 'center'
+    textAlign: 'center',
+    ...GLOBAL_STYLES.TextTitleStyle
   },
   ImageCopyRight: { 
     width: 100,

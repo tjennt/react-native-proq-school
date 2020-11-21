@@ -45,8 +45,9 @@ class LoginComponent extends Component {
         }
     }
     componentDidMount() {
-        this.setState({loading: true})
-        this.loginWhenAsyncData()
+        setTimeout(()=> {
+            this.loginWhenAsyncData()
+        }, 500)
     }
 
     signInWithGoogle = async () => {
@@ -123,6 +124,7 @@ class LoginComponent extends Component {
     }
 
     loginWhenAsyncData = async ()=> {
+        this.setState({loading: true})
         try {
             let user = await _retrieveData('user')
             if (user == null) {
@@ -130,7 +132,7 @@ class LoginComponent extends Component {
                 return false
             }
             user = JSON.parse(user)
-            console.log(user)
+            // console.log(user)
             this.props.addUser(user.payload)
             
             this.props.loginFunction({
@@ -142,6 +144,7 @@ class LoginComponent extends Component {
             console.log(error)
         }
     }
+
     loginFail = ()=> {
         this.setState({ loading: false })
         Alert.alert('Cảnh báo', 'Đăng nhập thất bại, vui lòng thử lại!')

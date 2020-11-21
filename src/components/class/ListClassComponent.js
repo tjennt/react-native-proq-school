@@ -36,6 +36,8 @@ import axios from 'axios';
 // IMPORT HELPERS
 import * as HelperService from '../../services/HelperService';
 
+import GLOBAL_STYLES from '../../styles';
+
 class ListClassComponent extends Component {
 
     constructor(props) {
@@ -66,15 +68,15 @@ class ListClassComponent extends Component {
                     {/* First content */}
                     <ListItem.Content style={ styles.ContentRow }>
                         
-                        <ListItem.Title style={styles.text}>
+                        <ListItem.Title style={ styles.text }>
                             <MaterialCommunityIcons style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'bookmark-outline'} />    
-                            <Text style={ styles.TextDateTime }>
+                            <Text style={ [GLOBAL_STYLES.ButtonStyle, styles.TextDateTime ] }>
                             &nbsp;{ item.subject.name }
                             </Text>
                         </ListItem.Title>
                         <Badge
                             badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
-                            textStyle={{ fontWeight: 'bold' }}
+                            textStyle={[GLOBAL_STYLES.ButtonStyle]}
                             value={ item.class.name.toUpperCase() }
                             status="success" />
                     </ListItem.Content>
@@ -82,11 +84,11 @@ class ListClassComponent extends Component {
                     {/* Bottom content */}
                     <ListItem.Content style={ styles.ContentRow }>
 
-                        <ListItem.Title style={{ flex: 0.6, fontSize: 13 }}>
+                        <ListItem.Title style={[GLOBAL_STYLES.TextStyle, styles.TitleDateRange ]}>
                             { HelperService.getDateFormat(item.startAt, 'date_time') } - { HelperService.getDateFormat(item.endAt) }
                         </ListItem.Title>
                 
-                        <ListItem.Subtitle style={{ flex: 0.4, fontSize: 12, textAlign: 'right', marginTop: 5 }}>
+                        <ListItem.Subtitle style={[GLOBAL_STYLES.TextStyle, styles.SubTitleTime ]}>
                             Ca học: { item.shift }
                         </ListItem.Subtitle>
                     
@@ -204,7 +206,6 @@ const styles = StyleSheet.create({
     },
     TextDateTime: {
         fontSize: 17,
-        fontWeight: 'bold',
         marginLeft: 5
     },
     ListItemSchedule: {
@@ -222,5 +223,15 @@ const styles = StyleSheet.create({
         elevation: 5,
         marginLeft: 5,
         marginRight: 5
+    },
+    TitleDateRange: { 
+        flex: 0.6, 
+        fontSize: 13
+    },
+    SubTitleTime: { 
+        flex: 0.4,
+        fontSize: 12,
+        textAlign: 'right',
+        marginTop: 5
     }
 });

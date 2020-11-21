@@ -27,6 +27,15 @@ import store from './src/store';
 import { registerForPushNotificationsAsync } from './src/services/Notification';
 import * as Notifications from 'expo-notifications'
 
+// IMPORT EXPO FONT
+import * as Font from 'expo-font';
+
+// GLOBAL PROPS
+import {
+  setCustomTextInput,
+  setCustomText
+} from 'react-native-global-props';
+
 export default class App extends React.Component {
 
   state = {
@@ -38,11 +47,28 @@ export default class App extends React.Component {
   }
   
   async componentDidMount() {
-    let token = await registerForPushNotificationsAsync()
-    console.log(token)
-    this.setState({tokenNotification: token})
-    Notifications.addNotificationReceivedListener(this.handleNotifications)
+
+    await Font.loadAsync({
+      'quick-sand': require('./src/assets/fonts/Quicksand.ttf'),
+      'quick-sand-bold': require('./src/assets/fonts/Quicksand-Bold.ttf')
+    });
+    
+    // await this.defaultFonts()
+    // let token = await registerForPushNotificationsAsync()
+    // // console.log(token)
+    // this.setState({tokenNotification: token})
+    // Notifications.addNotificationReceivedListener(this.handleNotifications)
   }
+
+  // defaultFonts = async ()=> {
+  //   const customTextProps = {
+  //     style: {
+  //       fontFamily: PARAMETER.FONT_MAIN
+  //     }
+  //   }
+  //   await setCustomText(customTextProps)
+  //   console.log('SET FONT DEFAULT SUCCESS')
+  // }
 
   handleNotifications = (notification)=> {
     console.log(notification)
@@ -71,6 +97,12 @@ export default class App extends React.Component {
         activeColor: COLORS.LIGHT,
         inactiveColor: COLORS.LIGHT_HIGHT,
         barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+        defaultNavigationOptions: {
+          headerTitleStyle: { 
+              fontFamily: PARAMETER.FONT_BOLD_MAIN,
+              color: COLORS.LIGHT 
+          },
+        }
       }
     ))
 
@@ -127,6 +159,9 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  ProviderApp: {
+    
+  },
   button: {
     flex: 1,
     justifyContent: 'center',

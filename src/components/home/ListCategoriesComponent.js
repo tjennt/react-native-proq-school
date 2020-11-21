@@ -14,6 +14,10 @@ import { View,
     Avatar, 
     SearchBar } from 'react-native-elements';
 
+// IMPORT PARAMETER
+import * as PARAMETER from '../../constants/Parameter';
+import STYLE_GOBAL from '../../styles';
+
 export default class ListNewsComponent extends Component {
     render () {
         const { categories, getNews, buttonStyleSeleted } = this.props;
@@ -24,6 +28,7 @@ export default class ListNewsComponent extends Component {
                 categories.map((category, index)=> (
                   <Button
                       title= { category.title }
+                      titleStyle={[STYLE_GOBAL.ButtonStyle ]}
                       buttonStyle={ buttonStyleSeleted(index) }
                       onPress={ ()=> { getNews(category.id, index) } }
                   ></Button>

@@ -16,14 +16,17 @@ import { APP } from '../../constants/Locale';
 
 import * as PARAMETER from '../../constants/Parameter';
 
+import GLOBAL_STYLES from '../../styles';
+
 export default class ListNewsComponent extends Component {
 
   keyExtractor = (item, index) => index.toString()
 
-  renderItem = ({ item }) => {
+  renderItem = ({ item, index }) => {
     const { navigation } = this.props
     return (
       <ListItem
+        key={item.id}
         style={ styles.ListItemNews }
         // bottomDivider
         onPress={ ()=> { 
@@ -39,8 +42,8 @@ export default class ListNewsComponent extends Component {
           PlaceholderContent={<ActivityIndicator />}
         />
         <ListItem.Content>
-        <ListItem.Title>{item.title} { item.id }</ListItem.Title>
-          <ListItem.Subtitle >{item.shortDescription}</ListItem.Subtitle>
+        <ListItem.Title style={[GLOBAL_STYLES.TextTitleStyle]}>{item.title} { item.id }</ListItem.Title>
+          <ListItem.Subtitle style={[GLOBAL_STYLES.TextStyle]}>{item.shortDescription}</ListItem.Subtitle>
         </ListItem.Content>
       </ListItem>
     )
@@ -49,7 +52,7 @@ export default class ListNewsComponent extends Component {
 
   render () {
     const { navigation, news, moreNews } = this.props;
-
+    // console.log(news)
     return (
         <SafeAreaView 
           horizontal={ false }

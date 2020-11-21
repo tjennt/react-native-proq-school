@@ -16,6 +16,8 @@ import { Button,
 
 import * as COLORS from '../../constants/Colors';
 
+import GLOBAL_STYLES from '../../styles';
+
 export default class ListTimeComponent extends Component {
     render () {
         const { time, getSubject, buttonStyleSeleted } = this.props;
@@ -27,6 +29,7 @@ export default class ListTimeComponent extends Component {
                 time.map((day, index)=> (
                   <Button
                       title= { day.label }
+                      titleStyle={ [GLOBAL_STYLES.ButtonStyle] }
                       buttonStyle={ buttonStyleSeleted(index) }
                       onPress={ ()=> { getSubject(day.id, index) } }
                   ></Button>

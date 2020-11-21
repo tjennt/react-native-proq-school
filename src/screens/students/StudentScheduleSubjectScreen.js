@@ -18,6 +18,7 @@ import STYLE_GOBAL from '../../styles/Global';
 import ListScheduleSubjectStudentComponent from '../../components/subject/ListScheduleSubjectStudentComponent';
 
 import * as COLORS from '../../constants/Colors';
+import * as PARAMETER from '../../constants/Parameter';
 
 // IMPORT DATA
 import { DAYS } from '../../constants/Data';
@@ -25,8 +26,11 @@ export default class StudentScheduleSubjectScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: `LỊCH HỌC MÔN ${navigation.getParam('title')} `,
     headerTitleAlign: 'left',
-    headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
-    headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+    headerTitleStyle: { 
+      fontFamily: PARAMETER.FONT_BOLD_MAIN,
+      color: COLORS.LIGHT 
+    },
+    headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
   })
   
   componentDidMount() {
@@ -37,10 +41,8 @@ export default class StudentScheduleSubjectScreen extends Component {
   render() {
     
     return (
-      <View>
-        <ScrollView style={{ height: 600 }}>
-          <ListScheduleSubjectStudentComponent />
-        </ScrollView>
+      <View style={ {flex:1} }>
+        <ListScheduleSubjectStudentComponent />
       </View>
     )
   }
