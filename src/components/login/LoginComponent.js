@@ -36,6 +36,8 @@ import axios from 'axios';
 // IMPORT HELPER SERVICE
 import { _storeData, _retrieveData } from '../../services/HelperService';
 
+import GLOBAL_STYLES from '../../styles/Global';
+
 class LoginComponent extends Component {
     
     constructor(props) {
@@ -124,13 +126,13 @@ class LoginComponent extends Component {
     }
 
     loginWhenAsyncData = async ()=> {
-        this.setState({loading: true})
         try {
             let user = await _retrieveData('user')
             if (user == null) {
-                this.setState({loading: false})
+                // this.setState({loading: false})
                 return false
             }
+            this.setState({loading: true})
             user = JSON.parse(user)
             // console.log(user)
             this.props.addUser(user.payload)
@@ -166,7 +168,7 @@ class LoginComponent extends Component {
                         PlaceholderContent={<ActivityIndicator />}
                     >
                     </Image>
-                    <Text h4 style={ { fontWeight: 'bold' } }> 
+                    <Text style={ [GLOBAL_STYLES.ButtonStyle, { fontSize: 25 }] }> 
                         { LOGIN.appName }
                     </Text>
 
@@ -175,7 +177,7 @@ class LoginComponent extends Component {
                 {/* Introduce */}
                 <View style= { styles.introduce }>
                     <Card style= { {width: 200 } }>
-                        <Text style= { { fontSize: 17, fontWeight: 'bold' } }> { LOGIN.welcome }</Text>
+                        <Text style= { [GLOBAL_STYLES.ButtonStyle, { fontSize: 17 }] }> { LOGIN.welcome }</Text>
                         
                         {/* <Card.Divider/> */}
                         <Card.Image
@@ -183,7 +185,7 @@ class LoginComponent extends Component {
                             source= { require('../../assets/images/illustrators/gifs/classroom.gif') }  
                         />
                         <View style= { styles.marginCard }>
-                            <Text>{ LOGIN.introductLogin }</Text>
+                            <Text style={[GLOBAL_STYLES.ButtonStyle]}>{ LOGIN.introductLogin }</Text>
                         </View>
 
                         {/* Login google */}
@@ -193,6 +195,7 @@ class LoginComponent extends Component {
                         >
                             <SocialIcon
                                 title= { LOGIN.loginWithGoole }
+                                titleStyle={GLOBAL_STYLES.ButtonStyle}
                                 button
                                 type= 'google'
                                 loading={loading}

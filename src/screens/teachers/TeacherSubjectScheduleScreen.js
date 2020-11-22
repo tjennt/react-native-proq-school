@@ -146,13 +146,13 @@ export default class TeacherSubjectScheduleScreen extends Component {
     const { daysRange, loading } = this.state
     return (
       <View style={{ backgroundColor: COLORS.LIGHT, flex: 1 }}>
-        <View style={ styles.ViewListDays }>
+        {/* <View style={ styles.ViewListDays }>
           <ListDaysComponent 
             days={ daysRange }
             buttonStyleSeleted={ this.buttonStyleSeleted }
             getScheduleDays={ this.getScheduleDays }
           />
-        </View>
+        </View> */}
         {/* <EmptyData loading={loading} stopLoad={!loading} /> */}
         { this.viewListScheduleOrEmptyData() }
       </View>
