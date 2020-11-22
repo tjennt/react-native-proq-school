@@ -7,7 +7,7 @@ import { View,
     StatusBar,
     SafeAreaView,
     FlatList,
-    ImageBackground } from 'react-native';
+    TouchableOpacity } from 'react-native';
   
   import { Button, 
     Text, 
@@ -28,80 +28,10 @@ import {Ionicons,
     AntDesign 
 } from 'react-native-vector-icons';
 
-const list = [
-    {
-      name: 'Lập trình PHP',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'MO',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-      name: 'Lập trình Javascript',
-      code: 'JS',
-      date: '2020/13/10',
-      nameDay: 'TU',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Kĩ năng làm việc',
-        code: 'KN1023',
-        date: '2020/13/10',
-        nameDay: 'WE',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    },
-    {
-        name: 'Lập trình python',
-        code: 'python1',
-        date: '2020/13/10',
-        nameDay: 'TH',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi'
-    }
-];
+// IMPORT HELPERS
+import * as HelperService from '../../services/HelperService';
+
+import GLOBAL_STYLES from '../../styles';
 
 export default class ListSubjectStudentComponent extends Component {
 
@@ -112,29 +42,33 @@ export default class ListSubjectStudentComponent extends Component {
     keyExtractor = (item, index) => index.toString()
 
     renderItem = ({ item }) => (
-        <ListItem 
+        <ListItem  
             // bottomDivider
             containerStyle={ styles.ListItemSchedule }
         >
-            {/* CONTENT */}
-            <ListItem.Content>
+            <TouchableOpacity
+                style={ { flex: 1 } }
+                onPress={ ()=> { this.moreInfoSchedule(item) } } 
+            >
+                {/* CONTENT */}
+                <ListItem.Content>
                 
                 {/* First content */}
                 <ListItem.Content style={ styles.ContentRow }>
                     
-                    <ListItem.Title style={styles.text}
-                        onPress={ ()=> { this.moreInfoSchedule(item) } } 
-                    >
-                        <AntDesign style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
-                        <Text style={ styles.TextDateTime }>
-                        &nbsp;{item.name}
+                    <ListItem.Title style={styles.text}>
+                        <AntDesign style={[{color: COLORS.PRIMARY}]} size={16} name={'clockcircleo'} />
+
+                        <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextDateTime] }>
+                        &nbsp;{item.subject.name}
                         </Text>
-                        <Text style={ { fontSize: 13 } }></Text>
+                        <Text style={ [GLOBAL_STYLES.TextTitleStyle, { fontSize: 13 }] }>  ( Ca {item.shift} )
+                        </Text>
                     </ListItem.Title>
                     <Badge
                         badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
-                        textStyle={{ fontWeight: 'bold' }}
-                        value={ item.code.toUpperCase() }
+                        textStyle={[GLOBAL_STYLES.ButtonStyle]}
+                        value={ item.subject.searchString.toUpperCase() }
                         status="success" />
                 </ListItem.Content>
 
@@ -144,46 +78,63 @@ export default class ListSubjectStudentComponent extends Component {
                 {/* <ListItem.Title style={{ flex: 1 }}>2020/20/10 - 2020/20/11</ListItem.Title> */}
             
                     <ListItem.Subtitle 
-                        onPress={ ()=> { this.moreInfoSchedule(item) } }
                         style={{ flex: 1, fontSize: 12, marginTop: 5 }}
                     >
-                            2020/20/10 - 2020/20/11
-                        
+                        { HelperService.getDateFormat(item.startAt, 'date_time') } - { HelperService.getDateFormat(item.endAt) }
                     </ListItem.Subtitle>
                     <ListItem.Subtitle 
-                        onPress={ ()=> { this.moreInfoSchedule(item) } }
                         style={{ flex: 1, fontSize: 12, textAlign: 'right', marginTop: 5 }}
                     >
-                            7:30 - 9:30 ( Ca 1 )
+                        {
+                            this.getBadgeWeekDays(item.weekDays)
+                        }
                     </ListItem.Subtitle>
                 
                 </ListItem.Content>
                 
             </ListItem.Content>
+            </TouchableOpacity>
         </ListItem>
     )
 
     moreInfoSchedule = (item) => {
 
-        this.props.navigation.navigate('StudentScheduleSubjectScreen')
+        this.props.navigation.navigate('StudentScheduleSubjectScreen', {
+            subjectScheduleId: item._id,
+            classSubject: {
+                shift: item.shift
+            },
+            title: `LỊCH HỌC MÔN ${item.subject.name.toUpperCase()}`
+        })
 
     }
 
-    render () {
-
-        const { schedules } = this.props;
+    getBadgeWeekDays = (weekDays)=> {
         
-        let heightScroll = 'unset';
+        return weekDays.map((day, index)=> {
+            let dayString
+            if (day == 0){
+                dayString = 'CN'
+            }else {
+                dayString = ++day
+            }
+            
+            return <Badge
+            badgeStyle={{ padding: 5, marginRight: 3, backgroundColor: COLORS.BADGE_RANDOM[index] }}
+            textStyle={[GLOBAL_STYLES.ButtonStyle]}
+            value={ dayString }
+            status="success" />
+        })
+        
+    }
 
-        if (PARAMETER.HEIGHT_SCROLL != 0) {
-          heightScroll = PARAMETER.HEIGHT_SCROLL;
-        }
-        // console.log(this.props.navigation)
+    render () {
+        const { subjects } = this.props
         return (
         <SafeAreaView style={styles.container}>
             <FlatList
                 keyExtractor={this.keyExtractor}
-                data={list}
+                data={subjects}
                 renderItem={this.renderItem}
             />
         </SafeAreaView>
@@ -223,7 +174,6 @@ const styles = StyleSheet.create({
     },
     TextDateTime: {
         fontSize: 17,
-        fontWeight: 'bold',
         marginLeft: 5
     },
     ListItemSchedule: {

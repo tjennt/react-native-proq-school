@@ -39,10 +39,9 @@ export const StudentScheduleStack = createStackNavigator(
                 fontFamily: PARAMETER.FONT_BOLD_MAIN,
                 color: COLORS.LIGHT 
             },
-            headerBackImage: ({ tintColor })=> (
-                <Entypo style={[{color: tintColor}]} name="chevron-thin-left" size={25} />
+            headerBackImage: ()=> (
+                <Entypo style={[{color: COLORS.LIGHT}]} name="chevron-thin-left" size={25} />
             ),
-            headerBackTitle: 'Back',
             ...TransitionPresets.SlideFromRightIOS,
         },
     }
@@ -75,10 +74,9 @@ export const TeacherScheduleStack = createStackNavigator(
                 fontFamily: PARAMETER.FONT_BOLD_MAIN,
                 color: COLORS.LIGHT 
             },
-            headerBackImage: ({ tintColor })=> (
-                <Entypo style={[{color: tintColor}]} name="chevron-thin-left" size={25} />
+            headerBackImage: ()=> (
+                <Entypo style={[{color: COLORS.LIGHT}]} name="chevron-thin-left" size={25} />
             ),
-            headerBackTitle: 'Back',
             ...TransitionPresets.SlideFromRightIOS,
         },
     }

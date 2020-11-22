@@ -77,6 +77,9 @@ export const getDateFormat = (date, format = 'date_time_year')=> {
         case 'month_day_year':
             result = month + '-' + day + '-'+ year 
         break
+        case 'year_month_day':
+            result = year + '-' + month + '-'+ day 
+        break
         default: 
             result = day  + '/'+ month  + '/' + year
         break
@@ -120,7 +123,8 @@ export const getDateNowToWeekend = ()=> {
 
     dateNowtoEndWeek.push({
         label: 'Hôm nay',
-        value: getDateFormat(now, 'month_day_year')
+        value: getDateFormat(now, 'month_day_year'),
+        date_format: getDateFormat(now, 'year_month_day')
     })
     
     for(let i = now.getDay(); i <= 6; i++) {
@@ -128,7 +132,8 @@ export const getDateNowToWeekend = ()=> {
         let date = getNextDate(now, i)
         dateNowtoEndWeek.push({
             label: getDateName(date),
-            value: getDateFormat(date, 'month_day_year')
+            value: getDateFormat(date, 'month_day_year'),
+            date_format: getDateFormat(now, 'year_month_day')
         })
     }
     return dateNowtoEndWeek

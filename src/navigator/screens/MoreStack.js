@@ -10,6 +10,11 @@ import { LOGIN, NAVIGATOR } from '../../constants/Locale';
 import * as COLORS from '../../constants/Colors';
 import * as PARAMETER from '../../constants/Parameter';
 
+// IMPORT LIBRARY
+import {
+  Entypo
+} from 'react-native-vector-icons';
+
 const MoreStack = createStackNavigator(
   {
     MoreScreen: {
@@ -29,6 +34,9 @@ const MoreStack = createStackNavigator(
         fontFamily: PARAMETER.FONT_BOLD_MAIN,
         color: COLORS.LIGHT 
       },
+      headerBackImage: ()=> (
+        <Entypo style={[{color: COLORS.LIGHT}]} name="chevron-thin-left" size={25} />
+      ),
       ...TransitionPresets.SlideFromRightIOS,
     },
   }

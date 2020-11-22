@@ -73,7 +73,7 @@ export default class ViewInfoStudentComponent extends Component {
                 <RowProfileComponent 
                     icon={<MaterialCommunityIcons style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'door-open'} />}
                     label={ APP.className }
-                    value={user.studentId.class.toUpperCase() ?? '-'}
+                    value={user.studentId.class.name.toUpperCase() ?? '-'}
                 />
 
                 <RowProfileComponent 
