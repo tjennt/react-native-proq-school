@@ -52,6 +52,10 @@ class MoreScreen extends Component {
     Updates.reloadAsync()
   }
   
+  navigationScreen = (screen)=> {
+    this.props.navigation.push(screen);
+  }
+
   render() {
     return (
       <SafeAreaView style={ styles.SafeAreaView }>
@@ -80,7 +84,7 @@ class MoreScreen extends Component {
         <TouchableHighlight
           style={ styles.TouchableHighlight }
           underlayColor={ COLORS.MAIN_BG }
-          onPress={()=> alert('USERS') }
+          onPress={()=> this.navigationScreen('UserScreen') }
         >
           <View style={styles.ViewTagMenu}>
             <Feather style={[styles.IconTitle]} size={35} name={'users'} />

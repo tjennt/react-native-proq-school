@@ -1,5 +1,8 @@
+import React from 'react';
 // IMPORT COMPONENT
 import MoreScreen from '../../screens/MoreScreen';
+import UserScreen from '../../screens/chat/UserScreen';
+import ChatScreen from '../../screens/chat/ChatScreen';
 
 import { createStackNavigator, TransitionPresets } from 'react-navigation-stack';
 
@@ -26,6 +29,22 @@ const MoreStack = createStackNavigator(
         headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
       }
     },
+    UserScreen: {
+      screen: UserScreen,
+      navigationOptions: {
+        title: 'DANH SÁCH THÀNH VIÊN',
+        headerTitleAlign: 'left',
+        headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+      }
+    },
+    ChatScreen: {
+      screen: ChatScreen,
+      navigationOptions: {
+        title: 'TIN NHẮN',
+        headerTitleAlign: 'left',
+        headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+      }
+    }
   },
   {
     initialRouteName: 'MoreScreen',
