@@ -44,28 +44,9 @@ import GLOBAL_STYLES from '../../styles/Global';
 
 const users = [
     {
-       name: 'Nguyễn Tấn Tiền'
-    },
-    {
-        name: 'Tèo Thị Mộng Dừa'
-    },
-    {
-        name: 'Bành Văn Bảnh'
-    },{
-        name: 'Ngô Văn Bắp'
-    },{
-        name: 'Hồ Cẩm Mai'
-    },{
-        name: 'Tòn A Sáo'
-    },{
-        name: 'Huyền Thiên Huyển'
-    },{
-        name: 'Hống Hành Hác'
-    },{
-        name: 'Lang Tà La Bằng'
-    },{
-        name: 'Tô Văn Vẳng'
-    },
+      id: '5fb8baa114b3341d1040af73',
+      name: 'Nguyễn Tấn Tiền'
+    }
 ];
 
 export default class UserScreen extends Component {

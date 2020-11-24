@@ -50,106 +50,33 @@ import { connect } from 'react-redux';
 
 import GLOBAL_STYLES from '../../styles';
 
-export default class ListUserComponent extends Component {
+class ListChatComponent extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            messages: [
-                {
-                    _id: 1,
-                    text: 'CAK',
-                    createdAt: new Date(Date.UTC(2016, 5, 11, 17, 20, 0)),
-                    user: {
-                      _id: 2,
-                      name: 'React Native',
-                      avatar: 'https://facebook.github.io/react/img/logo_og.png',
-                    },
-                    sent: true
-                },
-                {
-                    _id: 3,
-                    text: 'HEllo bro',
-                    createdAt: new Date(Date.UTC(2016, 5, 11, 17, 20, 0)),
-                    user: {
-                      _id: 1,
-                      name: 'React Native',
-                      avatar: 'https://facebook.github.io/react/img/logo_og.png',
-                    },
-                    sent: true
-                }
-            ]
-        }
-    }
-
-    navigateChat = (user)=> {
-        // console.log(this.props);
-        this.props.navigation.push('ChatScreen', {
-            data: user
-        })
-    }
-
-    keyExtractor = (user, index) => index.toString()
-
-    renderItem = ({ item, index }) => (
-        <TouchableOpacity 
-            onPress={()=> this.navigateChat(item)}
-            key={index}
-            style={styles.ViewUser}
-        >
-            <Image
-                style={ styles.ImageAvatar }
-                resizeMode="cover"
-                source={ require('../../assets/images/demo/anh_the.jpg') }
-            />
-            
-            <View style={ styles.ViewNameDes }>
-                <Text style={ [GLOBAL_STYLES.TextTitleStyle,  styles.TextName] }>
-                    { item.name }
-                </Text>
-                <ListItem.Title style={ [GLOBAL_STYLES.TextStyle,  styles.TextDes] }>
-                    Hi em, anh dung day tu chieu ne. · 19:03
-                </ListItem.Title>
-            </View>
-        
-        </TouchableOpacity>
-    )
-
-    sendMessage = (mess)=> {
-        this.setState(previousState => ({
-            messages: GiftedChat.append(previousState.messages, mess),
-        }));
     }
 
     render () {
-        const { messages } = this.state;
+        const { messages, user, sendMessageFromMe } = this.props;
         return (
         <SafeAreaView style={styles.container}>
-            
-            {/* <FlatList
-                keyExtractor={this.keyExtractor}
-                data={users}
-                renderItem={this.renderItem}
-            /> */}
-
             <GiftedChat
                 messages={messages}
-                onSend={(mess) => this.sendMessage(mess) }
+                onSend={(mess) => sendMessageFromMe(mess) }
                 user={{
-                    _id: 1,
+                    _id: user._id,
                 }}
             />
-
         </SafeAreaView>
         )
     }
 }
 
-// const mapStateToProps = state => ({
-//     user: state.user
-// });
+const mapStateToProps = state => ({
+    user: state.user
+});
 
-// export default connect(mapStateToProps, null)(ListClassScheduleTeacherComponent);
+export default connect(mapStateToProps, null)(ListChatComponent);
 
 const styles = StyleSheet.create({
     container: {

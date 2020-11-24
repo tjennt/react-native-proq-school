@@ -4,7 +4,7 @@ import {
     Text, 
     Image, 
     StyleSheet, 
-    Dimensions, 
+    YellowBox, 
     ScrollView, 
     TouchableOpacity,
     ActivityIndicator } from 'react-native';
@@ -37,40 +37,24 @@ import ListChatComponent from '../../components/chat/ListChatComponent';
 // IMPORT AXIOS
 import axios from 'axios';
 
+// IMPORT AXIOS SERVICE
+import * as chatService from '../../services/api/chat/chatService';
+
 // IMPORT COMPONECT EMPTY DATA
 import EmptyData from '../../components/Helpers/EmptyData';
 
 import GLOBAL_STYLES from '../../styles/Global';
 
-const messages = [
-    {
-        from: '1',
-        to: '2',
-        userSenderName: 'Tà A Lũ',
-        userName: 'Nguyễn Tấn Tiền',
-        text: 'Hi Bro',
-        time: '10:50'
-    },
-    {
-        from: '1',
-        to: '2',
-        userSenderName: 'Tà A Lũ',
-        userName: 'Nguyễn Tấn Tiền',
-        text: 'Hi Bro',
-        time: '10:50'
-    },
-    {
-        from: '2',
-        to: '1',
-        userSenderName: 'Tà A Lũ',
-        userName: 'Nguyễn Tấn Tiền',
-        text: 'Hi Bro',
-        time: '10:50'
-    },
-];
-
 // IMPORT SOCKET IO CLIENT
 import io from "socket.io-client";
+
+// IMPORT REDUX
+import * as actions from '../../actions';
+
+import { connect } from 'react-redux';
+YellowBox.ignoreWarnings([
+  'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
+])
 
 export default class ChatScreen extends Component {
   
@@ -79,20 +63,90 @@ export default class ChatScreen extends Component {
     this.state = {
         loading: true,
         stopLoad: true,
-        messages: []
+        messages: [],
+        userRedux: {},
+        dataUserSend: {},
+        dataRoom: {}
     }
   }
   
-  componentDidMount() {
-      const { loading, stopLoad } = this.state
-      setTimeout(()=> {
-        this.setState({loading: false, stopLoad: true, messages: messages})
-      }, 200)
+  async componentDidMount () {
+    const { navigation } = this.props
     
-        this.chat = io(PARAMETER.SERVER);
-        this.chat.on("server-send-message-to-client", msg => {
-            this.setState({ messages: [...this.state.messages, msg]});
-        });
+    await this.setState({
+      userRedux: navigation.getParam('user'),
+      dataUserSend: navigation.getParam('data')
+    })
+
+    this.chat = io(PARAMETER.SERVER);
+
+    this.chat.on("SEND_MESSAGE_CHAT", data => {
+        const { userRedux, dataRoom } = this.state
+
+        // console.log({
+        //   idRedux: userRedux._id,
+        //   id_from:  data.from,
+        //   id_room: dataRoom._id,
+        //   group_id: data.group._id
+        // })
+        
+        if (
+          userRedux._id != data.from &&
+          dataRoom._id == data.group._id
+        ) {
+          this.setState({
+            messages: [chatService.mapMessage(data), ...this.state.messages]
+          })
+        }
+
+    })
+
+    this.getListChatOrCreate()
+  }
+
+  getListChatOrCreate = async ()=> {
+    const { userRedux, dataUserSend } = this.state
+    
+    try {
+      let data = await chatService.getGroupOrCreate({
+        userIdSend: dataUserSend.id,
+        user: userRedux
+      })
+      this.setState({
+        dataRoom: data.dataRoom,
+        messages: chatService.mapMessages(data.messages),
+        loading: false,
+        stopLoad: true
+      })
+      // console.log({
+      //   dataRoom: data.dataRoom,
+      //   messages: chatService.mapMessages(data.messages),
+      //   loading: false,
+      //   stopLoad: true
+      // });
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+  
+  // Message me append
+  sendMessageFromMe = async (data)=> {
+    const { dataRoom, userRedux } = this.state
+    await this.setState({
+      messages: [data[0], ...this.state.messages]
+    })
+    console.log(data);
+    // 
+    try {
+      let res = chatService.postChat({
+        groupId: dataRoom._id,
+        content: data[0].text,
+        user: userRedux
+      })
+    } catch (error) {
+      console.log(error); 
+    }
   }
 
   // View load list or loader
@@ -100,21 +154,14 @@ export default class ChatScreen extends Component {
     const { messages, loading, stopLoad } = this.state
     const { navigation } = this.props
     if (loading) {
-
       return <EmptyData loading={ loading } stopLoad={stopLoad} />
-
     } else {
-
-     return <ListChatComponent messages={messages} navigation={navigation} />
+     return <ListChatComponent 
+              messages={messages}
+              sendMessageFromMe={ this.sendMessageFromMe }
+              navigation={navigation}
+            />
     }
-  }
-
-  sendChatToServer = ()=> {
-    this.chat.emit("client-send-message-to-server", {
-        message: 'MOBILE TEST',
-        fullName: 'Tien',
-        avatar: 'image.png'
-      });
   }
   render() {
     const { categories, news, loadingNews } = this.state;
@@ -122,15 +169,6 @@ export default class ChatScreen extends Component {
 
     return (
       <View style={{ flex:1, backgroundColor: COLORS.LIGHT }}>
-        <Button
-            title="CHAT"
-            onPress={ ()=> this.sendChatToServer() }
-        />
-        {
-            this.state.messages.map((user)=> {
-                return <Text>{user.message}</Text>
-            })
-        }
         {
           this.viewNewsOrLoader()
         }
@@ -138,6 +176,14 @@ export default class ChatScreen extends Component {
     )
   }
 }
+
+
+// const mapStateToProps = state => ({
+//     user: state.user
+// });
+
+// export default connect(mapStateToProps, null)(ChatScreen);
+
 
 const styles = StyleSheet.create({
     ViewRender: {

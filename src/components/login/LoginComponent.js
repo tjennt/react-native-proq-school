@@ -36,7 +36,14 @@ import axios from 'axios';
 // IMPORT HELPER SERVICE
 import { _storeData, _retrieveData } from '../../services/HelperService';
 
-import GLOBAL_STYLES from '../../styles/Global';
+// import GLOBAL_STYLES from '../../styles/Global';
+
+
+const GLOBAL_STYLES = {
+    ButtonStyle: {
+        color: 'red'
+    }
+}
 
 class LoginComponent extends Component {
     

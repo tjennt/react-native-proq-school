@@ -45,7 +45,7 @@ import { connect } from 'react-redux';
 
 import GLOBAL_STYLES from '../../styles';
 
-export default class ListUserComponent extends Component {
+class ListUserComponent extends Component {
 
     constructor(props) {
         super(props)
@@ -58,9 +58,9 @@ export default class ListUserComponent extends Component {
     }
 
     navigateChat = (user)=> {
-        // console.log(this.props);
         this.props.navigation.push('ChatScreen', {
-            data: user
+            data: user,
+            user: this.props.user
         })
     }
 
@@ -104,11 +104,11 @@ export default class ListUserComponent extends Component {
     }
 }
 
-// const mapStateToProps = state => ({
-//     user: state.user
-// });
+const mapStateToProps = state => ({
+    user: state.user
+});
 
-// export default connect(mapStateToProps, null)(ListClassScheduleTeacherComponent);
+export default connect(mapStateToProps, null)(ListUserComponent);
 
 const styles = StyleSheet.create({
     container: {
