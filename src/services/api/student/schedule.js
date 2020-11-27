@@ -20,7 +20,7 @@ export const getListSchedule = async (props)=> {
         })
         let { data } = res
         if (data.success) {
-            return { listSchedules: data.payload[1], loading: false, stopLoad: false }
+            return { listSchedules: data.payload, loading: false, stopLoad: false }
         }else {
             return { loading: false, stopLoad: false }
         }

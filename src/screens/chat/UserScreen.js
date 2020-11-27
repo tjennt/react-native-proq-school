@@ -37,20 +37,30 @@ import ListUserComponent from '../../components/chat/ListUserComponent';
 // IMPORT AXIOS
 import axios from 'axios';
 
+// IMPORT AXIOS SERVICE
+import * as chatService from '../../services/api/chat/chatService';
+
 // IMPORT COMPONECT EMPTY DATA
 import EmptyData from '../../components/Helpers/EmptyData';
 
 import GLOBAL_STYLES from '../../styles/Global';
 
-const users = [
-    {
-      id: '5fb8baa114b3341d1040af73',
-      name: 'Nguyễn Tấn Tiền'
-    }
-];
+// IMPORT REDUX
+import * as actions from '../../actions';
+import { connect } from 'react-redux';
 
-export default class UserScreen extends Component {
+class UserScreen extends Component {
   
+  static navigationOptions = ({ navigation }) => ({
+    title: 'DANH SÁCH THÀNH VIÊN',
+    headerTitleAlign: 'left',
+    headerTitleStyle: { 
+      fontFamily: PARAMETER.FONT_BOLD_MAIN,
+      color: COLORS.LIGHT 
+    },
+    headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+  });
+
   constructor(props) {
     super(props)
     this.state = {
@@ -61,22 +71,37 @@ export default class UserScreen extends Component {
   }
 
   componentDidMount() {
-      const { loading, stopLoad } = this.state
-      setTimeout(()=> {
-        this.setState({loading: false, stopLoad: true, users: users})
-      }, 40)
+      // const { loading, stopLoad } = this.state
+      this.getListGroupUser()
+  }
+
+  getListGroupUser = async ()=> {
+    const { user } = this.props
+    console.log(user);
+    try {
+      let data = await chatService.getListGroupUser({user})
+      this.setState(data)
+      console.log(data);
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   // View load list or loader
   viewNewsOrLoader() {
     const { users, loading, stopLoad } = this.state
     const { navigation } = this.props
+    // return <ListUserComponent users={usersTest} navigation={navigation} />
+
     if (loading) {
 
       return <EmptyData loading={ loading } stopLoad={stopLoad} />
 
     } else {
-
+      if(users.length == 0) {
+        return <EmptyData loading={ loading } stopLoad={stopLoad} />
+      }
      return <ListUserComponent users={users} navigation={navigation} />
     }
   }
@@ -93,6 +118,12 @@ export default class UserScreen extends Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps, null)(UserScreen);
 
 const styles = StyleSheet.create({
     ViewRender: {

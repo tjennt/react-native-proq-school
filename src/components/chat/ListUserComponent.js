@@ -66,29 +66,39 @@ class ListUserComponent extends Component {
 
     keyExtractor = (user, index) => index.toString()
 
-    renderItem = ({ item, index }) => (
-        <TouchableOpacity 
-            onPress={()=> this.navigateChat(item)}
-            key={index}
-            style={styles.ViewUser}
-        >
-            <Image
-                style={ styles.ImageAvatar }
-                resizeMode="cover"
-                source={ require('../../assets/images/demo/anh_the.jpg') }
-            />
+    renderItem = ({ item, index }) => {
+        // let user = item.info.find(x => {
+        //     if (x.id == this.props.user._id) {
+        //         return 
+        //     }
+        // });
+        console.log(item)
+        return(
+            <TouchableOpacity 
+                onPress={()=> this.navigateChat({ 
+                    id: '5fbd3921f6bba175d7dd6509', //item._id,
+                    group_id: item._id
+                 })}
+                key={index}
+                style={styles.ViewUser}
+            >
+                <Image
+                    style={ styles.ImageAvatar }
+                    resizeMode="cover"
+                    source={ { uri: `${PARAMETER.SERVER}/${item.avatar}` } }
+                />
+                <View style={ styles.ViewNameDes }>
+                    <Text style={ [GLOBAL_STYLES.TextTitleStyle,  styles.TextName] }>
+                        { item._id }
+                    </Text>
+                    <ListItem.Title style={ [GLOBAL_STYLES.TextStyle,  styles.TextDes] }>
+                        { item.lastMessage }
+                    </ListItem.Title>
+                </View>
             
-            <View style={ styles.ViewNameDes }>
-                <Text style={ [GLOBAL_STYLES.TextTitleStyle,  styles.TextName] }>
-                    { item.name }
-                </Text>
-                <ListItem.Title style={ [GLOBAL_STYLES.TextStyle,  styles.TextDes] }>
-                    Hi em, anh dung day tu chieu ne. · 19:03
-                </ListItem.Title>
-            </View>
-        
-        </TouchableOpacity>
-    )
+            </TouchableOpacity>
+        )
+    }
 
     render () {
         const { users } = this.props;

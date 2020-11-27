@@ -82,7 +82,29 @@ export const postChat = async (props)=> {
     }
 }
 
-
+export const getListGroupUser = async (props)=> {
+    const { user } = props
+    try {
+        let res = await axios.get(`${PARAMETER.SERVER}/v1/group/`,
+        {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+        let { data } = res
+        if (data.success) {
+            if(data.payload.length == 0){
+                return { loading: false, stopLoad: false }
+            }
+            return { users: data.payload, loading: false, stopLoad: true }
+        }else {
+            return { loading: false, stopLoad: false }
+        }
+    } catch (error) {
+        console.log(error)
+        return { loading: false, stopLoad: false }
+    }
+}
 
 // MAP MESSAGES
 export const mapMessages = (messages)=> {

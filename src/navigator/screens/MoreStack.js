@@ -30,12 +30,7 @@ const MoreStack = createStackNavigator(
       }
     },
     UserScreen: {
-      screen: UserScreen,
-      navigationOptions: {
-        title: 'DANH SÁCH THÀNH VIÊN',
-        headerTitleAlign: 'left',
-        headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
-      }
+      screen: UserScreen
     },
     ChatScreen: {
       screen: ChatScreen,

@@ -17,7 +17,7 @@ import {
     ListItem, 
     Avatar } from 'react-native-elements';
 
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, Send } from 'react-native-gifted-chat';
 
 import * as COLORS from '../../constants/Colors';
 
@@ -26,12 +26,6 @@ import * as PARAMETER from '../../constants/Parameter';
 
 // IMPORT COMPONECT EMPTY DATA
 import EmptyData from '../../components/Helpers/EmptyData';
-
-// IMPORT LIBRARY
-import {Ionicons,
-    MaterialIcons,
-    AntDesign 
-} from 'react-native-vector-icons';
 
 import Toggle from 'react-native-toggle-element';
 
@@ -50,10 +44,37 @@ import { connect } from 'react-redux';
 
 import GLOBAL_STYLES from '../../styles';
 
+// IMPORT LIBRARY
+import {
+    MaterialIcons 
+} from 'react-native-vector-icons';
+
 class ListChatComponent extends Component {
 
     constructor(props) {
         super(props)
+    }
+
+    renderLoading = ()=> {
+        return <EmptyData loading={true} stopLoad={true} />
+    }
+    
+    renderEmpty = ()=> {
+        return <EmptyData loading={false} stopLoad={false} />
+    }
+
+    renderButtonSend = (props)=> {
+        return <Send
+                {...props}
+                containerStyle={{
+                height: 40,
+                width: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+                }}
+            >
+                <MaterialIcons style={[{color: COLORS.MAIN_TEXT, fontWeight: 'bold'}]} size={24} name={'send'} />
+            </Send>
     }
 
     render () {
@@ -61,11 +82,35 @@ class ListChatComponent extends Component {
         return (
         <SafeAreaView style={styles.container}>
             <GiftedChat
+            
+                // List messages
                 messages={messages}
+
+                // Send message to api and append
                 onSend={(mess) => sendMessageFromMe(mess) }
+                
+                // Id me
                 user={{
                     _id: user._id,
                 }}
+                
+                // Show button send
+                alwaysShowSend={true}
+
+                // Loading affter message
+                loadEarlier={true}
+
+                // Reverse messages
+                inverted={true}
+
+                // Render loading
+                renderLoading={this.renderLoading}
+
+                // Render empty
+                renderChatEmpty={this.renderEmpty}
+
+                // Render button send
+                renderSend={this.renderButtonSend}
             />
         </SafeAreaView>
         )

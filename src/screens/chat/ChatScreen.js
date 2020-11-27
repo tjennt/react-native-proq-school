@@ -52,9 +52,9 @@ import io from "socket.io-client";
 import * as actions from '../../actions';
 
 import { connect } from 'react-redux';
-YellowBox.ignoreWarnings([
-  'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
-])
+// YellowBox.ignoreWarnings([
+//   'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
+// ])
 
 export default class ChatScreen extends Component {
   
@@ -136,7 +136,6 @@ export default class ChatScreen extends Component {
     await this.setState({
       messages: [data[0], ...this.state.messages]
     })
-    console.log(data);
     // 
     try {
       let res = chatService.postChat({
