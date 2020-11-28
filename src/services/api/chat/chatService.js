@@ -24,7 +24,9 @@ export const getGroupOrCreate = async (props)=> {
             })
             return {
                 dataRoom: data.payload,
-                messages: dataChat
+                messages: dataChat.payload,
+                total_page: dataChat.total_page,
+                page: dataChat.page,
             }
         }else {
             return {}
@@ -47,7 +49,11 @@ export const getChats = async (props)=> {
         })
         let { data } = res
         if (data.success) {
-            return data.payload
+            return {
+                payload: data.payload,
+                total_page: data.total_page,
+                page: data.page
+            }
         }else {
             return {}
         }
@@ -134,6 +140,6 @@ export const mapMessage = (message)=> {
             name: message.from,
             avatar: 'https://server-dev.asia/uploads/user-avatar/default.jpg',
         },
-        sent: true
+        sent: false
     }
 }

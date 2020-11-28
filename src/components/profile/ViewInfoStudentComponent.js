@@ -23,7 +23,9 @@ import {
     AntDesign,
     Feather,
     Fontisto,
-    MaterialCommunityIcons
+    MaterialCommunityIcons,
+    FontAwesome,
+    Entypo
    } from 'react-native-vector-icons';
 
 // IMPORT COMPONENT
@@ -82,22 +84,22 @@ export default class ViewInfoStudentComponent extends Component {
                     value={user.studentId.studentCode.toUpperCase() ?? '-'}
                 />
                 <RowProfileComponent 
-                    icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'code'} />}
+                    icon={<FontAwesome style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'address-card-o'} />}
                     label={ "Số CMND" }
                     value={user.studentId.identityNumber  ?? '-'}
                 />
                 <RowProfileComponent 
-                    icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'code'} />}
+                    icon={<Fontisto style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'date'} />}
                     label={ "Ngày sinh" }
                     value={user.studentId.dob  ?? '-'}
                 />
                 <RowProfileComponent 
-                    icon={<Fontisto style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'email'} />}
+                    icon={<Entypo style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'address'} />}
                     label={ "Địa chỉ" }
                     value={user.studentId.address  ?? '-'}
                 />
                 <RowProfileComponent 
-                    icon={<Fontisto style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'email'} />}
+                    icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'smartphone'} />}
                     label={ "Số điện thoại" }
                     value={user.studentId.phone  ?? '-'}
                 />

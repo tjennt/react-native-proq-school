@@ -7,7 +7,7 @@ import {
     StyleSheet, 
     SafeAreaView,
     FlatList,
-    TouchableOpacity } from 'react-native';
+    ActivityIndicator } from 'react-native';
 
 import { 
     Card,
@@ -17,7 +17,7 @@ import {
     ListItem, 
     Avatar } from 'react-native-elements';
 
-import { GiftedChat, Send } from 'react-native-gifted-chat';
+import { GiftedChat, Send, LoadEarlier, Bubble } from 'react-native-gifted-chat';
 
 import * as COLORS from '../../constants/Colors';
 
@@ -77,8 +77,37 @@ class ListChatComponent extends Component {
             </Send>
     }
 
+    renderLoadingEarlier = (props)=> {
+        return  <LoadEarlier
+                    {...props}
+                    wrapperStyle={{ backgroundColor: COLORS.LIGHT }}
+                    activityIndicatorStyle={{ backgroundColor: COLORS.LIGHT }}
+                    activityIndicatorColor={COLORS.MAIN_TEXT}
+                    isLoadingEarlier={true} />
+    }
+
+    renderBubble = (props)=> {
+        return <Bubble 
+                    {...props}
+                    wrapperStyle={ {
+                        right: {
+                            backgroundColor :  COLORS.MAIN_TEXT
+                        },
+                    } }
+                />
+    }
+
     render () {
-        const { messages, user, sendMessageFromMe } = this.props;
+        const { 
+            messages,
+            user,
+            sendMessageFromMe,
+            getMessagesEarlier,
+            page,
+            totalPage,
+            isLoadingEarlier
+        } = this.props;
+
         return (
         <SafeAreaView style={styles.container}>
             <GiftedChat
@@ -96,21 +125,31 @@ class ListChatComponent extends Component {
                 
                 // Show button send
                 alwaysShowSend={true}
-
+                infiniteScroll={true}
                 // Loading affter message
-                loadEarlier={true}
-
-                // Reverse messages
-                inverted={true}
+                loadEarlier={page < totalPage ? true : false}
+                isLoadingEarlier={isLoadingEarlier}
+                renderLoadEarlier={this.renderLoadingEarlier}
+                onLoadEarlier={()=> getMessagesEarlier() }
 
                 // Render loading
                 renderLoading={this.renderLoading}
 
                 // Render empty
-                renderChatEmpty={this.renderEmpty}
+                // renderChatEmpty={this.renderEmpty}
 
                 // Render button send
                 renderSend={this.renderButtonSend}
+                // Reverse messages
+                inverted={true}
+
+                // render bubble
+                renderBubble={this.renderBubble}
+
+                // Max input lenth
+                maxInputLength={500}
+
+
             />
         </SafeAreaView>
         )

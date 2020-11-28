@@ -66,7 +66,9 @@ export default class ChatScreen extends Component {
         messages: [],
         userRedux: {},
         dataUserSend: {},
-        dataRoom: {}
+        dataRoom: {},
+        total_page: 0,
+        page: 0
     }
   }
   
@@ -81,15 +83,7 @@ export default class ChatScreen extends Component {
     this.chat = io(PARAMETER.SERVER);
 
     this.chat.on("SEND_MESSAGE_CHAT", data => {
-        const { userRedux, dataRoom } = this.state
-
-        // console.log({
-        //   idRedux: userRedux._id,
-        //   id_from:  data.from,
-        //   id_room: dataRoom._id,
-        //   group_id: data.group._id
-        // })
-        
+        const { userRedux, dataRoom } = this.state        
         if (
           userRedux._id != data.from &&
           dataRoom._id == data.group._id
@@ -115,19 +109,15 @@ export default class ChatScreen extends Component {
       this.setState({
         dataRoom: data.dataRoom,
         messages: chatService.mapMessages(data.messages),
+        total_page: data.total_page,
+        page: data.page,
         loading: false,
-        stopLoad: true
+        stopLoad: true,
+        isLoadingEarlier: false
       })
-      // console.log({
-      //   dataRoom: data.dataRoom,
-      //   messages: chatService.mapMessages(data.messages),
-      //   loading: false,
-      //   stopLoad: true
-      // });
     } catch (error) {
       console.log(error);
     }
-
   }
   
   // Message me append
@@ -147,20 +137,58 @@ export default class ChatScreen extends Component {
       console.log(error); 
     }
   }
+  // getMessagesEarlier = ()=>{ 
+  //   console.log('LOADING MESSAGES');
+  //   this.setState({
+  //     messages: [...chatService.mapMessages(data), ...this.state.messages]
+  //   })
+  // }
+  getMessagesEarlier = async ()=> {
+    const { dataRoom, userRedux, total_page, page,dataUserSend } = this.state
+    let pageResult = page + 1
+
+    if(pageResult > total_page) {
+      return
+    }
+    await this.setState({
+      isLoadingEarlier: true
+    })
+    try {
+      
+      let data = await chatService.getChats({
+        group: dataRoom,
+        user: userRedux,
+        params: {
+          page: pageResult
+        }
+      })
+      this.setState({
+        messages: [...this.state.messages, ...chatService.mapMessages(data.payload)],
+        page: data.page,
+        isLoadingEarlier: false
+      })
+    } catch (error) {
+       
+    }
+  }
 
   // View load list or loader
   viewNewsOrLoader() {
-    const { messages, loading, stopLoad } = this.state
+    const { messages, loading, stopLoad, page, total_page, isLoadingEarlier } = this.state
     const { navigation } = this.props
-    if (loading) {
-      return <EmptyData loading={ loading } stopLoad={stopLoad} />
-    } else {
+    // if (loading) {
+    //   return <EmptyData loading={ loading } stopLoad={stopLoad} />
+    // } else {
      return <ListChatComponent 
               messages={messages}
-              sendMessageFromMe={ this.sendMessageFromMe }
+              page={page}
+              totalPage={total_page}
+              isLoadingEarlier={isLoadingEarlier}
+              sendMessageFromMe={this.sendMessageFromMe}
+              getMessagesEarlier={this.getMessagesEarlier}
               navigation={navigation}
             />
-    }
+    // }
   }
   render() {
     const { categories, news, loadingNews } = this.state;

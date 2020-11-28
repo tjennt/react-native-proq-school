@@ -17,6 +17,11 @@ import {
     ListItem, 
     Avatar } from 'react-native-elements';
 
+    // IMPORT ICON
+import { 
+  AntDesign
+ } from 'react-native-vector-icons';
+
 import STYLE_GOBAL from '../../styles';
 
 // IMPORT HEADER
@@ -58,7 +63,13 @@ class UserScreen extends Component {
       fontFamily: PARAMETER.FONT_BOLD_MAIN,
       color: COLORS.LIGHT 
     },
-    headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+    headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+    headerRight: <AntDesign style={[
+      { 
+        color: COLORS.MAIN_TEXT,
+        paddingRight: 10
+      }
+    ]} size={30} name={'search1'} />
   });
 
   constructor(props) {
@@ -81,7 +92,7 @@ class UserScreen extends Component {
     try {
       let data = await chatService.getListGroupUser({user})
       this.setState(data)
-      console.log(data);
+      // console.log(data);
 
     } catch (error) {
       console.log(error);
