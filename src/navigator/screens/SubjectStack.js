@@ -29,7 +29,7 @@ export const StudentSubjectStack = createStackNavigator(
         navigationOptions: {
             title: NAVIGATOR.subject.toUpperCase(),
             headerTitleAlign: 'left',
-            headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+            headerStyle: { backgroundColor: COLORS.LIGHT }
         }
         },
         StudentScheduleSubjectScreen: {
@@ -41,10 +41,10 @@ export const StudentSubjectStack = createStackNavigator(
         defaultNavigationOptions: {
             headerTitleStyle: { 
                 fontFamily: PARAMETER.FONT_BOLD_MAIN,
-                color: COLORS.LIGHT 
+                color: COLORS.MAIN_PRIMARY 
             },
             headerBackImage: ()=> (
-                <Entypo style={[{color: COLORS.LIGHT}]} name="chevron-thin-left" size={25} />
+                <Entypo style={[{color: COLORS.MAIN_PRIMARY}]} name="chevron-thin-left" size={25} />
             ),
             ...TransitionPresets.SlideFromRightIOS,
         },
@@ -58,7 +58,7 @@ export const TeacherSubjectStack = createStackNavigator(
         navigationOptions: {
             title: NAVIGATOR.subjectTeacher.toUpperCase(),
             headerTitleAlign: 'left',
-            headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+            headerStyle: { backgroundColor: COLORS.LIGHT }
         }
         },
         TeacherSubjectScheduleScreen: {
@@ -73,7 +73,7 @@ export const TeacherSubjectStack = createStackNavigator(
                 title: NAVIGATOR.attendance.toUpperCase(),
                 headerTintColor: COLORS.LIGHT,
                 headerTitleAlign: 'left',
-                headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+                headerStyle: { backgroundColor: COLORS.LIGHT }
             }
         }
     },
@@ -82,10 +82,10 @@ export const TeacherSubjectStack = createStackNavigator(
         defaultNavigationOptions: {
             headerTitleStyle: { 
                 fontFamily: PARAMETER.FONT_BOLD_MAIN,
-                color: COLORS.LIGHT 
+                color: COLORS.MAIN_PRIMARY 
             },
             headerBackImage: ()=> (
-                <Entypo style={[{color: COLORS.LIGHT}]} name="chevron-thin-left" size={25} />
+                <Entypo style={[{color: COLORS.MAIN_PRIMARY}]} name="chevron-thin-left" size={25} />
             ),
             ...TransitionPresets.SlideFromRightIOS,
         },

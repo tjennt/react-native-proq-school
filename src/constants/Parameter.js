@@ -23,3 +23,9 @@ export const API_NAME = {
 
 export const FONT_MAIN = 'quick-sand';
 export const FONT_BOLD_MAIN = 'quick-sand-bold';
+
+export const TYPE_NOTIFY = {
+  fee: 'Học phí',
+  activity: 'Hoạt động',
+  learning: 'Học tập'
+}

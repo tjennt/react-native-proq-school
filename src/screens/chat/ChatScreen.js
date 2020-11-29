@@ -60,9 +60,9 @@ export default class ChatScreen extends Component {
     headerTitleAlign: 'left',
     headerTitleStyle: { 
       fontFamily: PARAMETER.FONT_BOLD_MAIN,
-      color: COLORS.LIGHT 
+      color: COLORS.MAIN_PRIMARY
     },
-    headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+    headerStyle: { backgroundColor: COLORS.LIGHT },
   });
 
   constructor(props) {

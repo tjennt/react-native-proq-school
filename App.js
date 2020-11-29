@@ -60,16 +60,6 @@ export default class App extends React.Component {
     // Notifications.addNotificationReceivedListener(this.handleNotifications)
   }
 
-  // defaultFonts = async ()=> {
-  //   const customTextProps = {
-  //     style: {
-  //       fontFamily: PARAMETER.FONT_MAIN
-  //     }
-  //   }
-  //   await setCustomText(customTextProps)
-  //   console.log('SET FONT DEFAULT SUCCESS')
-  // }
-
   handleNotifications = (notification)=> {
     console.log(notification)
   }
@@ -94,9 +84,9 @@ export default class App extends React.Component {
       TabNavigatorRender.STUDENT,
       {
         initialRouteName: 'Home',
-        activeColor: COLORS.LIGHT,
+        activeColor: COLORS.MAIN_PRIMARY,
         inactiveColor: COLORS.LIGHT_HIGHT,
-        barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+        barStyle: { backgroundColor: COLORS.LIGHT },
         defaultNavigationOptions: {
           headerTitleStyle: { 
               fontFamily: PARAMETER.FONT_BOLD_MAIN,
@@ -112,9 +102,9 @@ export default class App extends React.Component {
       TabNavigatorRender.TEACHER,
       {
         initialRouteName: 'Home',
-        activeColor: COLORS.LIGHT,
+        activeColor: COLORS.MAIN_PRIMARY,
         inactiveColor: COLORS.LIGHT_HIGHT,
-        barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+        barStyle: { backgroundColor: COLORS.LIGHT },
       }
     ))
 

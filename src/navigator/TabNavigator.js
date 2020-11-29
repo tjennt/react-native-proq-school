@@ -47,9 +47,9 @@ export const STUDENT = {
                <AntDesign style={[{color: tintColor}]} size={25} name={'calendar'} />
             </View>
             ),
-            activeColor: COLORS.LIGHT,
+            activeColor: COLORS.MAIN_PRIMARY,
             inactiveColor: COLORS.LIGHT_HIGHT,
-            barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+            barStyle: { backgroundColor: COLORS.LIGHT },
         }
     },
     Profile: {
@@ -61,9 +61,9 @@ export const STUDENT = {
                 <MaterialIcons style={[{color: tintColor}]} size={25} name={'person-outline'} />
             </View>
             ),
-            activeColor: COLORS.LIGHT,
+            activeColor: COLORS.MAIN_PRIMARY,
             inactiveColor: COLORS.LIGHT_HIGHT,
-            barStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+            barStyle: { backgroundColor: COLORS.LIGHT }
         }
     },
     Subject: {
@@ -75,9 +75,9 @@ export const STUDENT = {
                 <MaterialIcons style={[{color: tintColor}]} size={25} name={'subject'} />
             </View>
             ),
-            activeColor: COLORS.LIGHT,
+            activeColor: COLORS.MAIN_PRIMARY,
             inactiveColor: COLORS.LIGHT_HIGHT,
-            barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+            barStyle: { backgroundColor: COLORS.LIGHT },
         }
     },
     More: {
@@ -89,9 +89,9 @@ export const STUDENT = {
             <MaterialIcons style={[{color: tintColor}]} size={25} name={'more-horiz'} />
         </View>
         ),
-        activeColor: COLORS.LIGHT,
+        activeColor: COLORS.MAIN_PRIMARY,
         inactiveColor: COLORS.LIGHT_HIGHT,
-        barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+        barStyle: { backgroundColor: COLORS.LIGHT },
     }
     },
 };
@@ -118,9 +118,9 @@ export const TEACHER = {
                 <AntDesign style={[{color: tintColor}]} size={25} name={'calendar'} />
             </View>
             ),
-            activeColor: COLORS.LIGHT,
+            activeColor: COLORS.MAIN_PRIMARY,
             inactiveColor: COLORS.LIGHT_HIGHT,
-            barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+            barStyle: { backgroundColor: COLORS.LIGHT },
         }
     },
     Profile: {
@@ -132,9 +132,9 @@ export const TEACHER = {
                 <MaterialIcons style={[{color: tintColor}]} size={25} name={'person-outline'} />
             </View>
             ),
-            activeColor: COLORS.LIGHT,
+            activeColor: COLORS.MAIN_PRIMARY,
             inactiveColor: COLORS.LIGHT_HIGHT,
-            barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+            barStyle: { backgroundColor: COLORS.LIGHT },
         }
     },
     Subject: {
@@ -146,9 +146,9 @@ export const TEACHER = {
                 <MaterialIcons style={[{color: tintColor}]} size={25} name={'subject'} />
             </View>
             ),
-            activeColor: COLORS.LIGHT,
+            activeColor: COLORS.MAIN_PRIMARY,
             inactiveColor: COLORS.LIGHT_HIGHT,
-            barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+            barStyle: { backgroundColor: COLORS.LIGHT },
         }
     },
     More: {
@@ -160,9 +160,9 @@ export const TEACHER = {
             <MaterialIcons style={[{color: tintColor}]} size={25} name={'more-horiz'} />
         </View>
         ),
-        activeColor: COLORS.LIGHT,
+        activeColor: COLORS.MAIN_PRIMARY,
         inactiveColor: COLORS.LIGHT_HIGHT,
-        barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+        barStyle: { backgroundColor: COLORS.LIGHT },
     }
     },
 };

@@ -64,9 +64,9 @@ class UserScreen extends Component {
     headerTitleAlign: 'left',
     headerTitleStyle: { 
       fontFamily: PARAMETER.FONT_BOLD_MAIN,
-      color: COLORS.LIGHT 
+      color: COLORS.MAIN_PRIMARY 
     },
-    headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+    headerStyle: { backgroundColor: COLORS.LIGHT },
     headerRight: ()=> UserScreen.openModalSearchUser(navigation)
   });
 
@@ -102,7 +102,7 @@ class UserScreen extends Component {
             >
                 <AntDesign style={[
                 { 
-                  color: COLORS.LIGHT,
+                  color: COLORS.MAIN_PRIMARY,
                   paddingRight: 12
                 }
               ]} size={25} name={'search1'} />

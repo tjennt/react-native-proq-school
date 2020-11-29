@@ -26,7 +26,7 @@ const HomeStack = createStackNavigator(
       navigationOptions: {
         title: NAVIGATOR.newsInHome,
         headerTitleAlign: 'left',
-        headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+        headerStyle: { backgroundColor: COLORS.LIGHT }
       }
     },
     NewsDetail: {
@@ -42,10 +42,10 @@ const HomeStack = createStackNavigator(
     defaultNavigationOptions: {
         headerTitleStyle: { 
           fontFamily: PARAMETER.FONT_BOLD_MAIN,
-          color: COLORS.LIGHT 
+          color: COLORS.MAIN_PRIMARY
         },
         headerBackImage: ()=> (
-            <Entypo style={[{color: COLORS.LIGHT}]} name="chevron-thin-left" size={25} />
+            <Entypo style={[{color: COLORS.MAIN_PRIMARY}]} name="chevron-thin-left" size={25} />
         ),
         ...TransitionPresets.SlideFromRightIOS,
     },

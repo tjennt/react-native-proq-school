@@ -38,5 +38,6 @@ export const APP = {
     phoneNumber: 'Số điện thoại',
     emailAddress: 'Địa chỉ email',
     className: 'Tên lớp học',
-    roleName: 'Chức vụ'
+    roleName: 'Chức vụ',
+    view: 'Lượt xem'
 }

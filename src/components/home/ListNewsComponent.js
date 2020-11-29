@@ -12,18 +12,38 @@ import {
     ListItem, 
     Avatar,
     Button } from 'react-native-elements';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { APP } from '../../constants/Locale';
 
 import * as PARAMETER from '../../constants/Parameter';
+import * as COLORS from '../../constants/Colors';
 
 import GLOBAL_STYLES from '../../styles';
 
+// IMPORT RENDER HTML
+import HTML from "react-native-render-html";
+
 export default class ListNewsComponent extends Component {
+
+
+  getImageAvatar = ()=> {
+    const { notifyType } = this.props
+    console.log("notifyType", notifyType);
+    if(notifyType == 'fee'){
+      return require('../../assets/images/illustrators/notify/fee.png')
+    }
+    if(notifyType == 'activity') {
+      return require('../../assets/images/illustrators/notify/activity.png')
+    }
+
+    return require('../../assets/images/illustrators/notify/learning.png')
+  }
 
   keyExtractor = (item, index) => index.toString()
 
   renderItem = ({ item, index }) => {
     const { navigation } = this.props
+
     return (
       <ListItem
         key={item.id}
@@ -31,19 +51,26 @@ export default class ListNewsComponent extends Component {
         // bottomDivider
         onPress={ ()=> { 
           navigation.push('NewsDetail', {
-            news: item 
+            news: item,
+            image: this.getImageAvatar()
           }) 
         } }
       >
         <Avatar 
           avatarStyle={{ borderRadius: 10 }}
           size="large"
-          source= { { uri: item.image } }
+          source= { this.getImageAvatar() }
           PlaceholderContent={<ActivityIndicator />}
         />
         <ListItem.Content>
         <ListItem.Title style={[GLOBAL_STYLES.TextTitleStyle]}>{item.title} { item.id }</ListItem.Title>
-          <ListItem.Subtitle style={[GLOBAL_STYLES.TextStyle]}>{item.shortDescription}</ListItem.Subtitle>
+          <ListItem.Subtitle 
+            numberOfLines={1}
+            ellipsizeMode='tail'
+            style={[GLOBAL_STYLES.TextStyle, {width: 150}]}
+          >
+            <HTML html={`<div style="color: #9d9c9e;">${item.description}</div>`} />
+          </ListItem.Subtitle>
         </ListItem.Content>
       </ListItem>
     )
@@ -51,14 +78,15 @@ export default class ListNewsComponent extends Component {
   }
 
   render () {
-    const { navigation, news, moreNews } = this.props;
+    const { navigation, news, loading } = this.props;
     // console.log(news)
     return (
-        <SafeAreaView 
-          horizontal={ false }
-          style={ styles.ScrollView }
+        <SafeAreaView
+          style={ styles.SafeAreaView }
           >
             <FlatList
+            refreshing={loading}
+            // onRefresh={()=> alert('onRefresh')}
             keyExtractor={this.keyExtractor}
             data={news}
             renderItem={this.renderItem}
@@ -67,15 +95,6 @@ export default class ListNewsComponent extends Component {
     )
   }
 }
-
-{/* <View style={ styles.ViewButon }>
-<Button 
-  title={ APP.more }
-  type="clear"
-  buttonStyle={ styles.ButtonMore }
-  onPress={ ()=>{ moreNews() } }
-></Button>
-</View> */}
 
 const styles = StyleSheet.create({
   ViewButon: {
@@ -87,8 +106,8 @@ const styles = StyleSheet.create({
   ButtonMore: {
 
   },
-  ScrollView: { 
-  
+  SafeAreaView: { 
+    flex: 1
   },
   ListItemNews: {
     marginTop: 10,
