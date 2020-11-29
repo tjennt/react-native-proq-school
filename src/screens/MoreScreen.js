@@ -72,7 +72,9 @@ class MoreScreen extends Component {
         <TouchableHighlight 
           style={ styles.TouchableHighlight }
           underlayColor={ COLORS.MAIN_BG }
-          onPress={()=> alert('CHAT') }
+          onPress={()=> this.navigationScreen('UserScreen', {
+            modalSearchVisible: false
+          }) }
         >
           <View style={styles.ViewTagMenu}>
             <AntDesign style={[styles.IconTitle]} size={35} name={'message1'} />
@@ -81,7 +83,7 @@ class MoreScreen extends Component {
           </View>
         </TouchableHighlight>
 
-        <TouchableHighlight
+        {/* <TouchableHighlight
           style={ styles.TouchableHighlight }
           underlayColor={ COLORS.MAIN_BG }
           onPress={()=> this.navigationScreen('UserScreen', {
@@ -93,7 +95,7 @@ class MoreScreen extends Component {
             <Text style={styles.TextTitle}>Danh sách online</Text>
             <Text style={styles.TextNext}>{'>'}</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableHighlight> */}
 
         <TouchableHighlight 
           style={ styles.TouchableHighlight }
