@@ -7,7 +7,8 @@ import {
     StyleSheet, 
     SafeAreaView,
     FlatList,
-    TouchableOpacity } from 'react-native';
+    TouchableOpacity,
+    ActivityIndicator } from 'react-native';
 
 import { 
     Card,
@@ -67,17 +68,11 @@ class ListUserComponent extends Component {
     keyExtractor = (user, index) => index.toString()
 
     renderItem = ({ item, index }) => {
-        // let user = item.info.find(x => {
-        //     if (x.id == this.props.user._id) {
-        //         return 
-        //     }
-        // });
-        console.log(item)
         return(
             <TouchableOpacity 
                 onPress={()=> this.navigateChat({ 
-                    id: '5fbd3921f6bba175d7dd6509', //item._id,
-                    group_id: item._id
+                    id: item.user._id,
+                    fullName: item.user.fullName
                  })}
                 key={index}
                 style={styles.ViewUser}
@@ -85,14 +80,18 @@ class ListUserComponent extends Component {
                 <Image
                     style={ styles.ImageAvatar }
                     resizeMode="cover"
-                    source={ { uri: `${PARAMETER.SERVER}/${item.avatar}` } }
+                    source={ { uri: `${PARAMETER.SERVER_IMAGE}/${item.avatar}` } }
                 />
                 <View style={ styles.ViewNameDes }>
-                    <Text style={ [GLOBAL_STYLES.TextTitleStyle,  styles.TextName] }>
-                        { item._id }
+                    <Text 
+                        style={ [GLOBAL_STYLES.TextTitleStyle,  styles.TextName] }>
+                            { item.user.fullName } 
                     </Text>
-                    <ListItem.Title style={ [GLOBAL_STYLES.TextStyle,  styles.TextDes] }>
-                        { item.lastMessage }
+                    <ListItem.Title 
+                        numberOfLines={1}
+                        ellipsizeMode='tail'
+                        style={ [GLOBAL_STYLES.TextStyle,  styles.TextDes, {width:250}] }>
+                        { HelperService.getDateFormat(item.createdAt, 'date_time') } - { item.lastMessage }
                     </ListItem.Title>
                 </View>
             
@@ -145,6 +144,11 @@ const styles = StyleSheet.create({
     },
     TextDes: {
         paddingLeft: 10,
-        fontSize: 14
+        fontSize: 13
+    },
+    TextDate: { 
+        fontSize: 12,
+        paddingTop: 7,
+        paddingLeft: 40
     }
 });

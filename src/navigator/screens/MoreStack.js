@@ -33,12 +33,7 @@ const MoreStack = createStackNavigator(
       screen: UserScreen
     },
     ChatScreen: {
-      screen: ChatScreen,
-      navigationOptions: {
-        title: 'TIN NHẮN',
-        headerTitleAlign: 'left',
-        headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
-      }
+      screen: ChatScreen
     }
   },
   {

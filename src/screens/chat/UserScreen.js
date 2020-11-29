@@ -5,7 +5,6 @@ import {
     Image, 
     StyleSheet, 
     Dimensions, 
-    ScrollView, 
     TouchableOpacity,
     ActivityIndicator } from 'react-native';
 
@@ -38,6 +37,7 @@ import Constants from 'expo-constants';
 
 // IMPORT COMPONENT HOME SCREEN
 import ListUserComponent from '../../components/chat/ListUserComponent';
+import ModalSearchUserComponent from '../../components/chat/ModalSearchUserComponent';
 
 // IMPORT AXIOS
 import axios from 'axios';
@@ -50,6 +50,9 @@ import EmptyData from '../../components/Helpers/EmptyData';
 
 import GLOBAL_STYLES from '../../styles/Global';
 
+// IMPORT SOCKET IO CLIENT
+import io from "socket.io-client";
+
 // IMPORT REDUX
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
@@ -57,19 +60,14 @@ import { connect } from 'react-redux';
 class UserScreen extends Component {
   
   static navigationOptions = ({ navigation }) => ({
-    title: 'DANH SÁCH THÀNH VIÊN',
+    title: 'TIN NHẮN',
     headerTitleAlign: 'left',
     headerTitleStyle: { 
       fontFamily: PARAMETER.FONT_BOLD_MAIN,
       color: COLORS.LIGHT 
     },
     headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
-    headerRight: <AntDesign style={[
-      { 
-        color: COLORS.MAIN_TEXT,
-        paddingRight: 10
-      }
-    ]} size={30} name={'search1'} />
+    headerRight: ()=> UserScreen.openModalSearchUser(navigation)
   });
 
   constructor(props) {
@@ -77,13 +75,47 @@ class UserScreen extends Component {
     this.state = {
         loading: true,
         stopLoad: true,
-        users: []
+        users: [],
+        modalSearchVisible: false
     }
   }
 
   componentDidMount() {
-      // const { loading, stopLoad } = this.state
-      this.getListGroupUser()
+    this.getListGroupUser()
+
+    this.chat = io(PARAMETER.SERVER);
+    this.chat.on("SEND_MESSAGE_CHAT", data => {
+        const { user } = this.props
+        
+        // Check new message
+        if (
+          data.group.members.includes(user._id)
+        ) {
+          this.getListGroupUser()
+        }
+    })
+  }
+
+  static openModalSearchUser = (navigation)=> (
+    <TouchableOpacity
+              onPress={()=> UserScreen.handleSearchUser(navigation)}
+            >
+                <AntDesign style={[
+                { 
+                  color: COLORS.LIGHT,
+                  paddingRight: 12
+                }
+              ]} size={25} name={'search1'} />
+            </TouchableOpacity>
+  )
+
+  static handleSearchUser = (navigation)=> {
+    navigation.setParams({'modalSearchVisible': true})
+  }
+
+  handleModalSearchVisible = (boolean)=> {
+    const { navigation } = this.props
+    navigation.setParams({'modalSearchVisible': boolean})
   }
 
   getListGroupUser = async ()=> {
@@ -117,11 +149,17 @@ class UserScreen extends Component {
     }
   }
   render() {
-    const { categories, news, loadingNews } = this.state;
-    const { navigation } = this.props;
+    const { modalSearchVisible } = this.state;
+    const { navigation, user } = this.props;
 
     return (
       <View style={{ flex:1, backgroundColor: COLORS.LIGHT }}>
+        <ModalSearchUserComponent
+          navigation={navigation} 
+          user={user}
+          modalSearchVisible={navigation.getParam('modalSearchVisible')}
+          handleModalSearchVisible={this.handleModalSearchVisible}
+        />
         {
           this.viewNewsOrLoader()
         }

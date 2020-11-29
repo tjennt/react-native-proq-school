@@ -112,6 +112,36 @@ export const getListGroupUser = async (props)=> {
     }
 }
 
+// Search user
+export const getListUserSearch = async (props)=> {
+    const { user, searchText } = props
+    try {
+        let res = await axios.get(`${PARAMETER.SERVER}/v1/users/search`,
+        {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            },
+            params: {
+                text: searchText,
+                limit: 20
+            }
+        })
+
+        let { data } = res
+        if (data.success) {
+            if(data.payload.length == 0) {
+                return { users: data.payload, loading: false, stopLoad: false }
+            }
+            return { users: data.payload, loading: false, stopLoad: false }
+        }else {
+            return { loading: false, stopLoad: false }
+        }
+    } catch (error) {
+        console.log(error)
+        return { loading: false, stopLoad: false }
+    }
+}
+
 // MAP MESSAGES
 export const mapMessages = (messages)=> {
   

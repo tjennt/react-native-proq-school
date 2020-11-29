@@ -52,12 +52,19 @@ import io from "socket.io-client";
 import * as actions from '../../actions';
 
 import { connect } from 'react-redux';
-// YellowBox.ignoreWarnings([
-//   'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
-// ])
 
 export default class ChatScreen extends Component {
   
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.getParam('data').fullName.toUpperCase(),
+    headerTitleAlign: 'left',
+    headerTitleStyle: { 
+      fontFamily: PARAMETER.FONT_BOLD_MAIN,
+      color: COLORS.LIGHT 
+    },
+    headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+  });
+
   constructor(props) {
     super(props)
     this.state = {
@@ -83,9 +90,10 @@ export default class ChatScreen extends Component {
     this.chat = io(PARAMETER.SERVER);
 
     this.chat.on("SEND_MESSAGE_CHAT", data => {
-        const { userRedux, dataRoom } = this.state        
+        const { userRedux, dataRoom } = this.state
+        // Check mess
         if (
-          userRedux._id != data.from &&
+          data.group.members.includes(userRedux._id) &&
           dataRoom._id == data.group._id
         ) {
           this.setState({
@@ -123,12 +131,9 @@ export default class ChatScreen extends Component {
   // Message me append
   sendMessageFromMe = async (data)=> {
     const { dataRoom, userRedux } = this.state
-    await this.setState({
-      messages: [data[0], ...this.state.messages]
-    })
-    // 
+    
     try {
-      let res = chatService.postChat({
+      let res = await chatService.postChat({
         groupId: dataRoom._id,
         content: data[0].text,
         user: userRedux
@@ -137,12 +142,7 @@ export default class ChatScreen extends Component {
       console.log(error); 
     }
   }
-  // getMessagesEarlier = ()=>{ 
-  //   console.log('LOADING MESSAGES');
-  //   this.setState({
-  //     messages: [...chatService.mapMessages(data), ...this.state.messages]
-  //   })
-  // }
+
   getMessagesEarlier = async ()=> {
     const { dataRoom, userRedux, total_page, page,dataUserSend } = this.state
     let pageResult = page + 1
@@ -176,9 +176,9 @@ export default class ChatScreen extends Component {
   viewNewsOrLoader() {
     const { messages, loading, stopLoad, page, total_page, isLoadingEarlier } = this.state
     const { navigation } = this.props
-    // if (loading) {
-    //   return <EmptyData loading={ loading } stopLoad={stopLoad} />
-    // } else {
+    if (loading) {
+      return <EmptyData loading={ loading } stopLoad={stopLoad} />
+    } else {
      return <ListChatComponent 
               messages={messages}
               page={page}
@@ -188,8 +188,9 @@ export default class ChatScreen extends Component {
               getMessagesEarlier={this.getMessagesEarlier}
               navigation={navigation}
             />
-    // }
+    }
   }
+
   render() {
     const { categories, news, loadingNews } = this.state;
     const { navigation } = this.props;
