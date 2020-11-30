@@ -4,7 +4,7 @@ import {
     Text, 
     Image, 
     StyleSheet, 
-    YellowBox, 
+    ToastAndroid, 
     ScrollView, 
     TouchableOpacity,
     ActivityIndicator } from 'react-native';
@@ -174,12 +174,13 @@ export default class ChatScreen extends Component {
 
   // View load list or loader
   viewNewsOrLoader() {
-    const { messages, loading, stopLoad, page, total_page, isLoadingEarlier } = this.state
+    const { messages, loading, stopLoad, page, total_page, isLoadingEarlier, userRedux } = this.state
     const { navigation } = this.props
     if (loading) {
       return <EmptyData loading={ loading } stopLoad={stopLoad} />
     } else {
-     return <ListChatComponent 
+      console.log(messages, userRedux)
+      return <ListChatComponent 
               messages={messages}
               page={page}
               totalPage={total_page}

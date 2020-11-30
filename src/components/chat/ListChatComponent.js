@@ -17,7 +17,12 @@ import {
     ListItem, 
     Avatar } from 'react-native-elements';
 
-import { GiftedChat, Send, LoadEarlier, Bubble } from 'react-native-gifted-chat';
+import { 
+    GiftedChat,
+    Send,
+    LoadEarlier,
+    Bubble,
+    InputToolbar } from 'react-native-gifted-chat';
 
 import * as COLORS from '../../constants/Colors';
 
@@ -43,6 +48,7 @@ import * as actions from '../../actions';
 import { connect } from 'react-redux';
 
 import GLOBAL_STYLES from '../../styles';
+import { APP } from '../../constants/Locale';
 
 // IMPORT LIBRARY
 import {
@@ -111,7 +117,8 @@ class ListChatComponent extends Component {
         return (
         <SafeAreaView style={styles.container}>
             <GiftedChat
-            
+
+                placeholder={APP.message}
                 // List messages
                 messages={messages}
 
@@ -126,6 +133,7 @@ class ListChatComponent extends Component {
                 // Show button send
                 alwaysShowSend={true}
                 infiniteScroll={true}
+                
                 // Loading affter message
                 loadEarlier={page < totalPage ? true : false}
                 isLoadingEarlier={isLoadingEarlier}
@@ -149,7 +157,27 @@ class ListChatComponent extends Component {
                 // Max input lenth
                 maxInputLength={500}
 
+                textInputStyle={
+                    {
+                        borderRadius: 10,
+                        padding: 10,
+                        borderColor: COLORS.MAIN_TEXT,
+                        borderWidth: 1 
+                    }
+                }
 
+                renderInputToolbar={(props) => (
+                    <InputToolbar
+                        {...props}
+                        containerStyle={
+                            {
+                                borderTopWidth: 0,
+                                paddingTop: 5,
+                                paddingBottom: 5
+                            }
+                        }
+                    />
+                )}
             />
         </SafeAreaView>
         )

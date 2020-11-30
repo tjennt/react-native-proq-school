@@ -36,14 +36,14 @@ import axios from 'axios';
 // IMPORT HELPER SERVICE
 import { _storeData, _retrieveData } from '../../services/HelperService';
 
-import GLOBAL_STYLES from '../../styles/Global';
+// import GLOBAL_STYLES from '../../styles/Global';
 
 
-// const GLOBAL_STYLES = {
-//     ButtonStyle: {
-//         color: 'red'
-//     }
-// }
+const GLOBAL_STYLES = {
+    ButtonStyle: {
+        color: 'red'
+    }
+}
 
 class LoginComponent extends Component {
     
@@ -103,7 +103,7 @@ class LoginComponent extends Component {
     
     loginSuccess = async (dataLogin)=> {
         const { token, access } = dataLogin
-        console.log(dataLogin)
+        // console.log(dataLogin)
         try {
             let res = await axios.get(`${PARAMETER.SERVER}/v1/${access}/profile/`, {
                 headers: {
@@ -117,11 +117,22 @@ class LoginComponent extends Component {
                 data.payload.role = dataLogin.access
                 data.payload.token = dataLogin.token
                 
+                let dataSave = data.payload
+
+                if(dataLogin.access == PARAMETER.TEACHER_ROLE) {
+                    dataLogin.role = dataLogin.access
+                    dataLogin.teacherId = data.payload
+                    dataSave = dataLogin
+                }
+
                 _storeData({
                     key: 'user',
-                    value: JSON.stringify(data)
+                    value: JSON.stringify(dataSave)
                 })
-                this.props.addUser(data.payload)
+                
+                
+                this.props.addUser(dataSave)
+                
                 this.props.loginFunction({
                     role: dataLogin.access
                 })
@@ -133,19 +144,26 @@ class LoginComponent extends Component {
     }
 
     loginWhenAsyncData = async ()=> {
+        this.setState({loading: true})
         try {
             let user = await _retrieveData('user')
             if (user == null) {
                 // this.setState({loading: false})
                 return false
             }
-            this.setState({loading: true})
             user = JSON.parse(user)
             // console.log(user)
-            this.props.addUser(user.payload)
+            let dataSave = {}
+            if(user.access == PARAMETER.TEACHER_ROLE) {
+                dataSave = user
+            }else {
+                dataSave = user
+            }
+
+            this.props.addUser(dataSave)
             
             this.props.loginFunction({
-                role: user.payload.role
+                role: dataSave.role
             })
             
         } catch (error) {

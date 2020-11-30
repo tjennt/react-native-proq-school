@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, 
   StyleSheet, 
-  Dimensions, 
+  ToastAndroid, 
   ScrollView, 
   TouchableOpacity,
   ActivityIndicator } from 'react-native';
@@ -32,6 +32,9 @@ import ListCategoriesComponent from '../components/home/ListCategoriesComponent'
 
 // IMPORT LOADER
 import LoaderListNewsComponent from '../components/loader/LoaderListNewsComponent';
+
+// IMPORT SOCKET IO CLIENT
+import io from "socket.io-client";
 
 // IMPORT AXIOS
 import axios from 'axios';
@@ -65,6 +68,35 @@ class HomeScreen extends Component {
 
   async componentDidMount() {    
       this.getListNewsAndCategories()
+
+    this.chat = io(PARAMETER.SERVER);
+    
+    this.chat.on("SEND_MESSAGE_CHAT", data => {
+        const { user } = this.props
+        if (
+          data.group.members.includes(user._id)
+        ) {
+          ToastAndroid.showWithGravityAndOffset(
+            "Bạn có tin nhắn mới!",
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+            25,
+            50
+          )
+        }
+    })
+
+    this.chat.on("ON_NOTIFY", data => {
+      const { user } = this.props
+      console.log(data)
+      ToastAndroid.showWithGravityAndOffset(
+        `Thông báo: ${data.title}`,
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+        25,
+        50
+      )
+    })
   }
 
   getListNewsAndCategories = async ()=> {
@@ -153,23 +185,24 @@ class HomeScreen extends Component {
     const { news, loadingNews, notifyType } = this.state
     const { navigation } = this.props
 
-    if(news.length == 0) {
-      return <EmptyData loading={false} />
-    }
-
     if (loadingNews) {
 
       return <EmptyData loading={ loadingNews } />
 
     } else {
-     return (        
-      <ListNewsComponent
-        loading={loadingNews}
-        navigation = {navigation}
-        notifyType={notifyType}
-        news={ news } 
-      />
-     )
+      
+      if(news.length == 0) {
+        return <EmptyData loading={false} />
+      }
+
+      return (        
+        <ListNewsComponent
+          loading={loadingNews}
+          navigation = {navigation}
+          notifyType={notifyType}
+          news={ news } 
+        />
+      )
     }
   }
   render() {

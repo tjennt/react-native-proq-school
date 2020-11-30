@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { 
     View, 
     Text, 
-    Image, 
+    ToastAndroid, 
     StyleSheet, 
     Dimensions, 
     TouchableOpacity,
@@ -120,11 +120,9 @@ class UserScreen extends Component {
 
   getListGroupUser = async ()=> {
     const { user } = this.props
-    console.log(user);
     try {
       let data = await chatService.getListGroupUser({user})
       this.setState(data)
-      // console.log(data);
 
     } catch (error) {
       console.log(error);
