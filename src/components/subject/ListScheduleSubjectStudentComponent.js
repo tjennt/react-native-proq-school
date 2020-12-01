@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 
-import { View, 
-    StyleSheet, 
-    Dimensions, 
-    ScrollView, 
-    StatusBar,
+import { 
+    StyleSheet,
     SafeAreaView,
-    FlatList,
-    ImageBackground } from 'react-native';
+    FlatList, } from 'react-native';
   
-  import { Button, 
+  import {
     Text, 
-    ThemeProvider, 
     ListItem, 
-    Avatar, 
-    SearchBar,
     Badge } from 'react-native-elements';
 
 import * as COLORS from '../../constants/Colors';
@@ -28,82 +21,10 @@ import {Ionicons,
     AntDesign 
 } from 'react-native-vector-icons';
 
-const list = [
-    {
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        date: '2020/13/10',
-        nameDay: 'MO',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi',
-        status: 'future'
-    },
-    {
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        date: '2020/13/10',
-        nameDay: 'MO',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi',
-        status: 'future'
-    },
-    {
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        date: '2020/13/10',
-        nameDay: 'MO',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi',
-        status: 'future'
-    },
-    {
-      name: 'Lập trình PHP',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'MO',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi',
-      status: 'absent'
-    },
-    {
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        date: '2020/13/10',
-        nameDay: 'MO',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi',
-        status: 'absent'
-    },
-    {
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        date: '2020/13/10',
-        nameDay: 'MO',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi',
-        status: 'attendant'
-    },
-    {
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        date: '2020/13/10',
-        nameDay: 'MO',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi',
-        status: 'attendant'
-    },
-    {
-        name: 'Lập trình PHP',
-        code: 'PHP',
-        date: '2020/13/10',
-        nameDay: 'MO',
-        studyTime: 'Ca 1',
-        description: 'Bua nay vo hoc cho vui thoi',
-        status: 'attendant'
-    },
-    
-    
-];
+// IMPORT HELPERS
+import * as HelperService from '../../services/HelperService';
+
+import GLOBAL_STYLES from '../../styles';
 
 export default class ListScheduleSubjectStudentComponent extends Component {
 
@@ -113,67 +34,109 @@ export default class ListScheduleSubjectStudentComponent extends Component {
 
     keyExtractor = (item, index) => index.toString()
 
-    renderItem = ({ item }) => (
-        <ListItem 
-            // bottomDivider
-            containerStyle={ styles.ListItemSchedule }
-        >
-            {/* CONTENT */}
-            <ListItem.Content>
-                
-                {/* First content */}
-                <ListItem.Content style={ styles.ContentRow }>
+    renderItem = ({ item }) => {
+        const { classSubject } = this.props
+        return (
+            <ListItem 
+                // bottomDivider
+                containerStyle={ styles.ListItemSchedule }
+            >
+                {/* CONTENT */}
+                <ListItem.Content>
                     
-                    <ListItem.Title style={styles.text}
-                        onPress={ ()=> { this.moreInfoSchedule(item) } } 
-                    >
-                        <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
-                        <Text style={ styles.TextDateTime }>
-                        &nbsp; Thứ 2 - 20/10
-                        </Text>
-                        <Text style={ { fontSize: 13 } }></Text>
-                    </ListItem.Title>
-                    <Badge
-                        badgeStyle={{ padding: 12 }}
-                        textStyle={{ fontWeight: 'bold' }}
-                        value={ item.status == 'future' ? 'Chưa học' : item.status == 'absent' ? 'Vắng mặt' : 'Có mặt' }
-                        status={ item.status == 'future' ? 'primary' : item.status == 'absent' ? 'error' : 'success' } />
-                </ListItem.Content>
-
-                {/* Bottom content */}
-                <ListItem.Content style={ styles.ContentRow }>
-                    <ListItem.Subtitle 
-                        onPress={ ()=> { this.moreInfoSchedule(item) } }
-                        style={{ flex: 1, fontSize: 12, marginTop: 5 }}
-                    >
-                            Giảng viên: tiennt
+                    {/* First content */}
+                    <ListItem.Content style={ styles.ContentRow }>
                         
-                    </ListItem.Subtitle>
-                    <ListItem.Subtitle 
-                        onPress={ ()=> { this.moreInfoSchedule(item) } }
-                        style={{ flex: 1, fontSize: 12, textAlign: 'right', marginTop: 5 }}
-                    >
-                            7:30 - 9:30 ( Ca 1 )
-                    </ListItem.Subtitle>
-                
+                        <ListItem.Title style={styles.text}
+                            onPress={ ()=> { this.moreInfoSchedule(item) } } 
+                        >
+                            <AntDesign style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
+                            <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextDateTime] }>
+                            &nbsp; {HelperService.getDateName(item.date)} - {HelperService.getDateFormat(item.date)}
+                            </Text>
+                            <Text style={ { fontSize: 13 } }></Text>
+                        </ListItem.Title>
+                        {
+                            this.renderBadge({
+                                date: item.date,
+                                status: item.status
+                            })
+                        }
+                    </ListItem.Content>
+
+                    {/* Bottom content */}
+                    <ListItem.Content style={ styles.ContentRow }>
+                        <ListItem.Subtitle 
+                            onPress={ ()=> { this.moreInfoSchedule(item) } }
+                            style={ [GLOBAL_STYLES.TextTitleStyle, { flex: 1, fontSize: 12, marginTop: 5 }] }
+                        >
+                                Giảng viên: {item.teacher.fullname}
+                            
+                        </ListItem.Subtitle>
+                        <ListItem.Subtitle 
+                            onPress={ ()=> { this.moreInfoSchedule(item) } }
+                            style={  [GLOBAL_STYLES.TextTitleStyle, { flex: 1, fontSize: 12, textAlign: 'right', marginTop: 5 }] }
+                        >
+                            ( Ca { classSubject.shift } )
+                        </ListItem.Subtitle>
+                    
+                    </ListItem.Content>
+                    
                 </ListItem.Content>
-                
-            </ListItem.Content>
-        </ListItem>
-    )
+            </ListItem>
+        )
+    }
+
+    renderBadge = (data)=> {
+        const { date, status }  = data
+        
+        let dateStudy = new Date(date)
+        let now = new Date()
+
+        let badge = {value: '', status: ''}
+
+        if(dateStudy.setHours(0,0,0,0) > now.setHours(0,0,0,0)) {
+            badge.value = 'Chưa học'
+            badge.status = 'primary'
+        }
+
+        else if(
+            dateStudy.setHours(0,0,0,0) < now.setHours(0,0,0,0) &&
+            status == false
+        ) {
+            badge.value = 'Vắng mặt'
+            badge.status = 'error'
+        }
+
+        else if(
+            dateStudy.setHours(0,0,0,0) < now.setHours(0,0,0,0) &&
+            status == true
+        ){
+            badge.value = 'Có mặt'
+            badge.status = 'success'
+        }
+        
+
+        return <Badge
+            badgeStyle={{ padding: 12 }}
+            textStyle={ [GLOBAL_STYLES.ButtonStyle] }
+            value={ badge.value }
+            status={ badge.status } 
+        />
+    }
 
     moreInfoSchedule = (item) => {
 
     }
 
     render () {
-        const { schedules } = this.props;
+        const { schedulesSubject } = this.props;
         // console.log(this.props.navigation)
         return (
         <SafeAreaView style={styles.container}>
             <FlatList
                 keyExtractor={this.keyExtractor}
-                data={list}
+                data={schedulesSubject.days}
                 renderItem={this.renderItem}
             />
         </SafeAreaView>
@@ -213,7 +176,6 @@ const styles = StyleSheet.create({
     },
     TextDateTime: {
         fontSize: 17,
-        fontWeight: 'bold',
         marginLeft: 5
     },
     ListItemSchedule: {

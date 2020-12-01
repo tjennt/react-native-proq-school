@@ -38,6 +38,8 @@ import axios from 'axios';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
 
+import GLOBAL_STYLES from '../../styles';
+
 class ListClassScheduleTeacherComponent extends Component {
 
     constructor(props) {
@@ -49,7 +51,7 @@ class ListClassScheduleTeacherComponent extends Component {
     }
 
     componentDidMount() {
-        return this.getListStudentScheduleClassDay()
+        this.getListStudentScheduleClassDay()
     }
 
     keyExtractor = (item, index) => index.toString()
@@ -77,8 +79,8 @@ class ListClassScheduleTeacherComponent extends Component {
                     {/* Full name and student code */}
                     <ListItem.Content style={styles.text}>
 
-                        <ListItem.Title>{ item.student.fullName }</ListItem.Title>
-                        <ListItem.Subtitle style={ { fontSize: 12 } }>{ item.student._id }</ListItem.Subtitle>
+                        <ListItem.Title style={ [GLOBAL_STYLES.TextTitleStyle] }>{ item.student.fullName }</ListItem.Title>
+                        <ListItem.Subtitle style={  [GLOBAL_STYLES.TextTitleStyle, { fontSize: 12 }] }>{ item.student._id }</ListItem.Subtitle>
 
                     </ListItem.Content>
 

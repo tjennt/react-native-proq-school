@@ -28,12 +28,13 @@ import {
 // IMPORT COMPONENT
 import RowProfileComponent from './RowProfileComponent';
 
+import GLOBAL_STYLES from '../../styles';
+
 export default class ViewInfoTeacherComponent extends Component {
     
 
     render () {
         const { user } = this.props;
-        console.log("TEACHER", user)
         return (
             <View style={ styles.ViewAllInfo }>
 
@@ -51,7 +52,7 @@ export default class ViewInfoTeacherComponent extends Component {
                         avatarStyle={styles.AvatarStyle}
                     />
 
-                    <Text style={ styles.TextName }>{ user.fullname }</Text>
+                    <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextName] }>{ user.teacherId.fullname }</Text>
 
                 </ImageBackground>
 
@@ -61,7 +62,7 @@ export default class ViewInfoTeacherComponent extends Component {
                     label={ APP.roleName }
                     value={ <Badge
                         badgeStyle={ { padding: 10, backgroundColor: COLORS.MAIN_TEXT } }
-                        textStyle={{ fontWeight: 'bold' }}
+                        textStyle={[GLOBAL_STYLES.ButtonStyle ]}
                         value={ APP.teacherName }
                       /> }
                 />
@@ -69,13 +70,13 @@ export default class ViewInfoTeacherComponent extends Component {
                 <RowProfileComponent 
                     icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'code'} />}
                     label={ APP.codeTeacher }
-                    value={user.teacherCode}
+                    value={user.teacherId.teacherCode}
                 />
 
                 <RowProfileComponent 
                     icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'bookmark'} />}
                     label={ APP.specialization }
-                    value={user.specialization}
+                    value={user.teacherId.specialization}
                 />
                 
                 <RowProfileComponent 
@@ -87,13 +88,13 @@ export default class ViewInfoTeacherComponent extends Component {
                 <RowProfileComponent 
                     icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'smartphone'} />}
                     label={ APP.phoneNumber }
-                    value={user.phone}
+                    value={user.teacherId.phone}
                 />
 
                 <RowProfileComponent 
                     icon={<FontAwesome style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'birthday-cake'} />}
                     label={ APP.dob }
-                    value={user.dob}
+                    value={user.teacherId.dob}
                 />
                 
             </View>
@@ -122,10 +123,9 @@ const styles = StyleSheet.create({
     TextName: {
         position: 'absolute',
         left: 135,
-        bottom: -25,
+        bottom: -30,
         padding: 3,
-        fontSize: 20,
-        fontWeight: 'bold'
+        fontSize: 20
     },
     ViewAllInfo: {
         paddingLeft: 10,

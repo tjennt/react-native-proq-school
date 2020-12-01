@@ -1,15 +1,23 @@
+import React from 'react';
+
 // IMPORT COMPONENT
 import HomeScreen from '../../screens/HomeScreen';
 import NewsDetail from '../../screens/home/NewDetailScreen';
 
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator, TransitionPresets } from 'react-navigation-stack';
 
 // IMPORT LOCALE
 import { LOGIN, NAVIGATOR } from '../../constants/Locale';
 
 // IMPORT COLORS
 import * as COLORS from '../../constants/Colors';
+import * as PARAMETER from '../../constants/Parameter';
 
+
+// IMPORT LIBRARY
+import {
+  Entypo
+} from 'react-native-vector-icons';
 
 const HomeStack = createStackNavigator(
   {
@@ -18,20 +26,30 @@ const HomeStack = createStackNavigator(
       navigationOptions: {
         title: NAVIGATOR.newsInHome,
         headerTitleAlign: 'left',
-        headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
-        headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+        headerStyle: { backgroundColor: COLORS.LIGHT }
       }
     },
     NewsDetail: {
       screen: NewsDetail,
       navigationOptions: {
-        title: ''
-      }
+        title: '',
+        headerTintColor: COLORS.LIGHT
+      },
     },
   },
   {
-    initialRouteName: 'HomeScreen'
-  }
+    initialRouteName: 'HomeScreen',
+    defaultNavigationOptions: {
+        headerTitleStyle: { 
+          fontFamily: PARAMETER.FONT_BOLD_MAIN,
+          color: COLORS.MAIN_PRIMARY
+        },
+        headerBackImage: ()=> (
+            <Entypo style={[{color: COLORS.MAIN_PRIMARY}]} name="chevron-thin-left" size={25} />
+        ),
+        ...TransitionPresets.SlideFromRightIOS,
+    },
+}
 );
 
 export default HomeStack;

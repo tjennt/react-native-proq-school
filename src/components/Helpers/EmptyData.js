@@ -4,7 +4,7 @@ import { View,
     StyleSheet, 
     Dimensions, 
     ScrollView, 
-    TouchableOpacity,
+    Image,
     ActivityIndicator } from 'react-native';
   
   import { Button, 
@@ -15,6 +15,8 @@ import { View,
     SearchBar } from 'react-native-elements';
 // 
 import * as Colors from '../../constants/Colors';
+
+import GLOBAL_STYLES from '../../styles';
 
 export default class EmptyData extends Component {
     
@@ -31,18 +33,37 @@ export default class EmptyData extends Component {
                 animating={true} />
         }
         if (stopLoad) {
-            return 
+            return <View />
         }
-        return <Text style={ { textAlign: 'center' } }>Không có dữ liệu...</Text>
+        return <View style={ styles.container }>
+            <Image
+                style={styles.EmptyData}
+                source={require('../../assets/images/illustrators/empty-data.png')}
+            />
+            <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.Text] }>Không tìm thấy dữ liệu</Text>
+        </View>
     }
+
+    styleView = ()=> {
+        const { loading, stopLoad } = this.props
+
+        let style = styles.viewContainer
+        if ( loading) {
+            return style
+        }
+        if (stopLoad) {
+            return {}
+        }
+        return style
+    }
+
     render () {
+        const { loading, stopLoad } = this.props
         return (
-            <View style={ { 
-                flex: 1,
-                justifyContent: 'center',
-                flexDirection: "row",
-                justifyContent: "space-around",
-                padding: 10 } }>
+            <View 
+            style={ 
+                this.styleView()
+            }>
                 {
                     this.checkLoadingOrEmpty()
                 }
@@ -52,5 +73,25 @@ export default class EmptyData extends Component {
 }
 
 const styles = StyleSheet.create({
-
+    container: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    viewContainer: { 
+        flex: 1,
+        justifyContent: 'center',
+        flexDirection: "row",
+        justifyContent: "space-around",
+        padding: 10 
+    },
+    EmptyData: {
+        width: '100%',
+        height: 300
+    },
+    Text: { 
+        color: Colors.MAIN_PRIMARY,
+        fontSize: 20,
+        textAlign: 'center'
+    }
 });

@@ -15,7 +15,7 @@ import { Button,
 import STYLE_GOBAL from '../../styles/Global';
 
 // IMPORT COMPONENTS
-import ListTimeComponent from '../../components/subject/ListTimeComponent';
+import ListTimeStudentComponent from '../../components/subject/ListTimeStudentComponent';
 import ListSubjectStudentComponent from '../../components/subject/ListSubjectStudentComponent';
 
 import * as COLORS from '../../constants/Colors';
@@ -23,50 +23,117 @@ import * as COLORS from '../../constants/Colors';
 // IMPORT DATA
 import { TIME_STUDENT } from '../../constants/Data';
 
-export default class StudentSubjectScreen extends Component {
+// IMPORT GET API 
+import * as apiClassSubject from '../../services/api/student/classSubject';
+
+// IMPORT COMPONECT EMPTY DATA
+import EmptyData from '../../components/Helpers/EmptyData';
+
+// IMPORT REDUX
+import * as actions from '../../actions';
+import { connect } from 'react-redux';
+
+class StudentSubjectScreen extends Component {
   
   constructor(props) {
     super(props)
     this.state = {
-      selectedDay: 1
+      seasons: [],
+      subjects: [],
+      selectedSeason: 0,
+      loading: true,
+      stopLoad: false
     }
+  }
+
+  componentDidMount() {
+    this.getListSeasons()
   }
 
   // Selected button
   buttonStyleSeleted = (index) => {
-    if (index == this.state.selectedDay) {
+    if (index == this.state.selectedSeason) {
       return styles.ButtonStyleSelected
     }
     return styles.ButtonStyle
   }
-  getSubject = (day, index) => {
-    this.setState({
-      selectedDay: index
-    })
 
-    // console.log('hello')
+  getSubject = (seasonId, index) => {
+    
+    this.setState({
+      selectedSeason: index,
+      subjects: [],
+      loading: true
+    })
+    this.getListSubjects(seasonId)
+  }
+
+  // Season
+  getListSeasons = async ()=> {
+    const { user } = this.props
+    try {
+      let data = await apiClassSubject.getListSeasons({ user })
+      this.setState(data)
+      this.getListSubjects()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  // get List subjects
+  getListSubjects = async (seasonId = null)=> {
+    const { user } = this.props
+    const { seasons } = this.state
+    
+    if(seasonId == null && seasons.length != 0) {
+      seasonId = seasons[0]._id
+    }
+    try {
+      let data = await apiClassSubject.getListSubjects({ user, seasonId })
+      this.setState(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  viewListOrEmpty = ()=> {
+    const { loading, stopLoad, subjects } = this.state
+    const { navigation } = this.props
+    
+    if(subjects.length == 0) {
+      return <EmptyData loading={loading} stopLoad={stopLoad} />
+    }
+    return <ListSubjectStudentComponent
+            subjects={subjects}
+            navigation={ navigation }
+          />
   }
 
   render() {
+    const { seasons } = this.state
     return (
-      <View style={{ backgroundColor: COLORS.LIGHT }}>
+      <View style={{ flex: 1, backgroundColor: COLORS.LIGHT }}>
         <View style={ styles.ViewListTime }>
-          <ListTimeComponent 
-            time={ TIME_STUDENT }
+          <ListTimeStudentComponent 
+            seasons={ seasons }
             buttonStyleSeleted={ this.buttonStyleSeleted }
             getSubject={ this.getSubject }
           />
         </View>
-        <ScrollView style={{ height: 550 }}>
-          <ListSubjectStudentComponent
-            navigation={ this.props.navigation }
-          />
-        </ScrollView>
+        {
+          this.viewListOrEmpty()
+        }
       
       </View>
     )
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps, null)(StudentSubjectScreen);
 
 const styles = StyleSheet.create({
   ButtonStyle: {

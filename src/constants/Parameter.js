@@ -3,7 +3,9 @@ export const HEIGHT_SCROLL = 550;
 
 export const SERVER_API = 'https://5f8126095b1f3f00161a66ae.mockapi.io';
 
-export const SERVER = 'http://ec2-54-255-188-210.ap-southeast-1.compute.amazonaws.com';
+export const SERVER = 'https://server-dev.asia';
+// export const SERVER_IMAGE = 'https://server-dev.asia';
+export const SERVER_IMAGE = 'https://upload-service-proq.herokuapp.com';
 
 export const IOS_CLIENT_ID =
   "598161901649-kj4pqoeqs1a1t5kia3m693cr4rg76074.apps.googleusercontent.com";
@@ -17,5 +19,13 @@ export const TEACHER_ROLE = 'teacher';
 export const API_NAME = {
   categories: `/api/categories`,
   news: '/api/news'
+}
 
+export const FONT_MAIN = 'quick-sand';
+export const FONT_BOLD_MAIN = 'quick-sand-bold';
+
+export const TYPE_NOTIFY = {
+  fee: 'Học phí',
+  activity: 'Hoạt động',
+  learning: 'Học tập'
 }

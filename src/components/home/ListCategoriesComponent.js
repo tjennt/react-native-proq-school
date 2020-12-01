@@ -14,6 +14,10 @@ import { View,
     Avatar, 
     SearchBar } from 'react-native-elements';
 
+// IMPORT PARAMETER
+import * as PARAMETER from '../../constants/Parameter';
+import STYLE_GOBAL from '../../styles';
+
 export default class ListNewsComponent extends Component {
     render () {
         const { categories, getNews, buttonStyleSeleted } = this.props;
@@ -21,11 +25,12 @@ export default class ListNewsComponent extends Component {
             <ScrollView horizontal={ true } 
             style={ styles.ScrollView } >
               {
-                categories.map((category, index)=> (
+                Object.keys(categories).map((key, index)=> (
                   <Button
-                      title= { category.title }
+                      title= { PARAMETER.TYPE_NOTIFY[key] }
+                      titleStyle={[STYLE_GOBAL.ButtonStyle ]}
                       buttonStyle={ buttonStyleSeleted(index) }
-                      onPress={ ()=> { getNews(category.id, index) } }
+                      onPress={ ()=> { getNews(key, index) } }
                   ></Button>
                 ))
               }

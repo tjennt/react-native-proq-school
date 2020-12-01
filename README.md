@@ -81,3 +81,10 @@ Keystore credentials
 
   Path to Keystore:  E:\tailieu\react\myNewProject\proq_school.jks
 ```
+
+Set ip wifi yarn start
+```
+// not space 
+// Ipv4 Address
+ip pc: set REACT_NATIVE_PACKAGER_HOSTNAME=192.168.1.1
+```

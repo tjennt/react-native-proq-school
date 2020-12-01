@@ -23,11 +23,15 @@ import {
     AntDesign,
     Feather,
     Fontisto,
-    MaterialCommunityIcons
+    MaterialCommunityIcons,
+    FontAwesome,
+    Entypo
    } from 'react-native-vector-icons';
 
 // IMPORT COMPONENT
 import RowProfileComponent from './RowProfileComponent';
+
+import GLOBAL_STYLES from '../../styles';
 
 export default class ViewInfoStudentComponent extends Component {
     
@@ -52,7 +56,9 @@ export default class ViewInfoStudentComponent extends Component {
                         avatarStyle={styles.AvatarStyle}
                     />
 
-                    <Text style={ styles.TextName }>{ user.studentId.fullName.toUpperCase() }</Text>
+                    <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextName] }>
+                        { user.studentId.fullName.toUpperCase() }
+                    </Text>
 
                 </ImageBackground>
 
@@ -61,7 +67,7 @@ export default class ViewInfoStudentComponent extends Component {
                     label={ APP.roleName }
                     value={ <Badge
                         badgeStyle={ { padding: 10, backgroundColor: COLORS.MAIN_TEXT } }
-                        textStyle={{ fontWeight: 'bold' }}
+                        textStyle={[GLOBAL_STYLES.ButtonStyle ]}
                         value={ APP.studentName }
                       /> }
                 />
@@ -69,7 +75,7 @@ export default class ViewInfoStudentComponent extends Component {
                 <RowProfileComponent 
                     icon={<MaterialCommunityIcons style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'door-open'} />}
                     label={ APP.className }
-                    value={user.studentId.class.toUpperCase() ?? '-'}
+                    value={user.studentId.class.name.toUpperCase() ?? '-'}
                 />
 
                 <RowProfileComponent 
@@ -78,22 +84,22 @@ export default class ViewInfoStudentComponent extends Component {
                     value={user.studentId.studentCode.toUpperCase() ?? '-'}
                 />
                 <RowProfileComponent 
-                    icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'code'} />}
+                    icon={<FontAwesome style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'address-card-o'} />}
                     label={ "Số CMND" }
                     value={user.studentId.identityNumber  ?? '-'}
                 />
                 <RowProfileComponent 
-                    icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'code'} />}
+                    icon={<Fontisto style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'date'} />}
                     label={ "Ngày sinh" }
                     value={user.studentId.dob  ?? '-'}
                 />
                 <RowProfileComponent 
-                    icon={<Fontisto style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'email'} />}
+                    icon={<Entypo style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'address'} />}
                     label={ "Địa chỉ" }
                     value={user.studentId.address  ?? '-'}
                 />
                 <RowProfileComponent 
-                    icon={<Fontisto style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'email'} />}
+                    icon={<Feather style={[{ color: COLORS.MAIN_TEXT }]} size={40} name={'smartphone'} />}
                     label={ "Số điện thoại" }
                     value={user.studentId.phone  ?? '-'}
                 />
@@ -129,7 +135,7 @@ const styles = StyleSheet.create({
     TextName: {
         position: 'absolute',
         left: 135,
-        bottom: -25,
+        bottom: -30,
         padding: 3,
         fontSize: 20,
         fontWeight: 'bold'

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // IMPORT REACT NATIVE
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Text, TextInput } from 'react-native';
 
 // IMPORT COMPOMENT
 import LoginComponent from './src/components/login/LoginComponent';
@@ -23,15 +23,47 @@ import * as PARAMETER from './src/constants/Parameter';
 import {Provider} from 'react-redux';
 import store from './src/store';
 
+// IMPORT PUSH NOTIFICATION
+import { registerForPushNotificationsAsync } from './src/services/Notification';
+import * as Notifications from 'expo-notifications'
+
+// IMPORT EXPO FONT
+import * as Font from 'expo-font';
+
+// GLOBAL PROPS
+import {
+  setCustomTextInput,
+  setCustomText
+} from 'react-native-global-props';
+
 export default class App extends React.Component {
 
   state = {
     navigator: null,
     selectedTabnavigator: null,
     loading: false,
-    user: {}
+    user: {},
+    tokenNotification: ''
   }
+  
+  async componentDidMount() {
+
+    await Font.loadAsync({
+      'quick-sand': require('./src/assets/fonts/Quicksand.ttf'),
+      'quick-sand-bold': require('./src/assets/fonts/Quicksand-Bold.ttf')
+    });
     
+    // await this.defaultFonts()
+    // let token = await registerForPushNotificationsAsync()
+    // // console.log(token)
+    // this.setState({tokenNotification: token})
+    // Notifications.addNotificationReceivedListener(this.handleNotifications)
+  }
+
+  handleNotifications = (notification)=> {
+    console.log(notification)
+  }
+
   // LOGIN
   login = (user) => {
     
@@ -39,7 +71,7 @@ export default class App extends React.Component {
     //   user: user,
     //   loading: true
     // })
-    
+    console.log(user)
     this.setState({
       navigator: user.role,
       selectedTabnavigator: user.role
@@ -52,9 +84,15 @@ export default class App extends React.Component {
       TabNavigatorRender.STUDENT,
       {
         initialRouteName: 'Home',
-        activeColor: COLORS.LIGHT,
+        activeColor: COLORS.MAIN_PRIMARY,
         inactiveColor: COLORS.LIGHT_HIGHT,
-        barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+        barStyle: { backgroundColor: COLORS.LIGHT },
+        defaultNavigationOptions: {
+          headerTitleStyle: { 
+              fontFamily: PARAMETER.FONT_BOLD_MAIN,
+              color: COLORS.LIGHT 
+          },
+        }
       }
     ))
 
@@ -64,16 +102,15 @@ export default class App extends React.Component {
       TabNavigatorRender.TEACHER,
       {
         initialRouteName: 'Home',
-        activeColor: COLORS.LIGHT,
+        activeColor: COLORS.MAIN_PRIMARY,
         inactiveColor: COLORS.LIGHT_HIGHT,
-        barStyle: { backgroundColor: COLORS.MAIN_PRIMARY },
+        barStyle: { backgroundColor: COLORS.LIGHT },
       }
     ))
 
     // return <NavigatorTeacher />
 
     if (this.state.selectedTabnavigator == PARAMETER.STUDENT_ROLE){
-      // console.log(this.state.selectedTabnavigator, PARAMETER.STUDENT_ROLE)
       return <NavigatorStudent />
     }
 
@@ -82,14 +119,6 @@ export default class App extends React.Component {
   }
 
   render () {
-
-    // Code view
-    // return (
-    //   <Provider store = {store}>
-    //     { this.Navigator() }
-    //   </Provider>
-    // )
-
     if (this.state.navigator ==  null) {
       return (
         <Provider store = {store}>
@@ -97,6 +126,7 @@ export default class App extends React.Component {
             loading = {this.state.loading}
             loginFunction = { this.login }
           />
+          {/* <TextInput value={ this.state.tokenNotification } /> */}
         </Provider>
       )
     }
@@ -110,6 +140,9 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  ProviderApp: {
+    
+  },
   button: {
     flex: 1,
     justifyContent: 'center',

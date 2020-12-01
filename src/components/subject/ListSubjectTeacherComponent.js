@@ -120,7 +120,7 @@ export default class ListSubjectTeacherComponent extends Component {
                 <ListItem.Content style={ styles.ContentRow }>
                     
                     <ListItem.Title style={styles.text}>
-                        <Feather style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'book'} />    
+                        <Feather style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'book'} />    
                         <Text style={ styles.TextDateTime }>
                         &nbsp;{ item.name }
                         </Text>

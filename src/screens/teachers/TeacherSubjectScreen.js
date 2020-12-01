@@ -49,7 +49,7 @@ export default class TeacherSubjectScreen extends Component {
     return (
       <View style={{ backgroundColor: COLORS.LIGHT, flex: 1 }}>
         
-        <View style={ styles.ViewListTime }>
+        {/* <View style={ styles.ViewListTime }>
           
           <ListTimeComponent 
             time={ TIME_TEACHER }
@@ -57,7 +57,7 @@ export default class TeacherSubjectScreen extends Component {
             getSubject={ this.getSubject }
           />
 
-        </View>
+        </View> */}
         
         <ListClassComponent
           navigation={ this.props.navigation }

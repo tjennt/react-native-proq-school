@@ -28,6 +28,8 @@ import {Ionicons,
     AntDesign 
 } from 'react-native-vector-icons';
 
+import GLOBAL_STYLES from '../../styles';
+
 const list = [
     {
       name: 'Lập trình PHP',
@@ -120,7 +122,7 @@ export default class ListSubjectScheduleStudentComponent extends Component {
                 <ListItem.Content style={ styles.ContentRow }>
                     
                     <ListItem.Title style={styles.text}>
-                        <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
+                        <AntDesign style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
                         <Text style={ styles.TextDateTime }>
                         &nbsp;{item.date}
                         </Text>
@@ -152,12 +154,6 @@ export default class ListSubjectScheduleStudentComponent extends Component {
 
     render () {
         const { schedules } = this.props;
-        
-        let heightScroll = 'unset';
-
-        if (PARAMETER.HEIGHT_SCROLL != 0) {
-          heightScroll = PARAMETER.HEIGHT_SCROLL;
-        }
 
         return (
         <SafeAreaView style={styles.container}>

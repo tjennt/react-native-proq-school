@@ -4,7 +4,8 @@ import { ActivityIndicator,
     StyleSheet,
     TouchableOpacity, 
     ImageBackground,
-    View } from 'react-native';
+    View,
+    Alert } from 'react-native';
 
 import { Image,
     Avatar,
@@ -32,6 +33,18 @@ import * as PARAMETER from '../../constants/Parameter';
 // IMPORT AXIOS
 import axios from 'axios';
 
+// IMPORT HELPER SERVICE
+import { _storeData, _retrieveData } from '../../services/HelperService';
+
+// import GLOBAL_STYLES from '../../styles/Global';
+
+
+const GLOBAL_STYLES = {
+    ButtonStyle: {
+        color: 'red'
+    }
+}
+
 class LoginComponent extends Component {
     
     constructor(props) {
@@ -40,6 +53,12 @@ class LoginComponent extends Component {
             loading: false
         }
     }
+    componentDidMount() {
+        setTimeout(()=> {
+            this.loginWhenAsyncData()
+        }, 500)
+    }
+
     signInWithGoogle = async () => {
         try {
             this.setState({ loading: true })
@@ -53,11 +72,9 @@ class LoginComponent extends Component {
                 this.loginServerApi(result)
             } else {
                 this.setState({ loading: false })
-                console.log("Out login")
             }
         } catch (e) {
             console.log('Error with login', e);
-            return { error: true };
         }
     };
 
@@ -74,19 +91,19 @@ class LoginComponent extends Component {
             })
             let { data } = res
             if (data.success === true){
-                // console.log(data)
                 return this.loginSuccess(data.payload)
             }
             return this.loginFail()
 
         } catch (error) {
             console.log("error", error)
+            return this.loginFail()
         }
     }
     
     loginSuccess = async (dataLogin)=> {
         const { token, access } = dataLogin
-        const Faketoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmE2OTcyOGE2ZjQ2OWYwNmQ2ODc1NmQiLCJ0ZWFjaGVySWQiOnsiYXZhdGFyIjoidXBsb2Fkcy91c2VyLWF2YXRhci9kZWZhdWx0LmpwZyIsIl9pZCI6IjVmYTY5NzI4YTZmNDY5ZjA2ZDY4NzU2YiIsInRlYWNoZXJDb2RlIjoiR1YxMTEiLCJmdWxsbmFtZSI6IkNow6J1IFRo4bq_IE5pbmgiLCJwaG9uZSI6IjE2NDc4NDE3MiIsImRvYiI6IjIwLzEwLzE5ODAiLCJzcGVjaWFsaXphdGlvbiI6ImpzIiwiX192IjowLCJjcmVhdGVkQXQiOiIyMDIwLTExLTA3VDEyOjQ2OjMyLjc2MVoiLCJ1cGRhdGVkQXQiOiIyMDIwLTExLTA3VDEyOjQ2OjMyLjc2MVoifSwic3R1ZGVudElkIjpudWxsLCJhY2Nlc3MiOiJ0ZWFjaGVyIiwiaWF0IjoxNjA0ODIyMjYyLCJleHAiOjE2MDU2ODYyNjJ9.N29lWjzGh6xtcL6bdn9PETJWkjFZbmutnJN9eiK-vi0";
+        // console.log(dataLogin)
         try {
             let res = await axios.get(`${PARAMETER.SERVER}/v1/${access}/profile/`, {
                 headers: {
@@ -99,8 +116,23 @@ class LoginComponent extends Component {
             if (data.success == true) {
                 data.payload.role = dataLogin.access
                 data.payload.token = dataLogin.token
-                // data.payload.token = Faketoken
-                this.props.addUser(data.payload)
+                
+                let dataSave = data.payload
+
+                if(dataLogin.access == PARAMETER.TEACHER_ROLE) {
+                    dataLogin.role = dataLogin.access
+                    dataLogin.teacherId = data.payload
+                    dataSave = dataLogin
+                }
+
+                _storeData({
+                    key: 'user',
+                    value: JSON.stringify(dataSave)
+                })
+                
+                
+                this.props.addUser(dataSave)
+                
                 this.props.loginFunction({
                     role: dataLogin.access
                 })
@@ -111,8 +143,38 @@ class LoginComponent extends Component {
         }
     }
 
+    loginWhenAsyncData = async ()=> {
+        this.setState({loading: true})
+        try {
+            let user = await _retrieveData('user')
+            if (user == null) {
+                // this.setState({loading: false})
+                return false
+            }
+            user = JSON.parse(user)
+            // console.log(user)
+            let dataSave = {}
+            if(user.access == PARAMETER.TEACHER_ROLE) {
+                dataSave = user
+            }else {
+                dataSave = user
+            }
+
+            this.props.addUser(dataSave)
+            
+            this.props.loginFunction({
+                role: dataSave.role
+            })
+            
+        } catch (error) {
+            this.setState({loading: false})
+            console.log(error)
+        }
+    }
+
     loginFail = ()=> {
-        
+        this.setState({ loading: false })
+        Alert.alert('Cảnh báo', 'Đăng nhập thất bại, vui lòng thử lại!')
     }
 
     render () {
@@ -131,7 +193,7 @@ class LoginComponent extends Component {
                         PlaceholderContent={<ActivityIndicator />}
                     >
                     </Image>
-                    <Text h4 style={ { fontWeight: 'bold' } }> 
+                    <Text style={ [GLOBAL_STYLES.ButtonStyle, { fontSize: 25 }] }> 
                         { LOGIN.appName }
                     </Text>
 
@@ -140,7 +202,7 @@ class LoginComponent extends Component {
                 {/* Introduce */}
                 <View style= { styles.introduce }>
                     <Card style= { {width: 200 } }>
-                        <Text style= { { fontSize: 17, fontWeight: 'bold' } }> { LOGIN.welcome }</Text>
+                        <Text style= { [GLOBAL_STYLES.ButtonStyle, { fontSize: 17 }] }> { LOGIN.welcome }</Text>
                         
                         {/* <Card.Divider/> */}
                         <Card.Image
@@ -148,17 +210,17 @@ class LoginComponent extends Component {
                             source= { require('../../assets/images/illustrators/gifs/classroom.gif') }  
                         />
                         <View style= { styles.marginCard }>
-                            <Text>{ LOGIN.introductLogin }</Text>
+                            <Text style={[GLOBAL_STYLES.ButtonStyle]}>{ LOGIN.introductLogin }</Text>
                         </View>
 
                         {/* Login google */}
-                        {/* <Text>{ this.state.loading ? 'Loading....' : '' }</Text> */}
                         <TouchableOpacity
                             onPress={ this.signInWithGoogle }
                             // disabled={true}
                         >
                             <SocialIcon
                                 title= { LOGIN.loginWithGoole }
+                                titleStyle={GLOBAL_STYLES.ButtonStyle}
                                 button
                                 type= 'google'
                                 loading={loading}

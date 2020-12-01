@@ -18,7 +18,7 @@ import * as PARAMETER from '../../constants/Parameter';
 
 // IMPORT LIBRARY
 import {Ionicons,
-    MaterialIcons,
+    FontAwesome,
     AntDesign 
 } from 'react-native-vector-icons';
 
@@ -28,6 +28,8 @@ import * as HelperService from '../../services/HelperService';
 // IMPORT COMPONECT EMPTY DATA
 import EmptyData from '../../components/Helpers/EmptyData';
 
+import GLOBAL_STYLES from '../../styles';
+
 export default class ListScheduleTeacherComponent extends Component {
 
     constructor(props) {
@@ -35,61 +37,60 @@ export default class ListScheduleTeacherComponent extends Component {
         this.state = {
             dataSheet: {},
             isVisible: false,
-            loading: true,
             listDays: [],
-            sheetList: [
-                {
-                    id: 1,
-                    name: 'Điểm danh',
-                    style: {},
-                    onPress: ()=> {
-                        this.setState({ isVisible: false })
+            // sheetList: [
+            //     {
+            //         id: 1,
+            //         name: 'Điểm danh',
+            //         style: {},
+            //         onPress: ()=> {
+            //             this.setState({ isVisible: false })
 
-                        this.props.navigation.push( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
-                            classSubject: this.state.dataSheet
-                        })
-                     }
-                },
-                {
-                    id: 2,
-                    name: 'Xem danh sách lớp',
-                    style: {}
-                },
-                {
-                    id: 3,
-                    name: 'Xem điểm',
-                    style: {}
-                },
-                {
-                    id: 4,
-                    name: 'Hủy bỏ',
-                    containerStyle: { backgroundColor: '#b71c1c' },
-                    style: { color: '#fff' },
-                    onPress: ()=> { this.setState({ isVisible: false }) }
-                },
-            ]
+            //             this.props.navigation.push( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
+            //                 classSubject: this.state.dataSheet
+            //             })
+            //          }
+            //     },
+            //     {
+            //         id: 2,
+            //         name: 'Xem danh sách lớp',
+            //         style: {}
+            //     },
+            //     {
+            //         id: 3,
+            //         name: 'Xem điểm',
+            //         style: {}
+            //     },
+            //     {
+            //         id: 4,
+            //         name: 'Hủy bỏ',
+            //         containerStyle: { backgroundColor: '#b71c1c' },
+            //         style: { color: '#fff' },
+            //         onPress: ()=> { this.setState({ isVisible: false }) }
+            //     },
+            // ]
         }
     }
     
     componentDidMount() {
-        const { data } = this.props 
+        const { data, setLoading } = this.props 
         setTimeout(()=> {
             this.setState({
-                listDays: data.listDays,
-                loading: false
+                listDays: data.listDays
             })
+            setLoading()
         }, 1)
     }
 
     keyExtractor = (item, index) => index.toString()
 
-    renderItem = ({ item }) => {
+    renderItem = ({ item, index }) => {
         const { data } = this.props
         return (
             <ListItem containerStyle={ styles.ListItemSchedule }>
                 <TouchableOpacity
                     style={ { flex: 1 } }
-                    onPress={ ()=> { this.chooseBottomSheet(item) } } 
+                    onPress={ ()=> { this.navigateSchedule(item) } } 
                 >
                     {/* CONTENT */}
                     <ListItem.Content>
@@ -98,14 +99,14 @@ export default class ListScheduleTeacherComponent extends Component {
                         <ListItem.Content style={ styles.ContentRow }>
                             
                             <ListItem.Title style={styles.text}>
-                                <AntDesign style={[{color: COLORS.DARK, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
-                                <Text style={ styles.TextDateTime }>
+                                { this.renderIconRandom(index) }    
+                                <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextDateTime] }>
                                     &nbsp; { HelperService.getDateName(item) } - 
                                     (Ca { data.shift })
                                 </Text>
                             </ListItem.Title>
 
-                            <ListItem.Subtitle style={{ flex: 1, fontSize: 13, textAlign: 'right', marginTop: 5 }}>
+                            <ListItem.Subtitle style={ [GLOBAL_STYLES.TextTitleStyle, styles.SubTitleDate]}>
                                 { HelperService.getDateFormat(item) } 
                             </ListItem.Subtitle>
                         
@@ -114,11 +115,13 @@ export default class ListScheduleTeacherComponent extends Component {
                         {/* Bottom content */}
                         <ListItem.Content style={ styles.ContentRowBottom }>
 
-                            <ListItem.Title style={{ flex: 1 }}>{ data.subject.name.toUpperCase() } - { 'Môn học thú vị' }</ListItem.Title>
+                            <ListItem.Title style={[GLOBAL_STYLES.TextTitleStyle,{ flex: 1 }]}>
+                                { data.subject.name.toUpperCase() } - { 'Tìm hiểu về biến ...' }
+                                </ListItem.Title>
                     
                             <Badge
                                 badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
-                                textStyle={{ fontWeight: 'bold' }}
+                                textStyle={[GLOBAL_STYLES.ButtonStyle]}
                                 value={ data.class.name.toUpperCase() }
                                 status="success" />
 
@@ -130,30 +133,46 @@ export default class ListScheduleTeacherComponent extends Component {
         )
     }
 
-    chooseBottomSheet = (item)=> {
-        const { data } = this.props
-        this.setState({
-            dataSheet: {
-                idClassSubject: data.idClassSubject,
-                day: item
-            },
-            isVisible: true
-        })
+    // chooseBottomSheet = (item)=> {
+    //     const { data } = this.props
+    //     this.setState({
+    //         dataSheet: {
+    //             idClassSubject: data.idClassSubject,
+    //             day: item
+    //         },
+    //         isVisible: true
+    //     })
+    // }
+
+    renderIconRandom = (index)=> {
+        if (index % 2) {
+            return <AntDesign style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'staro'} />
+        }
+        if (index % 3) {
+            return <FontAwesome style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'leanpub'} />
+        }
+
+        return <FontAwesome style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'leaf'} />
+
     }
 
-    navigateSchedule = () => {
-        const { dataSheet } = this.state
+    navigateSchedule = (day) => {
+        const { data } = this.props
 
-        this.props.navigation.push( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen')
+        this.props.navigation.push( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
+            classSubject: {
+                idClassSubject: data.idClassSubject,
+                day: day
+            }
+        })
     }
 
     render () {
         const { data, navigation } = this.props
-        const { isVisible, sheetList, dataSheet, listDays, loading } = this.state
+        const { listDays } = this.state
 
         return (
             <SafeAreaView style={styles.container}>
-                <EmptyData loading={loading} stopLoad={true} />
                 <FlatList
                     keyExtractor={this.keyExtractor}
                     data={listDays}
@@ -161,7 +180,7 @@ export default class ListScheduleTeacherComponent extends Component {
                 />
 
                 {/* BOTTOM SHEET CHOOSE */}
-                <BottomSheet
+                {/* <BottomSheet
                     isVisible={isVisible}
                     containerStyle={ {
                         borderRadius: 10
@@ -182,7 +201,7 @@ export default class ListScheduleTeacherComponent extends Component {
                         </ListItem.Content>
                         </ListItem>
                     ))}
-                </BottomSheet>
+                </BottomSheet> */}
 
             </SafeAreaView>
         )
@@ -226,7 +245,6 @@ const styles = StyleSheet.create({
     },
     TextDateTime: {
         fontSize: 17,
-        fontWeight: 'bold',
         marginLeft: 5
     },
     ListItemSchedule: { 
@@ -248,5 +266,11 @@ const styles = StyleSheet.create({
     },
     ListItemTitleNameClass: {
         fontWeight: 'bold'
+    },
+    SubTitleDate: { 
+        flex: 1, 
+        fontSize: 13, 
+        textAlign: 'right', 
+        marginTop: 5 
     }
 });
