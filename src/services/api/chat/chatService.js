@@ -132,7 +132,13 @@ export const getListUserSearch = async (props)=> {
             if(data.payload.length == 0) {
                 return { users: data.payload, loading: false, stopLoad: false }
             }
-            return { users: data.payload, loading: false, stopLoad: false }
+
+            let users = data.payload.map((user)=> {
+                user['checked_group'] = false
+                return user
+            })
+
+            return { users: users, loading: false, stopLoad: false }
         }else {
             return { loading: false, stopLoad: false }
         }

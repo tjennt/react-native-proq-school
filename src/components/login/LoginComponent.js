@@ -148,7 +148,7 @@ class LoginComponent extends Component {
         try {
             let user = await _retrieveData('user')
             if (user == null) {
-                // this.setState({loading: false})
+                this.setState({loading: false})
                 return false
             }
             user = JSON.parse(user)

@@ -18,7 +18,8 @@ import {
 
     // IMPORT ICON
 import { 
-  AntDesign
+  AntDesign,
+  FontAwesome
  } from 'react-native-vector-icons';
 
 import STYLE_GOBAL from '../../styles';
@@ -100,12 +101,12 @@ class UserScreen extends Component {
     <TouchableOpacity
               onPress={()=> UserScreen.handleSearchUser(navigation)}
             >
-                <AntDesign style={[
+                <FontAwesome style={[
                 { 
                   color: COLORS.MAIN_PRIMARY,
                   paddingRight: 12
                 }
-              ]} size={25} name={'search1'} />
+              ]} size={25} name={'pencil-square-o'} />
             </TouchableOpacity>
   )
 

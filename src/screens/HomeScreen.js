@@ -66,7 +66,7 @@ class HomeScreen extends Component {
     }
   }
 
-  async componentDidMount() {    
+  componentDidMount() {
       this.getListNewsAndCategories()
 
     this.chat = io(PARAMETER.SERVER);
@@ -74,7 +74,8 @@ class HomeScreen extends Component {
     this.chat.on("SEND_MESSAGE_CHAT", data => {
         const { user } = this.props
         if (
-          data.group.members.includes(user._id)
+          data.group.members.includes(user._id) &&
+          data.from != user._id
         ) {
           ToastAndroid.showWithGravityAndOffset(
             "Bạn có tin nhắn mới!",
@@ -88,7 +89,6 @@ class HomeScreen extends Component {
 
     this.chat.on("ON_NOTIFY", data => {
       const { user } = this.props
-      console.log(data)
       ToastAndroid.showWithGravityAndOffset(
         `Thông báo: ${data.title}`,
         ToastAndroid.LONG,

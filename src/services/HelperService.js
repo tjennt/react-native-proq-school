@@ -69,7 +69,6 @@ export const getDateFormat = (date, format = 'date_time_year')=> {
     let year = dateObj.getFullYear()
     
     let result;
-
     switch(format) {
         case 'date_time':
             result = day  + '/'+ month 
@@ -80,12 +79,26 @@ export const getDateFormat = (date, format = 'date_time_year')=> {
         case 'year_month_day':
             result = year + '-' + month + '-'+ day 
         break
+        case 'all':
+            result = formatAMPM(dateObj) + ' - ' + day  + '/'+ month  + '/' + year
+        break
         default: 
             result = day  + '/'+ month  + '/' + year
         break
     }
 
     return result
+}
+
+export const formatAMPM = (date)=> {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
 }
 
 export const getDayNumber = (date)=> {
