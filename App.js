@@ -1,7 +1,7 @@
 import React from 'react';
 
 // IMPORT REACT NATIVE
-import { StyleSheet,Text, TextInput } from 'react-native';
+import { StyleSheet,Text, TextInput, Button } from 'react-native';
 
 // IMPORT COMPOMENT
 import LoginComponent from './src/components/login/LoginComponent';
@@ -25,7 +25,7 @@ import store from './src/store';
 
 // IMPORT PUSH NOTIFICATION
 import { registerForPushNotificationsAsync } from './src/services/Notification';
-import * as Notifications from 'expo-notifications'
+import * as Notifications from 'expo-notifications';
 
 // IMPORT EXPO FONT
 import * as Font from 'expo-font';
@@ -54,14 +54,36 @@ export default class App extends React.Component {
     });
     
     // await this.defaultFonts()
-    // let token = await registerForPushNotificationsAsync()
-    // // console.log(token)
-    // this.setState({tokenNotification: token})
-    // Notifications.addNotificationReceivedListener(this.handleNotifications)
+    let token = await registerForPushNotificationsAsync()
+    // console.log(token)
+    this.setState({tokenNotification: token})
+    Notifications.addNotificationReceivedListener(this.handleNotifications)
   }
 
   handleNotifications = (notification)=> {
     console.log(notification)
+    alert(JSON.stringify(notification))
+    
+  }
+  
+  sendPushNotification = async (expoPushToken)=> {
+    const message = {
+      to: expoPushToken,
+      sound: 'default',
+      title: 'TIÊU ĐỀ',
+      body: 'ĐÂY LÀ NỘI DUNG!',
+      data: { data: 'ghpfsdsf' },
+    };
+  
+    await fetch('https://exp.host/--/api/v2/push/send', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Accept-encoding': 'gzip, deflate',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(message),
+    });
   }
 
   // LOGIN
@@ -124,9 +146,15 @@ export default class App extends React.Component {
         <Provider store = {store}>
           <LoginComponent
             loading = {this.state.loading}
+            tokenNotification={this.state.tokenNotification}
             loginFunction = { this.login }
           />
-          {/* <TextInput value={ this.state.tokenNotification } /> */}
+          {/* <Button
+            title="SEND NOTI"
+            onPress={()=>{this.sendPushNotification(this.state.tokenNotification)}}
+          >
+          </Button>
+          <TextInput value={ this.state.tokenNotification } /> */}
         </Provider>
       )
     }

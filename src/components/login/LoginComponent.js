@@ -56,7 +56,7 @@ class LoginComponent extends Component {
     componentDidMount() {
         setTimeout(()=> {
             this.loginWhenAsyncData()
-        }, 500)
+        }, 300)
     }
 
     signInWithGoogle = async () => {
@@ -85,9 +85,11 @@ class LoginComponent extends Component {
     }
 
     loginServerApi = async (dataGoogle)=> {
+        const { tokenNotification } = this.props
         try {
             let res = await axios.post(`${PARAMETER.SERVER}/v1/users/android/google/login`, {
-                tokenId: dataGoogle.idToken
+                tokenId: dataGoogle.idToken,
+                tokenDevice: tokenNotification
             })
             let { data } = res
             if (data.success === true){

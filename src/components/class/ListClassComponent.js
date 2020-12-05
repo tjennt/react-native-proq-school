@@ -71,7 +71,7 @@ class ListClassComponent extends Component {
                         <ListItem.Title style={ styles.text }>
                             <MaterialCommunityIcons style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'bookmark-outline'} />    
                             <Text style={ [GLOBAL_STYLES.ButtonStyle, styles.TextDateTime ] }>
-                            &nbsp;{ item.subject.name }
+                            &nbsp;{ item.subject.name } ( ca: { item.shift })
                             </Text>
                         </ListItem.Title>
                         <Badge
@@ -84,12 +84,12 @@ class ListClassComponent extends Component {
                     {/* Bottom content */}
                     <ListItem.Content style={ styles.ContentRow }>
 
-                        <ListItem.Title style={[GLOBAL_STYLES.TextStyle, styles.TitleDateRange ]}>
+                        <ListItem.Subtitle style={[GLOBAL_STYLES.TextTitleStyle, styles.TitleDateRange ]}>
                             { HelperService.getDateFormat(item.startAt, 'date_time') } - { HelperService.getDateFormat(item.endAt) }
-                        </ListItem.Title>
+                        </ListItem.Subtitle>
                 
-                        <ListItem.Subtitle style={[GLOBAL_STYLES.TextStyle, styles.SubTitleTime ]}>
-                            Ca học: { item.shift }
+                        <ListItem.Subtitle style={[GLOBAL_STYLES.TextTitleStyle, styles.SubTitleTime ]}>
+                            { this.getBadgeWeekDays(item.weekDays) }
                         </ListItem.Subtitle>
                     
                     </ListItem.Content>
@@ -98,6 +98,25 @@ class ListClassComponent extends Component {
             </TouchableOpacity>
         </ListItem>
     )
+
+    getBadgeWeekDays = (weekDays)=> {
+        
+        return weekDays.map((day, index)=> {
+            let dayString
+            if (day == 0){
+                dayString = 'CN'
+            }else {
+                dayString = ++day
+            }
+            
+            return <Badge
+            badgeStyle={{ padding: 5, marginRight: 3, backgroundColor: COLORS.BADGE_RANDOM[index] }}
+            textStyle={[GLOBAL_STYLES.ButtonStyle]}
+            value={ dayString }
+            status="success" />
+        })
+        
+    }
 
     navigateSubjectSchedule = (item) => {
         const { navigation } = this.props

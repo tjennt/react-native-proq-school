@@ -68,11 +68,46 @@ class ListUserComponent extends Component {
     keyExtractor = (user, index) => index.toString()
 
     renderItem = ({ item, index }) => {
+
+        if(item.type != 'single'){
+            return(
+                <TouchableOpacity 
+                    onPress={()=> this.navigateChat({ 
+                        _id: item._id,
+                        fullName: item.name,
+                        type: 'group',
+                        check: 'list'
+                     })}
+                    key={index}
+                    style={styles.ViewUser}
+                >
+                    <Image
+                        style={ styles.ImageAvatar }
+                        resizeMode="cover"
+                        source={ { uri: `${PARAMETER.SERVER_IMAGE}/${item.avatar}` } }
+                    />
+                    <View style={ styles.ViewNameDes }>
+                        <Text 
+                            style={ [GLOBAL_STYLES.TextTitleStyle,  styles.TextName] }>
+                                { item.name } 
+                        </Text>
+                        <ListItem.Title 
+                            numberOfLines={1}
+                            ellipsizeMode='tail'
+                            style={ [GLOBAL_STYLES.TextStyle,  styles.TextDes, {width:250}] }>
+                            { HelperService.getDateFormat(item.createdAt, 'date_time') } - { item.lastMessage }
+                        </ListItem.Title>
+                    </View>
+                
+                </TouchableOpacity>
+            )
+        }
         return(
             <TouchableOpacity 
                 onPress={()=> this.navigateChat({ 
                     id: item.user._id,
-                    fullName: item.user.fullName
+                    fullName: item.user.fullName,
+                    type: 'single'
                  })}
                 key={index}
                 style={styles.ViewUser}

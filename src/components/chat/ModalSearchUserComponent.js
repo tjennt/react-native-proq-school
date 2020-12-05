@@ -9,7 +9,7 @@ import {
     FlatList,
     Keyboard,
     TouchableOpacity,
-    ActivityIndicator } from 'react-native';
+    Alert } from 'react-native';
 
 import { 
     Card,
@@ -50,7 +50,7 @@ import { connect } from 'react-redux';
 
 import GLOBAL_STYLES from '../../styles';
 
-import Modal, { SlideAnimation, ModalContent, ModalTitle, ModalButton } from 'react-native-modals';
+import Modal, { SlideAnimation, ModalContent, ModalTitle, ModalButton, ModalFooter } from 'react-native-modals';
 
 class ModalSearchUserComponent extends Component {
 
@@ -63,11 +63,14 @@ class ModalSearchUserComponent extends Component {
             loading: false,
             stopLoad: true,
             groupCreate: false,
-            keyboard: false
+            keyboard: false,
+            name: '',
+            promptVisible: false
         }
     }
 
     componentDidMount() {
+        const { userIds } = this.state
         this.keyboardDidShowListener = Keyboard.addListener(
             'keyboardDidShow',
             this.setKeyboardTrue
@@ -76,6 +79,9 @@ class ModalSearchUserComponent extends Component {
             'keyboardDidHide',
             this.setKeyboardFalse
         );
+        this.setState({
+            userIds: [this.props.user._id, ...userIds]
+        })
     }
     
     componentWillUnmount() {
@@ -94,7 +100,7 @@ class ModalSearchUserComponent extends Component {
     navigateChat = async (user)=> {
         const { handleModalSearchVisible, navigation } = this.props
 
-        await handleModalSearchVisible(false)
+        handleModalSearchVisible(false)
         
         navigation.push('ChatScreen', {
             data: user,
@@ -117,6 +123,35 @@ class ModalSearchUserComponent extends Component {
         }
     }
 
+    createGroupChat = ()=> {
+        const { userIds, name } = this.state
+        this.navigateChat({ 
+            userIds: userIds,
+            fullName: name,
+            name: name,
+            type: 'group'
+        })
+    }
+
+    showModalTextNameGroup = ()=> {
+        const { userIds } = this.state
+        if (userIds.length == 1) {
+            Alert.alert('Cảnh báo', 'Vui lòng chọn người dùng!')
+            return
+        }
+        this.setState({promptVisible: true})
+    }
+
+    navigateChat = (user)=> {
+        const { handleModalSearchVisible } = this.props
+        handleModalSearchVisible(false)
+        this.setState({promptVisible: false})
+        this.props.navigation.push('ChatScreen', {
+            data: user,
+            user: this.props.user
+        })
+    }
+
     keyExtractor = (item, index) => index.toString()
 
     renderItem = ({ item, index }) => {
@@ -124,7 +159,8 @@ class ModalSearchUserComponent extends Component {
             <TouchableOpacity 
                 onPress={()=> this.navigateChat({ 
                     id: item.idUser,
-                    fullName: item.fullName
+                    fullName: item.fullName,
+                    type: 'single'
                  })}
                 key={index}
                 style={styles.ViewUser}
@@ -152,19 +188,34 @@ class ModalSearchUserComponent extends Component {
     }
 
     checkedUserGroup = async (item, index)=> {
-        const { users } = this.state
-
+        const { users, userIds } = this.state
         let usersArr = users
+        let usersIdsArr = userIds
+        
         await usersArr.map((user, key)=> {
             if(index == key) {
                 user['checked_group'] = !user['checked_group']
+                let key = null
+                let userId = usersIdsArr.find(id => id == user.idUser)
+
+                if (typeof userId == 'undefined' && user['checked_group'] == true){
+                    usersIdsArr.push(user.idUser)
+                }else if (typeof userId != 'undefined' && user['checked_group'] == false) {
+                    usersIdsArr = usersIdsArr.filter( user =>{
+                        if(user != userId){
+                            return user
+                        }
+                    })
+                }
                 return user
             }
             return user
         })
-        // console.log(usersArr);
-        this.setState({users: usersArr})
-
+        console.log(usersIdsArr);
+        this.setState({
+            users: usersArr,
+            userIds: usersIdsArr
+        })
     }
 
     renderListUsersOrEmpty = ()=> {
@@ -180,6 +231,7 @@ class ModalSearchUserComponent extends Component {
         return <FlatList
             keyExtractor={this.keyExtractor}
             data={users}
+            extraData={this.state}
             renderItem={this.renderItem}
         />
     }
@@ -193,9 +245,9 @@ class ModalSearchUserComponent extends Component {
     }
 
     render () {
-        const { users, keyboard } = this.state;
+        const { users, keyboard, promptVisible } = this.state;
         const { modalSearchVisible, handleModalSearchVisible } = this.props
-
+        // console.log(users);
         return (
             <Modal
                 visible={modalSearchVisible}
@@ -210,7 +262,7 @@ class ModalSearchUserComponent extends Component {
                 onSwipeOut={(e) => {
                     handleModalSearchVisible(false)
                 }}
-                modalTitle={<ModalTitle title="Tin nhắn mới" />}
+                modalTitle={<ModalTitle title="Tìm kiếm mọi người" />}
             >
                 <ModalContent
                     style={{ flex: 1 }}
@@ -222,11 +274,63 @@ class ModalSearchUserComponent extends Component {
                         containerStyle={{borderRadius: 20}}
                         onSubmitEditing={Keyboard.dismiss}
                     />
-                    <TouchableOpacity
-                        onPress={()=> {}}
+
+                    {/* Modal group name */}
+                    <Modal
+                        visible={promptVisible}
+                        width={0.8}
+                        height={ keyboard ? 0.3 : 0.3}
+                        swipeDirection={['down']}
+                        swipeThreshold={200}
+                        modalAnimation={new SlideAnimation({
+                            slideFrom: 'bottom',
+                        })}
+                        onSwipeOut={(e) => {
+                            this.setState({promptVisible: false})
+                        }}
+                        modalTitle={<ModalTitle title="Tên nhóm" />}
+                        footer={
+                            <ModalFooter>
+                              <ModalButton
+                                text="Hủy"
+                                onPress={() => { this.setState({promptVisible: false}) }}
+                              />
+                              <ModalButton
+                                text="Đồng ý"
+                                onPress={() => {this.createGroupChat()}}
+                              />
+                            </ModalFooter>
+                        }
                     >
-                        <Text>Tạo nhóm</Text>
+                        <ModalContent
+                            style={{alignItems: 'center',
+                            flex: 1,
+                            justifyContent: 'center'}}
+                        >
+                            <Input
+                                placeholder="Tên nhóm của bạn"
+                                onChangeText={value => this.setState({ name: value })}
+                                containerStyle={{borderRadius: 20}}
+                            />
+                        </ModalContent>
+
+                    </Modal>
+
+                    <TouchableOpacity
+                        onPress={()=> { this.showModalTextNameGroup() }}
+                    >
+                        <Text 
+                            style={
+                                [
+                                    GLOBAL_STYLES.TextTitleStyle,
+                                    { 
+                                        color: COLORS.MAIN_TEXT,
+                                        textAlign: 'right'
+                                    }
+                                ]
+                                }> Tạo nhóm</Text>
                     </TouchableOpacity>
+                    
                     <SafeAreaView style={styles.container}>
                         {
                             this.renderListUsersOrEmpty()

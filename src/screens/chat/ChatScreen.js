@@ -96,16 +96,30 @@ export default class ChatScreen extends Component {
           data.group.members.includes(userRedux._id) &&
           dataRoom._id == data.group._id
         ) {
+          console.log(data)
           this.setState({
             messages: [chatService.mapMessage(data), ...this.state.messages]
           })
         }
 
     })
-
-    this.getListChatOrCreate()
+    this.getChat()
   }
 
+  getChat = ()=> {
+    const { dataUserSend } = this.state
+    if(dataUserSend.type == 'single'){
+      this.getListChatOrCreate()
+      return
+    }
+
+    if (dataUserSend.type == 'group' && dataUserSend.check == 'list') {
+      this.getMessagesGroup()
+      return
+    }
+
+    this.createGroupChat()
+  }
   getListChatOrCreate = async ()=> {
     const { userRedux, dataUserSend } = this.state
     
@@ -125,6 +139,51 @@ export default class ChatScreen extends Component {
       })
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  createGroupChat = async ()=> {
+    const { userRedux, dataUserSend } = this.state
+    try {
+        let data = await chatService.createGroupChat({
+            user: userRedux,
+            userIds: dataUserSend.userIds,
+            name: dataUserSend.name
+        })
+        this.setState({
+          dataRoom: data.dataRoom,
+          messages: chatService.mapMessages(data.messages),
+          total_page: data.total_page,
+          page: data.page,
+          loading: false,
+          stopLoad: true,
+          isLoadingEarlier: false
+        })
+    } catch (error) {
+        
+    }
+  }
+
+
+  getMessagesGroup = async ()=> {
+    const { userRedux, dataUserSend } = this.state
+    // return
+    try {
+        let data = await chatService.getChats({
+            user: userRedux,
+            group: dataUserSend
+        })
+        this.setState({
+          dataRoom: dataUserSend,
+          messages: chatService.mapMessages(data.payload),
+          total_page: data.total_page,
+          page: data.page,
+          loading: false,
+          stopLoad: true,
+          isLoadingEarlier: false
+        })
+    } catch (error) {
+        
     }
   }
   
@@ -179,7 +238,6 @@ export default class ChatScreen extends Component {
     if (loading) {
       return <EmptyData loading={ loading } stopLoad={stopLoad} />
     } else {
-      console.log(messages, userRedux)
       return <ListChatComponent 
               messages={messages}
               page={page}

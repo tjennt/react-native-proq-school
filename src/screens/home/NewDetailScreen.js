@@ -46,50 +46,52 @@ export default class NewDetailScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      opacityImage: 1
+      opacityImage: 0.8
     }
   }
 
   componentDidMount() {
     const { navigation } = this.props;
+    console.log(navigation);
   }
 
   handleScroll = (event)=> {
-    
+    const { navigation } = this.props
     let height = event.nativeEvent.contentOffset.y
-    let heightResult = 1
+    let heightResult = 0.8
+
 
     if (height >= 10 && height < 40) {
-      heightResult = 0.9
-    }
-    else if (height >= 40 && height < 60){
-      heightResult = 0.8
-    }
-    else if (height >= 60 && height < 80){
       heightResult = 0.7
     }
-    else if (height >= 80 && height < 100){
+    else if (height >= 40 && height < 60){
       heightResult = 0.6
     }
-    else if (height >= 100 && height < 120){
+    else if (height >= 60 && height < 80){
       heightResult = 0.5
     }
-    else if (height >= 120 && height < 140){
-      heightResult = 0.4
-    }
-    else if (height >= 140 && height < 160){
+    else if (height >= 80 && height < 100){
       heightResult = 0.3
     }
-    else if (height >= 160 && height < 180){
+    else if (height >= 100 && height < 120){
+      heightResult = 0.3
+    }
+    else if (height >= 120 && height < 140){
       heightResult = 0.2
     }
-    else if (height >= 180 && height < 200){
+    else if (height >= 140 && height < 160){
       heightResult = 0.1
     }
-    else if (height >= 200){
+    else if (height >= 160){
       heightResult = 0
     }
     
+    // if(heightResult <= 0.2) { 
+    //   navigation.setParams({'barStatus': false})
+    // }else {
+    //   navigation.setParams({'barStatus': true})
+    // }
+
     this.setState({opacityImage: heightResult})
   }
   
@@ -108,7 +110,7 @@ export default class NewDetailScreen extends React.Component {
           />
         </View>
 
-        <ScrollView 
+        <ScrollView
           style={ styles.scrollView }
           onScroll={this.handleScroll}
         >
@@ -151,6 +153,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     backgroundColor: COLORS.LIGHT,
+    // borderTopColor: COLORS.MAIN_PRIMARY,
+    // borderTopWidth: 1,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

@@ -38,6 +38,40 @@ export const getGroupOrCreate = async (props)=> {
     }
 }
 
+export const createGroupChat = async (props)=> {
+    const { user, userIds, name } = props
+    try {
+        let res = await axios.post(`${PARAMETER.SERVER}/v1/group/multi`, {
+            name: name,
+            mems: userIds
+        },
+        {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+        let { data } = res
+        if (data.success) {
+            let dataChat = await getChats({
+                group: data.payload,
+                user: user
+            })
+            return {
+                dataRoom: data.payload,
+                messages: dataChat.payload,
+                total_page: dataChat.total_page,
+                page: dataChat.page,
+            }
+        }else {
+            return {}
+        }
+
+    } catch (error) {
+        console.log(error)
+        return {}
+    }
+}
+
 export const getChats = async (props)=> {
     const { group, user, params } = props
     try {

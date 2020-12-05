@@ -51,6 +51,7 @@ export default class ListNewsComponent extends Component {
         // bottomDivider
         onPress={ ()=> { 
           navigation.push('NewsDetail', {
+            barStatus: true,
             news: item,
             image: this.getImageAvatar()
           }) 

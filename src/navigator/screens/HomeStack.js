@@ -45,7 +45,28 @@ const HomeStack = createStackNavigator(
           color: COLORS.MAIN_PRIMARY
         },
         headerBackImage: ()=> (
-            <Entypo style={[{color: COLORS.MAIN_PRIMARY}]} name="chevron-thin-left" size={25} />
+            <Entypo 
+              style={
+                [
+                  {
+                    color: COLORS.LIGHT,
+                    backgroundColor: COLORS.MAIN_TEXT,
+                    padding: 3,
+                    borderRadius: 50,
+                    fontSize: 20,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 3,
+                    },
+                    shadowOpacity: 0.27,
+                    shadowRadius: 4.65,
+                    elevation: 7
+                  }
+                ]
+              } 
+              name="chevron-thin-left" 
+              size={25} />
         ),
         ...TransitionPresets.SlideFromRightIOS,
     },

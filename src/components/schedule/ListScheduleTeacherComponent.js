@@ -133,17 +133,6 @@ export default class ListScheduleTeacherComponent extends Component {
         )
     }
 
-    // chooseBottomSheet = (item)=> {
-    //     const { data } = this.props
-    //     this.setState({
-    //         dataSheet: {
-    //             idClassSubject: data.idClassSubject,
-    //             day: item
-    //         },
-    //         isVisible: true
-    //     })
-    // }
-
     renderIconRandom = (index)=> {
         if (index % 2) {
             return <AntDesign style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'staro'} />
@@ -178,31 +167,6 @@ export default class ListScheduleTeacherComponent extends Component {
                     data={listDays}
                     renderItem={this.renderItem}
                 />
-
-                {/* BOTTOM SHEET CHOOSE */}
-                {/* <BottomSheet
-                    isVisible={isVisible}
-                    containerStyle={ {
-                        borderRadius: 10
-                    } }
-                >
-                    <ListItem bottomDivider>
-                        <ListItem.Content>
-                            <ListItem.Title style={ styles.ListItemTitleNameClass }>
-                                { dataSheet.nameClass }
-                            </ListItem.Title>
-                        </ListItem.Content>
-                    </ListItem>
-
-                    {sheetList.map((sheet, key) => (
-                        <ListItem key={key} containerStyle={ sheet.containerStyle } onPress={sheet.onPress}>
-                        <ListItem.Content>
-                            <ListItem.Title style={ sheet.style }>{sheet.name}</ListItem.Title>
-                        </ListItem.Content>
-                        </ListItem>
-                    ))}
-                </BottomSheet> */}
-
             </SafeAreaView>
         )
     }

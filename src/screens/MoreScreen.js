@@ -5,7 +5,7 @@ import {
     TouchableOpacity,
     TouchableHighlight,
     StyleSheet,
-    ScrollView,
+    Linking,
     SafeAreaView
   } from 'react-native';
 
@@ -67,7 +67,6 @@ class MoreScreen extends Component {
           <Text style={ styles.TextCopyRight }>{ 'Copyright © PROQ'.toUpperCase() }</Text>
         </View>
 
-
         {/* Menu */}
         <TouchableHighlight 
           style={ styles.TouchableHighlight }
@@ -82,25 +81,12 @@ class MoreScreen extends Component {
             <Text style={styles.TextNext}>{'>'}</Text>
           </View>
         </TouchableHighlight>
-
-        {/* <TouchableHighlight
-          style={ styles.TouchableHighlight }
-          underlayColor={ COLORS.MAIN_BG }
-          onPress={()=> this.navigationScreen('UserScreen', {
-            modalSearchVisible: false
-          }) }
-        >
-          <View style={styles.ViewTagMenu}>
-            <Feather style={[styles.IconTitle]} size={35} name={'users'} />
-            <Text style={styles.TextTitle}>Danh sách online</Text>
-            <Text style={styles.TextNext}>{'>'}</Text>
-          </View>
-        </TouchableHighlight> */}
-
         <TouchableHighlight 
           style={ styles.TouchableHighlight }
           underlayColor={ COLORS.MAIN_BG }
-          onPress={()=> alert('SEND') }
+          onPress={()=> {
+            Linking.openURL('mailto:toma.nguyen675@gmail.com?subject=[PROQ APP] Phản hồi &body=...')
+          } }
         >
           <View style={styles.ViewTagMenu}>
             <Entypo style={[styles.IconTitle]} size={35} name={'notification'} />

@@ -41,9 +41,9 @@ export default class TeacherSubjectScheduleScreen extends Component {
     headerTitleAlign: 'left',
     headerTitleStyle: { 
       fontFamily: PARAMETER.FONT_BOLD_MAIN,
-      color: COLORS.LIGHT 
+      color: COLORS.MAIN_PRIMARY 
     },
-    headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
+    headerStyle: { backgroundColor: COLORS.LIGHT }
   })
 
   constructor(props) {
@@ -80,22 +80,26 @@ export default class TeacherSubjectScheduleScreen extends Component {
       listDays: navigation.getParam('data').listDays
     })
 
-    await this.getScheduleDays({id: 7, label: 'Tất cả', checkAll: true }, 0)
+    await this.getScheduleDays({id: 7, label: 'Tất cả', checkAll: false }, 0)
   }
+
   // Get date range
-  getDateRange = ()=> {
+  getDateRange = async ()=> {
     const { navigation } = this.props
     const data = navigation.getParam('data')
-    this.setState({
-      daysRange: SearchSubjectSchedule.getDateRangeClassSubject(data.weekDays)
-    })
+    try {
+      let weekDays = await SearchSubjectSchedule.getDateRangeClassSubject(data.weekDays)
+      delete weekDays[0]
+      this.setState({
+        daysRange: weekDays
+      })
+    } catch (e) {
+      console.log(e); 
+    }
   }
 
   // Selected button
   buttonStyleSeleted = (index) => {
-    if (index == this.state.selectedDay) {
-      return styles.ButtonStyleSelected
-    }
     return styles.ButtonStyle
   }
 
@@ -107,18 +111,7 @@ export default class TeacherSubjectScheduleScreen extends Component {
     this.setState({
       data: rawData,
       selectedDay: index,
-    })
-
-    return
-    console.log(day);
-    let data = rawData
-    data.listDays = SearchSubjectSchedule.getListSubjectScheduleSortDay(listDays, day)
-    // Selected day
-    console.log(data, listDays);
-    // return
-    this.setState({
-      selectedDay: index,
-      data: data
+      loading: false
     })
   }
 
@@ -129,6 +122,10 @@ export default class TeacherSubjectScheduleScreen extends Component {
   viewListScheduleOrEmptyData = ()=> {
     const { navigation } = this.props
     const { data, loading, stopLoad } = this.state
+    if (loading) {
+      return <EmptyData loading={loading} />
+    }
+    
     if (data.listDays.length == 0) {
       return <EmptyData />
     }
@@ -146,13 +143,13 @@ export default class TeacherSubjectScheduleScreen extends Component {
     const { daysRange, loading } = this.state
     return (
       <View style={{ backgroundColor: COLORS.LIGHT, flex: 1 }}>
-        {/* <View style={ styles.ViewListDays }>
+        <View style={ styles.ViewListDays }>
           <ListDaysComponent 
             days={ daysRange }
             buttonStyleSeleted={ this.buttonStyleSeleted }
             getScheduleDays={ this.getScheduleDays }
           />
-        </View> */}
+        </View>
         {/* <EmptyData loading={loading} stopLoad={!loading} /> */}
         { this.viewListScheduleOrEmptyData() }
       </View>
@@ -168,7 +165,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     marginRight: 10,
     borderRadius: 50,
-    backgroundColor: '#cccccc'
+    backgroundColor: '#4fc3f7'
   },
   ButtonStyleSelected: {
     paddingLeft: 12,

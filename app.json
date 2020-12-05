@@ -30,6 +30,7 @@
     },
     "android": {
       "package": "wit.reactnative.proqschool",
+      "googleServicesFile": "./google-services.json",
       "useNextNotificationsApi": true
     },
     "description": "PROQ SCHOOL",
