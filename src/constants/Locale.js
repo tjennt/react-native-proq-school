@@ -40,5 +40,6 @@ export const APP = {
     className: 'Tên lớp học',
     roleName: 'Chức vụ',
     view: 'Lượt xem',
-    message: 'Tin nhắn'
+    message: 'Tin nhắn',
+    place: 'Cơ sở'
 }

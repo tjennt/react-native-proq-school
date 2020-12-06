@@ -262,13 +262,15 @@ class ModalSearchUserComponent extends Component {
                 onSwipeOut={(e) => {
                     handleModalSearchVisible(false)
                 }}
-                modalTitle={<ModalTitle title="Tìm kiếm mọi người" />}
+                modalTitle={<ModalTitle title="Tìm kiếm mọi người" textStyle={[GLOBAL_STYLES.TextTitleStyle]} />}
             >
                 <ModalContent
                     style={{ flex: 1 }}
                 >
                     <Input
-                        placeholder="Tìm kiếm mọi người"
+                        inputContainerStyle={styles.InputSearchUser} 
+                        inputStyle={[GLOBAL_STYLES.TextTitleStyle]}
+                        placeholder="Mọi người"
                         rightIcon={()=> this.renderButtonSearch()}
                         onChangeText={value => this.setState({ searchText: value })}
                         containerStyle={{borderRadius: 20}}
@@ -288,14 +290,16 @@ class ModalSearchUserComponent extends Component {
                         onSwipeOut={(e) => {
                             this.setState({promptVisible: false})
                         }}
-                        modalTitle={<ModalTitle title="Tên nhóm" />}
+                        modalTitle={<ModalTitle title="Tên nhóm" textStyle={[GLOBAL_STYLES.TextTitleStyle]} />}
                         footer={
                             <ModalFooter>
                               <ModalButton
+                                textStyle={[GLOBAL_STYLES.TextTitleStyle]}
                                 text="Hủy"
                                 onPress={() => { this.setState({promptVisible: false}) }}
                               />
                               <ModalButton
+                                textStyle={[GLOBAL_STYLES.TextTitleStyle]}
                                 text="Đồng ý"
                                 onPress={() => {this.createGroupChat()}}
                               />
@@ -308,6 +312,8 @@ class ModalSearchUserComponent extends Component {
                             justifyContent: 'center'}}
                         >
                             <Input
+                                inputStyle={[GLOBAL_STYLES.TextTitleStyle]}
+                                inputContainerStyle={{borderBottomWidth:0, paddingTop: 5}} 
                                 placeholder="Tên nhóm của bạn"
                                 onChangeText={value => this.setState({ name: value })}
                                 containerStyle={{borderRadius: 20}}
@@ -360,8 +366,8 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         borderRadius: 20,
         backgroundColor: COLORS.LIGHT,
-        borderBottomColor: COLORS.DARK,
-        borderBottomWidth: 0.1,
+        borderBottomColor: COLORS.MAIN_TEXT,
+        borderBottomWidth: 0.4
         // shadowColor: "#000",
         // shadowOffset: {
         //     width: 0,
@@ -399,5 +405,13 @@ const styles = StyleSheet.create({
     TouchableBack: { 
         flex: 0.1,
         paddingTop: 15
+    },
+    InputSearchUser: {
+        marginTop: 10,
+        borderColor: COLORS.MAIN_TEXT,
+        borderWidth: 1, 
+        borderRadius: 10, 
+        paddingLeft: 7, 
+        paddingRight: 7
     }
 });

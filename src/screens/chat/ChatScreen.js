@@ -96,12 +96,10 @@ export default class ChatScreen extends Component {
           data.group.members.includes(userRedux._id) &&
           dataRoom._id == data.group._id
         ) {
-          console.log(data)
           this.setState({
             messages: [chatService.mapMessage(data), ...this.state.messages]
           })
         }
-
     })
     this.getChat()
   }
@@ -130,7 +128,9 @@ export default class ChatScreen extends Component {
       })
       this.setState({
         dataRoom: data.dataRoom,
-        messages: chatService.mapMessages(data.messages),
+        messages: chatService.mapMessages(data.messages, {
+          ...dataUserSend
+        }),
         total_page: data.total_page,
         page: data.page,
         loading: false,
@@ -173,6 +173,7 @@ export default class ChatScreen extends Component {
             user: userRedux,
             group: dataUserSend
         })
+        console.log(data.payload);
         this.setState({
           dataRoom: dataUserSend,
           messages: chatService.mapMessages(data.payload),

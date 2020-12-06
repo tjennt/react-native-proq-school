@@ -46,7 +46,7 @@ class MoreScreen extends Component {
   // })
 
   logout = ()=> {
-    const { navigation, deleteUser } = this.props
+    const { deleteUser } = this.props
     _removeData('user')
     deleteUser()
     Updates.reloadAsync()

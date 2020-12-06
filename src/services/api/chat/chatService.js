@@ -183,21 +183,37 @@ export const getListUserSearch = async (props)=> {
 }
 
 // MAP MESSAGES
-export const mapMessages = (messages)=> {
-  
+export const mapMessages = (messages, options = {})=> {
+    
+    if(options.type == 'single'){
+        return messages.map((message)=> {
+        return {
+            _id: message._id,
+            text: message.content,
+            createdAt: message.createdAt,
+            user: {
+            _id: message.from,
+            name: message.from == options.id ? options.fullName : message.from,
+            avatar: `${PARAMETER.SERVER_IMAGE}/${message.from == options.id ? options.avatar : 'uploads/user-avatar/default.jpg'}`,
+            },
+            sent: true
+        }
+        })
+    }
+
     return messages.map((message)=> {
-      return {
-        _id: message._id,
-        text: message.content,
-        createdAt: message.createdAt,
-        user: {
-          _id: message.from,
-          name: message.from,
-          avatar: 'https://server-dev.asia/uploads/user-avatar/default.jpg',
-        },
-        sent: true
-      }
-    })
+        return {
+          _id: message._id,
+          text: message.content,
+          createdAt: message.createdAt,
+          user: {
+            _id: message.from,
+            name: message.from,
+            avatar: `${PARAMETER.SERVER_IMAGE}/uploads/user-avatar/default.jpg`,
+          },
+          sent: true
+        }
+      })
 }
 
 export const mapMessage = (message)=> {
@@ -208,7 +224,7 @@ export const mapMessage = (message)=> {
         user: {
             _id: message.from,
             name: message.from,
-            avatar: 'https://server-dev.asia/uploads/user-avatar/default.jpg',
+            avatar: `${PARAMETER.SERVER_IMAGE}/${message.group.avatar}`,
         },
         sent: false
     }

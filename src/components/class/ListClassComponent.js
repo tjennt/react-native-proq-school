@@ -26,8 +26,8 @@ import { connect } from 'react-redux';
 
 // IMPORT LIBRARY
 import {MaterialCommunityIcons,
-    MaterialIcons,
-    Fontisto 
+    AntDesign,
+    FontAwesome 
 } from 'react-native-vector-icons';
 
 // IMPORT AXIOS
@@ -53,7 +53,7 @@ class ListClassComponent extends Component {
     
     keyExtractor = (item, index) => index.toString()
 
-    renderItem = ({ item }) => (
+    renderItem = ({ item, index }) => (
         <ListItem 
             // bottomDivider
             containerStyle={ styles.ListItemSchedule }
@@ -69,7 +69,7 @@ class ListClassComponent extends Component {
                     <ListItem.Content style={ styles.ContentRow }>
                         
                         <ListItem.Title style={ styles.text }>
-                            <MaterialCommunityIcons style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'bookmark-outline'} />    
+                            { this.renderIconRandom(index) }
                             <Text style={ [GLOBAL_STYLES.ButtonStyle, styles.TextDateTime ] }>
                             &nbsp;{ item.subject.name } ( ca: { item.shift })
                             </Text>
@@ -99,6 +99,17 @@ class ListClassComponent extends Component {
         </ListItem>
     )
 
+    renderIconRandom = (index)=> {
+        if (index % 2) {
+            return <AntDesign style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'staro'} />
+        }
+        if (index % 3) {
+            return <FontAwesome style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'leanpub'} />
+        }
+
+        return <FontAwesome style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'leaf'} />
+    }
+    
     getBadgeWeekDays = (weekDays)=> {
         
         return weekDays.map((day, index)=> {

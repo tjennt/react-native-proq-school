@@ -36,14 +36,14 @@ import axios from 'axios';
 // IMPORT HELPER SERVICE
 import { _storeData, _retrieveData } from '../../services/HelperService';
 
-// import GLOBAL_STYLES from '../../styles/Global';
+import GLOBAL_STYLES from '../../styles/Global';
 
 
-const GLOBAL_STYLES = {
-    ButtonStyle: {
-        color: 'red'
-    }
-}
+// const GLOBAL_STYLES = {
+//     ButtonStyle: {
+//         color: 'red'
+//     }
+// }
 
 class LoginComponent extends Component {
     
@@ -89,7 +89,7 @@ class LoginComponent extends Component {
         try {
             let res = await axios.post(`${PARAMETER.SERVER}/v1/users/android/google/login`, {
                 tokenId: dataGoogle.idToken,
-                tokenDevice: tokenNotification
+                tokenDevice: tokenNotification.slice(18, tokenNotification.length-1)
             })
             let { data } = res
             if (data.success === true){

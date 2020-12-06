@@ -22,7 +22,8 @@ import {
     Send,
     LoadEarlier,
     Bubble,
-    InputToolbar } from 'react-native-gifted-chat';
+    InputToolbar,
+    MessageText } from 'react-native-gifted-chat';
 
 import * as COLORS from '../../constants/Colors';
 
@@ -103,6 +104,16 @@ class ListChatComponent extends Component {
                 />
     }
 
+    renderMessageText =({currentMessage, ...args})=> {
+        return ( 
+            <MessageText
+                currentMessage={currentMessage}
+                customTextStyle={[GLOBAL_STYLES.TextStyle, { fontWeight: '600' }]}
+                {...args}
+            />
+        )
+    }
+
     render () {
         const { 
             messages,
@@ -165,7 +176,8 @@ class ListChatComponent extends Component {
                         borderWidth: 1 
                     }
                 }
-
+                
+                // Input text
                 renderInputToolbar={(props) => (
                     <InputToolbar
                         {...props}
@@ -178,6 +190,12 @@ class ListChatComponent extends Component {
                         }
                     />
                 )}
+
+                // Font family text
+                renderMessageText={this.renderMessageText}
+
+                // event avatar
+                // onPressAvatar={(user)=>{ console.log(user) }}
             />
         </SafeAreaView>
         )

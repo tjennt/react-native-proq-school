@@ -107,6 +107,7 @@ class ListUserComponent extends Component {
                 onPress={()=> this.navigateChat({ 
                     id: item.user._id,
                     fullName: item.user.fullName,
+                    avatar: item.avatar,
                     type: 'single'
                  })}
                 key={index}

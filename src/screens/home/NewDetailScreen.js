@@ -52,7 +52,6 @@ export default class NewDetailScreen extends React.Component {
 
   componentDidMount() {
     const { navigation } = this.props;
-    console.log(navigation);
   }
 
   handleScroll = (event)=> {
@@ -121,7 +120,7 @@ export default class NewDetailScreen extends React.Component {
             </Text>
               {/* AUTHOR, TIME */}
               <View style={ { flexDirection: 'row', marginTop: 10 } }>
-                <Text style={ [GLOBAL_STYLES.TextStyle, styles.author] }>{ APP.author }: tiennt</Text>
+                <Text style={ [GLOBAL_STYLES.TextStyle, styles.author] }>{ APP.place }: { news.place }</Text>
                 <Text 
                   style={ [GLOBAL_STYLES.TextStyle, styles.time] }>{ APP.time }: { HelperService.getDateFormat(news.createdAt) }</Text>
               </View>

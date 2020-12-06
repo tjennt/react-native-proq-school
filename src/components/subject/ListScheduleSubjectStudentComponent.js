@@ -101,6 +101,12 @@ export default class ListScheduleSubjectStudentComponent extends Component {
         ) {
             badge.value = 'Chưa học'
             badge.status = 'primary'
+            if(
+                status == true
+            ){
+                badge.value = 'Có mặt'
+                badge.status = 'success'
+            }
         }
 
         else if(

@@ -18,7 +18,7 @@ import * as PARAMETER from '../../constants/Parameter';
 
 // IMPORT LIBRARY
 import {Ionicons,
-    MaterialIcons,
+    FontAwesome,
     AntDesign 
 } from 'react-native-vector-icons';
 
@@ -27,24 +27,12 @@ import * as HelperService from '../../services/HelperService';
 
 import GLOBAL_STYLES from '../../styles';
 
-const list = [
-    {
-      name: 'Lập trình PHP',
-      code: 'PHP',
-      date: '2020/13/10',
-      nameDay: 'MO',
-      studyTime: 'Ca 1',
-      description: 'Bua nay vo hoc cho vui thoi'
-    }
-];
-
 export default class ListScheduleStudentComponent extends Component {
 
     keyExtractor = (item, index) => index.toString()
 
-    renderItem = ({ item }) => {
+    renderItem = ({ item, index }) => {
         const { day } = this.props
-        console.log(day)
         return (
             <ListItem 
                 // bottomDivider
@@ -61,13 +49,10 @@ export default class ListScheduleStudentComponent extends Component {
                         <ListItem.Content style={ styles.ContentRow }>
                             
                             <ListItem.Title style={styles.text}>
-                                <AntDesign style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
+                                { this.renderIconRandom(index) }    
                                 <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextDateTime] }>
                                 &nbsp;{item.subject.name}
                                 </Text>
-                                {/* <Text style={ [GLOBAL_STYLES.TextTitleStyle, { fontSize: 13 }] }>
-                                    &nbsp; Ca {item.shift})
-                                </Text> */}
                             </ListItem.Title>
                             <Badge
                                 badgeStyle={{ padding: 12, backgroundColor: COLORS.MAIN_TEXT }}
@@ -96,6 +81,18 @@ export default class ListScheduleStudentComponent extends Component {
 
     moreInfoSchedule = (description) => {
         alert('THONG TIN')
+    }
+    
+    renderIconRandom = (index)=> {
+        if (index % 2) {
+            return <AntDesign style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'staro'} />
+        }
+        if (index % 3) {
+            return <FontAwesome style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'leanpub'} />
+        }
+
+        return <FontAwesome style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'leaf'} />
+
     }
 
     render () {

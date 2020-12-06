@@ -73,14 +73,14 @@ class ListClassScheduleTeacherComponent extends Component {
                         style={ styles.Avatar }
                         avatarStyle={ styles.AvatarStyle }
                         source={ {
-                            uri: `${PARAMETER.SERVER}/${item.student.avatar}`
+                            uri: `${PARAMETER.SERVER_IMAGE}/${item.student.avatar}`
                         } } />
                     
                     {/* Full name and student code */}
                     <ListItem.Content style={styles.text}>
 
                         <ListItem.Title style={ [GLOBAL_STYLES.TextTitleStyle] }>{ item.student.fullName }</ListItem.Title>
-                        <ListItem.Subtitle style={  [GLOBAL_STYLES.TextTitleStyle, { fontSize: 12 }] }>{ item.student._id }</ListItem.Subtitle>
+                        <ListItem.Subtitle style={  [GLOBAL_STYLES.TextTitleStyle, { fontSize: 12 }] }>{ item.student.studentCode.toUpperCase() }</ListItem.Subtitle>
 
                     </ListItem.Content>
 
@@ -185,7 +185,7 @@ class ListClassScheduleTeacherComponent extends Component {
     }
     render () {
         const { classSchedule } = this.state;
-        
+        console.log(classSchedule);
         return (
         <SafeAreaView style={styles.container}>
             { this.viewRenderListOrEmpty() }
