@@ -8,19 +8,13 @@ import { ActivityIndicator,
     Alert } from 'react-native';
 
 import { Image,
-    Avatar,
-    Accessory,
     Text,
     SocialIcon,
     Card } from 'react-native-elements';
 
-// IMPORT LIBRARY
-import Icon from 'react-native-vector-icons/Ionicons';
-
 // IMPORT LOGIN GOOGLE
 import * as Google from "expo-google-app-auth";
 
-import * as COLORS from '../../constants/Colors';
 import  { LOGIN } from '../../constants/Locale';
 
 // IMPORT REDUX
@@ -36,14 +30,14 @@ import axios from 'axios';
 // IMPORT HELPER SERVICE
 import { _storeData, _retrieveData } from '../../services/HelperService';
 
-// import GLOBAL_STYLES from '../../styles/Global';
+import GLOBAL_STYLES from '../../styles/Global';
 
 
-const GLOBAL_STYLES = {
-    ButtonStyle: {
-        color: 'red'
-    }
-}
+// const GLOBAL_STYLES = {
+//     ButtonStyle: {
+//         color: 'red'
+//     }
+// }
 
 class LoginComponent extends Component {
     
@@ -56,7 +50,7 @@ class LoginComponent extends Component {
     componentDidMount() {
         setTimeout(()=> {
             this.loginWhenAsyncData()
-        }, 500)
+        }, 300)
     }
 
     signInWithGoogle = async () => {
@@ -85,9 +79,11 @@ class LoginComponent extends Component {
     }
 
     loginServerApi = async (dataGoogle)=> {
+        const { tokenNotification } = this.props
         try {
             let res = await axios.post(`${PARAMETER.SERVER}/v1/users/android/google/login`, {
-                tokenId: dataGoogle.idToken
+                tokenId: dataGoogle.idToken,
+                tokenDevice: tokenNotification.slice(18, tokenNotification.length-1)
             })
             let { data } = res
             if (data.success === true){
@@ -148,7 +144,7 @@ class LoginComponent extends Component {
         try {
             let user = await _retrieveData('user')
             if (user == null) {
-                // this.setState({loading: false})
+                this.setState({loading: false})
                 return false
             }
             user = JSON.parse(user)

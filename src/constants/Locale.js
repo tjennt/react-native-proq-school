@@ -5,7 +5,7 @@ export const LOGIN = {
     login: 'Đăng nhập',
     welcome: 'Chào Mừng',
     loginWithGoole: 'Tiếp tục với google',
-    introductLogin: 'AP PROQ là ứng dụng hỗ trợ sinh viên xem điểm, lịch học và cập nhật tin tức nhanh nhất!'
+    introductLogin: 'AP PROQ là ứng dụng hỗ trợ sinh viên xem lịch học, môn học và cập nhật tin tức nhanh nhất!'
 }
 
 // LOCALE NAME NAVIGATOR
@@ -40,5 +40,6 @@ export const APP = {
     className: 'Tên lớp học',
     roleName: 'Chức vụ',
     view: 'Lượt xem',
-    message: 'Tin nhắn'
+    message: 'Tin nhắn',
+    place: 'Cơ sở'
 }

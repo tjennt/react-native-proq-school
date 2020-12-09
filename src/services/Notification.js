@@ -15,7 +15,6 @@ const registerForPushNotificationsAsync = async () => {
     }
 
     if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
       return;
     }
 

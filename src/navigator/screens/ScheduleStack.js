@@ -25,7 +25,7 @@ export const StudentScheduleStack = createStackNavigator(
         StudentScheduleScreen: {
         screen: StudentScheduleScreen,
         navigationOptions: {
-            title: NAVIGATOR.scheduleStudent,
+            title: `${NAVIGATOR.scheduleStudent} TRONG TUẦN`,
             headerTitleAlign: 'left',
             headerStyle: { backgroundColor: COLORS.LIGHT }
         }

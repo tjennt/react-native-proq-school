@@ -30,7 +30,9 @@ import RowProfileComponent from './RowProfileComponent';
 
 import GLOBAL_STYLES from '../../styles';
 
-export default class ViewInfoTeacherComponent extends Component {
+// IMPORT REDUX
+import { connect } from 'react-redux';
+class ViewInfoTeacherComponent extends Component {
     
 
     render () {
@@ -52,7 +54,7 @@ export default class ViewInfoTeacherComponent extends Component {
                         avatarStyle={styles.AvatarStyle}
                     />
 
-                    <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextName] }>{ user.teacherId.fullname }</Text>
+                    <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextName] }>{ user.teacherId.fullname.toUpperCase() }</Text>
 
                 </ImageBackground>
 
@@ -101,6 +103,13 @@ export default class ViewInfoTeacherComponent extends Component {
         )
     }
 }
+
+
+const mapStateToProps = state => ({
+    user: state.user
+});
+  
+export default connect(mapStateToProps, null)(ViewInfoTeacherComponent);
 
 const styles = StyleSheet.create({
     ImageBackground: {

@@ -95,9 +95,18 @@ export default class ListScheduleSubjectStudentComponent extends Component {
 
         let badge = {value: '', status: ''}
 
-        if(dateStudy.setHours(0,0,0,0) > now.setHours(0,0,0,0)) {
+        if(
+            dateStudy.setHours(0,0,0,0) > now.setHours(0,0,0,0) ||
+            dateStudy.setHours(0,0,0,0) == now.setHours(0,0,0,0) 
+        ) {
             badge.value = 'Chưa học'
             badge.status = 'primary'
+            if(
+                status == true
+            ){
+                badge.value = 'Có mặt'
+                badge.status = 'success'
+            }
         }
 
         else if(

@@ -38,6 +38,40 @@ export const getGroupOrCreate = async (props)=> {
     }
 }
 
+export const createGroupChat = async (props)=> {
+    const { user, userIds, name } = props
+    try {
+        let res = await axios.post(`${PARAMETER.SERVER}/v1/group/multi`, {
+            name: name,
+            mems: userIds
+        },
+        {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+        let { data } = res
+        if (data.success) {
+            let dataChat = await getChats({
+                group: data.payload,
+                user: user
+            })
+            return {
+                dataRoom: data.payload,
+                messages: dataChat.payload,
+                total_page: dataChat.total_page,
+                page: dataChat.page,
+            }
+        }else {
+            return {}
+        }
+
+    } catch (error) {
+        console.log(error)
+        return {}
+    }
+}
+
 export const getChats = async (props)=> {
     const { group, user, params } = props
     try {
@@ -132,7 +166,13 @@ export const getListUserSearch = async (props)=> {
             if(data.payload.length == 0) {
                 return { users: data.payload, loading: false, stopLoad: false }
             }
-            return { users: data.payload, loading: false, stopLoad: false }
+
+            let users = data.payload.map((user)=> {
+                user['checked_group'] = false
+                return user
+            })
+
+            return { users: users, loading: false, stopLoad: false }
         }else {
             return { loading: false, stopLoad: false }
         }
@@ -143,21 +183,37 @@ export const getListUserSearch = async (props)=> {
 }
 
 // MAP MESSAGES
-export const mapMessages = (messages)=> {
-  
+export const mapMessages = (messages, options = {})=> {
+    
+    if(options.type == 'single'){
+        return messages.map((message)=> {
+        return {
+            _id: message._id,
+            text: message.content,
+            createdAt: message.createdAt,
+            user: {
+            _id: message.from,
+            name: message.from == options.id ? options.fullName : message.from,
+            avatar: `${PARAMETER.SERVER_IMAGE}/${message.from == options.id ? options.avatar : 'uploads/user-avatar/default.jpg'}`,
+            },
+            sent: true
+        }
+        })
+    }
+
     return messages.map((message)=> {
-      return {
-        _id: message._id,
-        text: message.content,
-        createdAt: message.createdAt,
-        user: {
-          _id: message.from,
-          name: message.from,
-          avatar: 'https://server-dev.asia/uploads/user-avatar/default.jpg',
-        },
-        sent: true
-      }
-    })
+        return {
+          _id: message._id,
+          text: message.content,
+          createdAt: message.createdAt,
+          user: {
+            _id: message.from,
+            name: message.from,
+            avatar: `${PARAMETER.SERVER_IMAGE}/uploads/user-avatar/default.jpg`,
+          },
+          sent: true
+        }
+      })
 }
 
 export const mapMessage = (message)=> {
@@ -168,7 +224,7 @@ export const mapMessage = (message)=> {
         user: {
             _id: message.from,
             name: message.from,
-            avatar: 'https://server-dev.asia/uploads/user-avatar/default.jpg',
+            avatar: `${PARAMETER.SERVER_IMAGE}/${message.group.avatar}`,
         },
         sent: false
     }

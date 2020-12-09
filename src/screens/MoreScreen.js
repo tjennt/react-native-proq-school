@@ -2,23 +2,16 @@ import React, { Component } from 'react';
 import { 
     View, 
     Text,
-    TouchableOpacity,
     TouchableHighlight,
     StyleSheet,
-    ScrollView,
+    Linking,
     SafeAreaView
   } from 'react-native';
 
 import { 
-  Image,
-  ListItem
+  Image
  } from 'react-native-elements';
 
-import STYLE_GOBAL from '../styles/Global';
-
-// IMPORT REDUX
-import * as actions from '../actions';
-import { connect } from 'react-redux';
 
 import * as Updates from 'expo-updates';
 
@@ -27,33 +20,24 @@ import * as COLORS from '../../src/constants/Colors';
 
 // IMPORT LIBRARY
 import {Entypo,
-  Feather,
-  AntDesign 
+  AntDesign,
+  MaterialIcons
 } from 'react-native-vector-icons';
 
 // IMPORT HELPER SERVICE
 import { _removeData } from '../services/HelperService';
 
 import GLOBAL_STYLES from '../styles';
-
-class MoreScreen extends Component {
+import * as PARAMETER from '../constants/Parameter';
+export default class MoreScreen extends Component {
   
-  // static navigationOptions = ({ navigation }) => ({
-  //   title: 'MENU',
-  //   headerTitleAlign: 'left',
-  //   headerTitleStyle: { color: COLORS.LIGHT, fontWeight: 'bold' },
-  //   headerStyle: { backgroundColor: COLORS.MAIN_PRIMARY }
-  // })
-
   logout = ()=> {
-    const { navigation, deleteUser } = this.props
     _removeData('user')
-    deleteUser()
     Updates.reloadAsync()
   }
   
   navigationScreen = (screen, params = {})=> {
-    this.props.navigation.push(screen, params);
+    this.props.navigation.navigate(screen, params);
   }
 
   render() {
@@ -66,7 +50,6 @@ class MoreScreen extends Component {
           />
           <Text style={ styles.TextCopyRight }>{ 'Copyright © PROQ'.toUpperCase() }</Text>
         </View>
-
 
         {/* Menu */}
         <TouchableHighlight 
@@ -82,25 +65,12 @@ class MoreScreen extends Component {
             <Text style={styles.TextNext}>{'>'}</Text>
           </View>
         </TouchableHighlight>
-
-        {/* <TouchableHighlight
-          style={ styles.TouchableHighlight }
-          underlayColor={ COLORS.MAIN_BG }
-          onPress={()=> this.navigationScreen('UserScreen', {
-            modalSearchVisible: false
-          }) }
-        >
-          <View style={styles.ViewTagMenu}>
-            <Feather style={[styles.IconTitle]} size={35} name={'users'} />
-            <Text style={styles.TextTitle}>Danh sách online</Text>
-            <Text style={styles.TextNext}>{'>'}</Text>
-          </View>
-        </TouchableHighlight> */}
-
         <TouchableHighlight 
           style={ styles.TouchableHighlight }
           underlayColor={ COLORS.MAIN_BG }
-          onPress={()=> alert('SEND') }
+          onPress={()=> {
+            Linking.openURL('mailto:tienntps09110@fpt.edu.vn?subject=[PROQ SCHOOL APP] Phản hồi &body=...')
+          } }
         >
           <View style={styles.ViewTagMenu}>
             <Entypo style={[styles.IconTitle]} size={35} name={'notification'} />
@@ -112,11 +82,27 @@ class MoreScreen extends Component {
         <TouchableHighlight 
           style={ styles.TouchableHighlight }
           underlayColor={ COLORS.MAIN_BG }
-          onPress={()=> alert('Setting') }
+          onPress={()=> {
+            Linking.openURL('tel:+84902318374')
+          } }
         >
           <View style={styles.ViewTagMenu}>
-            <AntDesign style={[styles.IconTitle]} size={35} name={'setting'} />
-            <Text style={styles.TextTitle}>Cài đặt</Text>
+            <MaterialIcons style={[styles.IconTitle]} size={35} name={'phonelink-ring'} />
+            <Text style={styles.TextTitle}>Điện thoại hỗ trợ</Text>
+            <Text style={styles.TextNext}>{'>'}</Text>
+          </View>
+        </TouchableHighlight>
+
+        <TouchableHighlight
+          style={ styles.TouchableHighlight }
+          underlayColor={ COLORS.MAIN_BG }
+          onPress={()=> {
+            Linking.openURL(PARAMETER.SERVER_FE)
+          } }
+        >
+          <View style={styles.ViewTagMenu}>
+            <MaterialIcons style={[styles.IconTitle]} size={35} name={'web'} />
+            <Text style={styles.TextTitle}>ProQ trên web</Text>
             <Text style={styles.TextNext}>{'>'}</Text>
           </View>
         </TouchableHighlight>
@@ -137,12 +123,6 @@ class MoreScreen extends Component {
     )
   }
 }
-
-const mapStateToProps = state => ({
-  user: state.user
-});
-
-export default connect(mapStateToProps, actions)(MoreScreen);
 
 const styles = StyleSheet.create({
   SafeAreaView: {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, 
+import { Text, 
     StyleSheet, 
     SafeAreaView, 
     FlatList,
@@ -19,6 +19,7 @@ import * as PARAMETER from '../../constants/Parameter';
 import * as COLORS from '../../constants/Colors';
 
 import GLOBAL_STYLES from '../../styles';
+import * as helperService from '../../services/HelperService';
 
 // IMPORT RENDER HTML
 import HTML from "react-native-render-html";
@@ -28,7 +29,6 @@ export default class ListNewsComponent extends Component {
 
   getImageAvatar = ()=> {
     const { notifyType } = this.props
-    console.log("notifyType", notifyType);
     if(notifyType == 'fee'){
       return require('../../assets/images/illustrators/notify/fee.png')
     }
@@ -43,34 +43,46 @@ export default class ListNewsComponent extends Component {
 
   renderItem = ({ item, index }) => {
     const { navigation } = this.props
-
     return (
       <ListItem
         key={item.id}
         style={ styles.ListItemNews }
         // bottomDivider
         onPress={ ()=> { 
-          navigation.push('NewsDetail', {
+          navigation.navigate('NewsDetail', {
+            barStatus: true,
             news: item,
             image: this.getImageAvatar()
           }) 
         } }
       >
         <Avatar 
-          avatarStyle={{ borderRadius: 10 }}
+          avatarStyle={ styles.Avatar }
           size="large"
           source= { this.getImageAvatar() }
           PlaceholderContent={<ActivityIndicator />}
         />
         <ListItem.Content>
-        <ListItem.Title style={[GLOBAL_STYLES.TextTitleStyle]}>{item.title} { item.id }</ListItem.Title>
+          <ListItem.Title style={[GLOBAL_STYLES.TextTitleStyle]}>
+            {item.title} { item.id }
+          </ListItem.Title>
           <ListItem.Subtitle 
+            style={[ GLOBAL_STYLES.TextTitleStyle,{ 
+              marginTop: 40,
+              marginLeft: 100,
+              fontSize: 12 
+            }]}
+          >
+            {helperService.getDateFormat(item.updatedAt, 'all')}
+          </ListItem.Subtitle>
+          {/* <ListItem.Subtitle
             numberOfLines={1}
             ellipsizeMode='tail'
             style={[GLOBAL_STYLES.TextStyle, {width: 150}]}
           >
+
             <HTML html={`<div style="color: #9d9c9e;">${item.description}</div>`} />
-          </ListItem.Subtitle>
+          </ListItem.Subtitle> */}
         </ListItem.Content>
       </ListItem>
     )
@@ -115,10 +127,17 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 3,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 7
+  },
+  Avatar: { 
+    // borderRadius: 15,
+    borderTopRightRadius: 10,
+    borderBottomLeftRadius: 10, 
+    borderColor: COLORS.MAIN_PRIMARY, 
+    borderWidth: 0.4
   }
 })

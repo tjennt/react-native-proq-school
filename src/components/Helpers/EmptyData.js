@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: "row",
         justifyContent: "space-around",
-        padding: 10 
+        padding: 25
     },
     EmptyData: {
         width: '100%',

@@ -23,7 +23,7 @@ import * as COLORS from '../../constants/Colors';
 import * as PARAMETER from '../../constants/Parameter';
 
 // IMPORT LIBRARY
-import {Ionicons,
+import {FontAwesome,
     MaterialIcons,
     AntDesign 
 } from 'react-native-vector-icons';
@@ -41,7 +41,7 @@ export default class ListSubjectStudentComponent extends Component {
 
     keyExtractor = (item, index) => index.toString()
 
-    renderItem = ({ item }) => (
+    renderItem = ({ item, index }) => (
         <ListItem  
             // bottomDivider
             containerStyle={ styles.ListItemSchedule }
@@ -57,8 +57,7 @@ export default class ListSubjectStudentComponent extends Component {
                 <ListItem.Content style={ styles.ContentRow }>
                     
                     <ListItem.Title style={styles.text}>
-                        <AntDesign style={[{color: COLORS.PRIMARY}]} size={16} name={'clockcircleo'} />
-
+                        { this.renderIconRandom(index) }
                         <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextDateTime] }>
                         &nbsp;{item.subject.name}
                         </Text>
@@ -106,6 +105,18 @@ export default class ListSubjectStudentComponent extends Component {
             },
             title: `LỊCH HỌC MÔN ${item.subject.name.toUpperCase()}`
         })
+
+    }
+
+    renderIconRandom = (index)=> {
+        if (index % 2) {
+            return <AntDesign style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'staro'} />
+        }
+        if (index % 3) {
+            return <FontAwesome style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'leanpub'} />
+        }
+
+        return <FontAwesome style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'leaf'} />
 
     }
 
