@@ -43,14 +43,13 @@ export default class ListNewsComponent extends Component {
 
   renderItem = ({ item, index }) => {
     const { navigation } = this.props
-    console.log(item);
     return (
       <ListItem
         key={item.id}
         style={ styles.ListItemNews }
         // bottomDivider
         onPress={ ()=> { 
-          navigation.push('NewsDetail', {
+          navigation.navigate('NewsDetail', {
             barStatus: true,
             news: item,
             image: this.getImageAvatar()

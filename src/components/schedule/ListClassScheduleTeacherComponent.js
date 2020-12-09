@@ -35,7 +35,6 @@ import * as HelperService from '../../services/HelperService';
 import axios from 'axios';
 
 // IMPORT REDUX
-import * as actions from '../../actions';
 import { connect } from 'react-redux';
 
 import GLOBAL_STYLES from '../../styles';
@@ -185,7 +184,6 @@ class ListClassScheduleTeacherComponent extends Component {
     }
     render () {
         const { classSchedule } = this.state;
-        console.log(classSchedule);
         return (
         <SafeAreaView style={styles.container}>
             { this.viewRenderListOrEmpty() }

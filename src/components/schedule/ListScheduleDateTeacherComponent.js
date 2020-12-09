@@ -112,7 +112,7 @@ export default class ListScheduleDateTeacherComponent extends Component {
 
     navigateSchedule = (item, day) => {
         
-        this.props.navigation.push( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
+        this.props.navigation.navigate( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
             classSubject: {
                 idClassSubject: item._id,
                 day: day.value

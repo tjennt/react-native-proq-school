@@ -164,7 +164,7 @@ class HomeScreen extends Component {
   }
   
   getNewsDetail = () => {
-    this.props.navigation.push('NewsDetail')
+    this.props.navigation.navigate('NewsDetail')
   }
 
   viewNotifyTypeOrEmpty = ()=> {

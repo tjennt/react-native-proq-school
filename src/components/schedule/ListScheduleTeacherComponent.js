@@ -37,38 +37,7 @@ export default class ListScheduleTeacherComponent extends Component {
         this.state = {
             dataSheet: {},
             isVisible: false,
-            listDays: [],
-            // sheetList: [
-            //     {
-            //         id: 1,
-            //         name: 'Điểm danh',
-            //         style: {},
-            //         onPress: ()=> {
-            //             this.setState({ isVisible: false })
-
-            //             this.props.navigation.push( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
-            //                 classSubject: this.state.dataSheet
-            //             })
-            //          }
-            //     },
-            //     {
-            //         id: 2,
-            //         name: 'Xem danh sách lớp',
-            //         style: {}
-            //     },
-            //     {
-            //         id: 3,
-            //         name: 'Xem điểm',
-            //         style: {}
-            //     },
-            //     {
-            //         id: 4,
-            //         name: 'Hủy bỏ',
-            //         containerStyle: { backgroundColor: '#b71c1c' },
-            //         style: { color: '#fff' },
-            //         onPress: ()=> { this.setState({ isVisible: false }) }
-            //     },
-            // ]
+            listDays: []
         }
     }
     
@@ -148,7 +117,7 @@ export default class ListScheduleTeacherComponent extends Component {
     navigateSchedule = (day) => {
         const { data } = this.props
 
-        this.props.navigation.push( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
+        this.props.navigation.navigate( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
             classSubject: {
                 idClassSubject: data.idClassSubject,
                 day: day

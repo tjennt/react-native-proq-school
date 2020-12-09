@@ -102,7 +102,7 @@ class ModalSearchUserComponent extends Component {
 
         handleModalSearchVisible(false)
         
-        navigation.push('ChatScreen', {
+        navigation.navigate('ChatScreen', {
             data: user,
             user: this.props.user
         })
@@ -146,7 +146,7 @@ class ModalSearchUserComponent extends Component {
         const { handleModalSearchVisible } = this.props
         handleModalSearchVisible(false)
         this.setState({promptVisible: false})
-        this.props.navigation.push('ChatScreen', {
+        this.props.navigation.navigate('ChatScreen', {
             data: user,
             user: this.props.user
         })
@@ -211,7 +211,7 @@ class ModalSearchUserComponent extends Component {
             }
             return user
         })
-        console.log(usersIdsArr);
+        // console.log(usersIdsArr);
         this.setState({
             users: usersArr,
             userIds: usersIdsArr

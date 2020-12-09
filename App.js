@@ -53,38 +53,17 @@ export default class App extends React.Component {
       'quick-sand-bold': require('./src/assets/fonts/Quicksand-Bold.ttf')
     });
     
-    // await this.defaultFonts()
     let token = await registerForPushNotificationsAsync()
-    // console.log(token)
     this.setState({tokenNotification: token})
     Notifications.addNotificationReceivedListener(this.handleNotifications)
   }
 
   handleNotifications = (notification)=> {
-    console.log(notification)
-    alert(JSON.stringify(notification))
+    // console.log(notification)
+    // alert(JSON.stringify(notification))
     
   }
-  
-  sendPushNotification = async (expoPushToken)=> {
-    const message = {
-      to: expoPushToken,
-      sound: 'default',
-      title: 'TIÊU ĐỀ',
-      body: 'ĐÂY LÀ NỘI DUNG!',
-      data: { data: 'ghpfsdsf' },
-    };
-  
-    await fetch('https://exp.host/--/api/v2/push/send', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Accept-encoding': 'gzip, deflate',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(message),
-    });
-  }
+
 
   // LOGIN
   login = (user) => {

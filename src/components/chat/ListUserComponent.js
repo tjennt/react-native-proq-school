@@ -59,7 +59,7 @@ class ListUserComponent extends Component {
     }
 
     navigateChat = (user)=> {
-        this.props.navigation.push('ChatScreen', {
+        this.props.navigation.navigate('ChatScreen', {
             data: user,
             user: this.props.user
         })

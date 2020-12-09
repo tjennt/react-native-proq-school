@@ -25,8 +25,7 @@ import * as actions from '../../actions';
 import { connect } from 'react-redux';
 
 // IMPORT LIBRARY
-import {MaterialCommunityIcons,
-    AntDesign,
+import {AntDesign,
     FontAwesome 
 } from 'react-native-vector-icons';
 
@@ -134,7 +133,7 @@ class ListClassComponent extends Component {
         let self = this
         try {
             
-            navigation.push('TeacherSubjectScheduleScreen',{
+            navigation.navigate('TeacherSubjectScheduleScreen',{
                 data: {
                     idClassSubject: item._id,
                     listDays: item.listDays,

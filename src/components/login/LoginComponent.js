@@ -8,19 +8,13 @@ import { ActivityIndicator,
     Alert } from 'react-native';
 
 import { Image,
-    Avatar,
-    Accessory,
     Text,
     SocialIcon,
     Card } from 'react-native-elements';
 
-// IMPORT LIBRARY
-import Icon from 'react-native-vector-icons/Ionicons';
-
 // IMPORT LOGIN GOOGLE
 import * as Google from "expo-google-app-auth";
 
-import * as COLORS from '../../constants/Colors';
 import  { LOGIN } from '../../constants/Locale';
 
 // IMPORT REDUX

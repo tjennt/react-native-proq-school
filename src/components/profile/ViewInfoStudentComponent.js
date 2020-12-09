@@ -33,9 +33,11 @@ import RowProfileComponent from './RowProfileComponent';
 
 import GLOBAL_STYLES from '../../styles';
 
-export default class ViewInfoStudentComponent extends Component {
-    
+// IMPORT REDUX
+import { connect } from 'react-redux';
 
+class ViewInfoStudentComponent extends Component {
+    
     render () {
         
         const { user } = this.props;
@@ -113,6 +115,12 @@ export default class ViewInfoStudentComponent extends Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    user: state.user
+});
+  
+export default connect(mapStateToProps, null)(ViewInfoStudentComponent);
 
 const styles = StyleSheet.create({
     ImageBackground: {

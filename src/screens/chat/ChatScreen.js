@@ -173,7 +173,6 @@ export default class ChatScreen extends Component {
             user: userRedux,
             group: dataUserSend
         })
-        console.log(data.payload);
         this.setState({
           dataRoom: dataUserSend,
           messages: chatService.mapMessages(data.payload),
