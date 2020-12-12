@@ -27,6 +27,14 @@ import HTML from "react-native-render-html";
 export default class ListNewsComponent extends Component {
 
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      refreshing: false
+    }
+  }
+
+  
   getImageAvatar = ()=> {
     const { notifyType } = this.props
     if(notifyType == 'fee'){
@@ -89,16 +97,23 @@ export default class ListNewsComponent extends Component {
 
   }
 
+  pullToRefresh = async ()=> {
+    const { handleAxiosNews, notifyType } = this.props
+    await this.setState({ refreshing: true })
+
+    await handleAxiosNews(notifyType)
+    this.setState({ refreshing: false })
+  }
   render () {
-    const { navigation, news, loading } = this.props;
-    // console.log(news)
+    const { navigation, news, handleAxiosNews, notifyType } = this.props
+    const { refreshing } = this.state
     return (
         <SafeAreaView
           style={ styles.SafeAreaView }
           >
             <FlatList
-            refreshing={loading}
-            // onRefresh={()=> alert('onRefresh')}
+            refreshing={ refreshing }
+            onRefresh={()=> this.pullToRefresh()}
             keyExtractor={this.keyExtractor}
             data={news}
             renderItem={this.renderItem}

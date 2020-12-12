@@ -52,7 +52,8 @@ export default class ListScheduleSubjectStudentComponent extends Component {
                         >
                             <AntDesign style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'clockcircleo'} />    
                             <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextDateTime] }>
-                            &nbsp; {HelperService.getDateName(item.date)} - {HelperService.getDateFormat(item.date)}
+                            &nbsp; {HelperService.getDateName(item.date)}
+                                <Text style={[GLOBAL_STYLES.TextTitleStyle, { fontSize: 14 } ]}> ( Ca { classSubject.shift } )</Text>
                             </Text>
                             <Text style={ { fontSize: 13 } }></Text>
                         </ListItem.Title>
@@ -70,14 +71,14 @@ export default class ListScheduleSubjectStudentComponent extends Component {
                             onPress={ ()=> { this.moreInfoSchedule(item) } }
                             style={ [GLOBAL_STYLES.TextTitleStyle, { flex: 1, fontSize: 12, marginTop: 5 }] }
                         >
-                                Giảng viên: {item.teacher.fullname}
+                                GV: {item.teacher.fullname}
                             
                         </ListItem.Subtitle>
                         <ListItem.Subtitle 
                             onPress={ ()=> { this.moreInfoSchedule(item) } }
                             style={  [GLOBAL_STYLES.TextTitleStyle, { flex: 1, fontSize: 12, textAlign: 'right', marginTop: 5 }] }
                         >
-                            ( Ca { classSubject.shift } )
+                            {HelperService.getDateFormat(item.date)}
                         </ListItem.Subtitle>
                     
                     </ListItem.Content>
@@ -125,7 +126,6 @@ export default class ListScheduleSubjectStudentComponent extends Component {
             badge.status = 'success'
         }
         
-
         return <Badge
             badgeStyle={{ padding: 12 }}
             textStyle={ [GLOBAL_STYLES.ButtonStyle] }

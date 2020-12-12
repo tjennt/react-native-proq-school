@@ -51,11 +51,8 @@ class ListUserComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            refreshing: false
         }
-    }
-
-    componentDidMount() {
-        
     }
 
     navigateChat = (user)=> {
@@ -84,7 +81,12 @@ class ListUserComponent extends Component {
                     <Image
                         style={ styles.ImageAvatar }
                         resizeMode="cover"
-                        source={ { uri: `${PARAMETER.SERVER_IMAGE}/${item.avatar}` } }
+                        source={ 
+                            { 
+                                uri: `${PARAMETER.SERVER_IMAGE}/${item.avatar}`,
+                                failure: ()=> { console.log('IMAGES ERROR'); } 
+                            }
+                        }
                     />
                     <View style={ styles.ViewNameDes }>
                         <Text 
@@ -135,14 +137,24 @@ class ListUserComponent extends Component {
         )
     }
 
+    pullToRefesh = async ()=> {
+        const { getListGroupUser } = this.props
+        await this.setState({refreshing: true})
+        await getListGroupUser()
+        this.setState({refreshing: false})
+
+    }
     render () {
-        const { users } = this.props;
+        const { users } = this.props
+        const { refreshing } = this.state
         return (
         <SafeAreaView style={styles.container}>
             <FlatList
                 keyExtractor={this.keyExtractor}
                 data={users}
                 renderItem={this.renderItem}
+                refreshing={refreshing}
+                onRefresh={()=> this.pullToRefesh()}
             />
         </SafeAreaView>
         )
@@ -172,7 +184,8 @@ const styles = StyleSheet.create({
     ImageAvatar: {
         width: 55,
         height: 55,
-        borderRadius: 55
+        borderRadius: 55,
+        backgroundColor: COLORS.GRAY
     },
     TextName: {
         paddingTop: 5,

@@ -168,7 +168,7 @@ class ModalSearchUserComponent extends Component {
                 <Image
                     style={ styles.ImageAvatar }
                     resizeMode="cover"
-                    source={ { uri: `${PARAMETER.SERVER}/uploads/user-avatar/${item.avatar}` } }
+                    source={ { uri: `${PARAMETER.SERVER_IMAGE}/${item.avatar}` } }
                 />
                 <View style={ styles.ViewNameDes }>
                     <Text style={ [GLOBAL_STYLES.TextTitleStyle,  styles.TextName] }>
@@ -383,7 +383,8 @@ const styles = StyleSheet.create({
     ImageAvatar: {
         width: 45,
         height: 45,
-        borderRadius: 45
+        borderRadius: 45,
+        backgroundColor: COLORS.GRAY
     },
     TextName: {
         paddingTop: 13,

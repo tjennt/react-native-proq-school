@@ -144,7 +144,7 @@ export default class NewDetailScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.LIGHT 
+    backgroundColor: COLORS.LIGHT
   },
   viewContent: {
     padding: 10,
@@ -152,8 +152,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     backgroundColor: COLORS.LIGHT,
-    // borderTopColor: COLORS.MAIN_PRIMARY,
-    // borderTopWidth: 1,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

@@ -135,7 +135,7 @@ export const getDateNowToWeekend = ()=> {
     let dateNowtoEndWeek = []
 
     dateNowtoEndWeek.push({
-        label: 'Hôm nay',
+        label: getDateName(now),
         value: getDateFormat(now, 'month_day_year'),
         date_format: getDateFormat(now, 'year_month_day')
     })

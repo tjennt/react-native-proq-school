@@ -218,7 +218,8 @@ const styles = StyleSheet.create({
         resizeMode : 'cover',
         borderRadius: 55,
         borderWidth: 2,
-        borderColor: COLORS.LIGHT
+        borderColor: COLORS.LIGHT,
+        backgroundColor: COLORS.GRAY
     },
     text: {
         paddingTop: 15,

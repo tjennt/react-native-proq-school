@@ -70,8 +70,9 @@ export default class ListScheduleTeacherComponent extends Component {
                             <ListItem.Title style={styles.text}>
                                 { this.renderIconRandom(index) }    
                                 <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextDateTime] }>
-                                    &nbsp; { HelperService.getDateName(item) } - 
-                                    (Ca { data.shift })
+                                    &nbsp; { HelperService.getDateName(item) } 
+                                    {/* - (Ca { data.shift }) */}
+                                    <Text style={[ GLOBAL_STYLES.TextTitleStyle, { fontSize: 14 }]}> - (Ca { data.shift })</Text>
                                 </Text>
                             </ListItem.Title>
 
@@ -85,7 +86,7 @@ export default class ListScheduleTeacherComponent extends Component {
                         <ListItem.Content style={ styles.ContentRowBottom }>
 
                             <ListItem.Title style={[GLOBAL_STYLES.TextTitleStyle,{ flex: 1 }]}>
-                                { data.subject.name.toUpperCase() } - { 'Tìm hiểu về biến ...' }
+                                { data.subject.name.toUpperCase() } - {data.season.name}
                                 </ListItem.Title>
                     
                             <Badge
