@@ -29,6 +29,12 @@ import GLOBAL_STYLES from '../../styles';
 
 export default class ListScheduleStudentComponent extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            refreshing: false
+        }
+    }
     keyExtractor = (item, index) => index.toString()
 
     renderItem = ({ item, index }) => {
@@ -65,7 +71,7 @@ export default class ListScheduleStudentComponent extends Component {
                         <ListItem.Content style={ styles.ContentRow }>
 
                             <ListItem.Subtitle style={ [GLOBAL_STYLES.TextTitleStyle, { flex: 1, fontSize: 12, marginTop: 5 }] }>
-                                Giảng viên: {item.teacher.fullname}
+                                GV: {item.teacher.fullname}
                             </ListItem.Subtitle>
                             <ListItem.Subtitle style={ [GLOBAL_STYLES.TextTitleStyle, { flex: 1, fontSize: 12, textAlign: 'right', marginTop: 5 }] }>
                             { HelperService.getDateFormat(day.date_format)} - ( Ca {item.shift} )
@@ -80,7 +86,7 @@ export default class ListScheduleStudentComponent extends Component {
     }
 
     moreInfoSchedule = (description) => {
-        alert('THONG TIN')
+        // alert('THONG TIN')
     }
     
     renderIconRandom = (index)=> {
@@ -94,15 +100,24 @@ export default class ListScheduleStudentComponent extends Component {
         return <FontAwesome style={[{color: COLORS.PRIMARY, fontWeight: 'bold'}]} size={16} name={'leaf'} />
 
     }
+    pullToRefesh = async ()=> {
+        const { getListSchedule } = this.props
+        await this.setState({refreshing: true})
+        await getListSchedule()
+        this.setState({refreshing: false})
+    }
 
     render () {
-        const { listSchedules } = this.props;
+        const { listSchedules } = this.props
+        const { refreshing } = this.state
         return (
         <SafeAreaView style={styles.container}>
             <FlatList
                 keyExtractor={this.keyExtractor}
                 data={listSchedules}
                 renderItem={this.renderItem}
+                refreshing={refreshing}
+                onRefresh={()=> this.pullToRefesh() }
             />
         </SafeAreaView>
         )

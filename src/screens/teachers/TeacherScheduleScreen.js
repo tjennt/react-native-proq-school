@@ -104,7 +104,12 @@ class TeacherScheduleScreen extends Component {
       return <EmptyData loading={loading} stopLoad={stopLoad} />
     }
 
-    return <ListScheduleDateTeacherComponent listDays={listDays} day={day} navigation={navigation} />
+    return <ListScheduleDateTeacherComponent 
+            listDays={listDays}
+            day={day}
+            navigation={navigation}
+            getListSchedule={this.getListSchedule}
+          />
 
   }
   render() {

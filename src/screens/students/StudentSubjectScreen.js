@@ -42,7 +42,8 @@ class StudentSubjectScreen extends Component {
       subjects: [],
       selectedSeason: 0,
       loading: true,
-      stopLoad: false
+      stopLoad: false,
+      seasonId: ''
     }
   }
 
@@ -63,7 +64,8 @@ class StudentSubjectScreen extends Component {
     this.setState({
       selectedSeason: index,
       subjects: [],
-      loading: true
+      loading: true,
+      seasonId: seasonId
     })
     this.getListSubjects(seasonId)
   }
@@ -87,6 +89,7 @@ class StudentSubjectScreen extends Component {
     
     if(seasonId == null && seasons.length != 0) {
       seasonId = seasons[0]._id
+      this.setState({ seasonId: seasons[0]._id })
     }
     try {
       let data = await apiClassSubject.getListSubjects({ user, seasonId })
@@ -97,7 +100,7 @@ class StudentSubjectScreen extends Component {
   }
 
   viewListOrEmpty = ()=> {
-    const { loading, stopLoad, subjects } = this.state
+    const { loading, stopLoad, subjects, seasonId } = this.state
     const { navigation } = this.props
     
     if(subjects.length == 0) {
@@ -106,6 +109,8 @@ class StudentSubjectScreen extends Component {
     return <ListSubjectStudentComponent
             subjects={subjects}
             navigation={ navigation }
+            getListSubjects={this.getListSubjects}
+            seasonId={seasonId}
           />
   }
 

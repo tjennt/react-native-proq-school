@@ -42,6 +42,7 @@ export default class ListScheduleDateTeacherComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            refreshing: false
         }
     }
 
@@ -66,12 +67,12 @@ export default class ListScheduleDateTeacherComponent extends Component {
                                     this.renderIconRandom(index)
                                 }    
                                 <Text style={ [ GLOBAL_STYLES.TextTitleStyle, styles.TextDateTime] }>
-                                    &nbsp; { day.label } - 
-                                    (Ca { item.shift })
+                                    &nbsp; { day.label } 
+                                    <Text style={[ GLOBAL_STYLES.TextTitleStyle, { fontSize: 14 }]}> - (Ca { item.shift })</Text>
                                 </Text>
                             </ListItem.Title>
 
-                            <ListItem.Subtitle style={[GLOBAL_STYLES.TextStyle, styles.SubTitleDate]}>
+                            <ListItem.Subtitle style={[GLOBAL_STYLES.TextTitleStyle, styles.SubTitleDate]}>
                                 { day.value } 
                             </ListItem.Subtitle>
                         
@@ -80,8 +81,8 @@ export default class ListScheduleDateTeacherComponent extends Component {
                         {/* Bottom content */}
                         <ListItem.Content style={ styles.ContentRowBottom }>
 
-                            <ListItem.Title style={ [GLOBAL_STYLES.TextStyle, { flex: 1 }] }>
-                                { item.subject.name.toUpperCase() } - { 'Tìm hiểu về biến v...' }
+                            <ListItem.Title style={ [GLOBAL_STYLES.TextTitleStyle, { flex: 1, color: COLORS.PRIMARY }] }>
+                                { item.subject.name.toUpperCase() } - {item.season.name}
                             </ListItem.Title>
                     
                             <Badge
@@ -121,9 +122,15 @@ export default class ListScheduleDateTeacherComponent extends Component {
 
     }
 
+    pullToRefresh = async ()=> {
+        const { getListSchedule } = this.props
+        await this.setState({refreshing: true})
+        await getListSchedule()
+        this.setState({refreshing: false})
+    }
     render () {
-        const { navigation, listDays } = this.props
-        
+        const { listDays } = this.props
+        const { refreshing } = this.state
         return (
             <SafeAreaView 
                 style={styles.container}>
@@ -132,6 +139,8 @@ export default class ListScheduleDateTeacherComponent extends Component {
                     keyExtractor={this.keyExtractor}
                     data={listDays}
                     renderItem={this.renderItem}
+                    refreshing={refreshing}
+                    onRefresh={()=>this.pullToRefresh()}
                 />
 
             </SafeAreaView>

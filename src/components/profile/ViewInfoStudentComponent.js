@@ -52,7 +52,7 @@ class ViewInfoStudentComponent extends Component {
 
                     <Avatar
                         source={ {
-                        uri: `${PARAMETER.SERVER}/${user.studentId.avatar}`
+                        uri: `${PARAMETER.SERVER_IMAGE}/${user.studentId.avatar}`
                         } }
                         style={ styles.Avatar }
                         avatarStyle={styles.AvatarStyle}
@@ -138,7 +138,8 @@ const styles = StyleSheet.create({
         resizeMode : 'cover',
         borderRadius: 55,
         borderWidth: 2,
-        borderColor: COLORS.LIGHT
+        borderColor: COLORS.LIGHT,
+        backgroundColor: COLORS.GRAY
     },
     TextName: {
         position: 'absolute',

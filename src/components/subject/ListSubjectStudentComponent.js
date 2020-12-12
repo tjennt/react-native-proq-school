@@ -37,6 +37,9 @@ export default class ListSubjectStudentComponent extends Component {
 
     constructor (props) {
         super(props)
+        this.state = {
+            refreshing: false
+        }
     }
 
     keyExtractor = (item, index) => index.toString()
@@ -97,11 +100,11 @@ export default class ListSubjectStudentComponent extends Component {
     )
 
     moreInfoSchedule = (item) => {
-
         this.props.navigation.navigate('StudentScheduleSubjectScreen', {
             subjectScheduleId: item._id,
             classSubject: {
-                shift: item.shift
+                shift: item.shift,
+                weekDays: item.weekDays
             },
             title: `LỊCH HỌC MÔN ${item.subject.name.toUpperCase()}`
         })
@@ -131,7 +134,7 @@ export default class ListSubjectStudentComponent extends Component {
             }
             
             return <Badge
-            badgeStyle={{ padding: 5, marginRight: 3, backgroundColor: COLORS.BADGE_RANDOM[index] }}
+            badgeStyle={{ padding: 5, marginRight: 3, backgroundColor: COLORS.BADGE_RANDOM[day] }}
             textStyle={[GLOBAL_STYLES.ButtonStyle]}
             value={ dayString }
             status="success" />
@@ -139,14 +142,24 @@ export default class ListSubjectStudentComponent extends Component {
         
     }
 
+    pullToRefesh = async ()=> {
+        const { getListSubjects, seasonId } = this.props
+        await this.setState({refreshing: true})
+        await getListSubjects(seasonId)
+        this.setState({refreshing: false})
+    }
+
     render () {
         const { subjects } = this.props
+        const { refreshing } = this.state
         return (
         <SafeAreaView style={styles.container}>
             <FlatList
                 keyExtractor={this.keyExtractor}
                 data={subjects}
                 renderItem={this.renderItem}
+                refreshing={refreshing}
+                onRefresh={()=> this.pullToRefesh()}
             />
         </SafeAreaView>
         )

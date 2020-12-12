@@ -43,7 +43,8 @@ class ListClassComponent extends Component {
         super(props)
         this.state = {
             classList: [],
-            loading: true
+            loading: true,
+            refreshing: false
         }
     }
     componentDidMount() {
@@ -69,8 +70,9 @@ class ListClassComponent extends Component {
                         
                         <ListItem.Title style={ styles.text }>
                             { this.renderIconRandom(index) }
-                            <Text style={ [GLOBAL_STYLES.ButtonStyle, styles.TextDateTime ] }>
-                            &nbsp;{ item.subject.name } ( ca: { item.shift })
+                            <Text style={ [GLOBAL_STYLES.TextTitleStyle, styles.TextDateTime ] }>
+                            &nbsp;{ item.subject.name }
+                            <Text style={[GLOBAL_STYLES.TextTitleStyle, { fontSize: 15 }]}> ( ca: { item.shift })</Text>
                             </Text>
                         </ListItem.Title>
                         <Badge
@@ -140,7 +142,8 @@ class ListClassComponent extends Component {
                     shift: item.shift,
                     class: item.class,
                     subject: item.subject,
-                    weekDays: item.weekDays
+                    weekDays: item.weekDays,
+                    season: item.season
                 }
             })
             
@@ -162,7 +165,7 @@ class ListClassComponent extends Component {
 
             let { data } = res
 
-            if (data.success == true) {
+            if (data.success) {
                 this.setState({
                     classList: data.payload,
                     loading: false
@@ -173,14 +176,21 @@ class ListClassComponent extends Component {
             console.log("ERROR", error)
         }
     }
+    pullToRefresh = async ()=> {
+        await this.setState({ refreshing: true })
+        await this.getClassApi()
+        this.setState({ refreshing: false })
+    }
 
     listViewOrEmpty = ()=> {
-        const { classList, loading } = this.state
+        const { classList, loading, refreshing } = this.state
         if(classList.length != 0) {
             return <FlatList
                 keyExtractor={this.keyExtractor}
                 data={classList}
                 renderItem={this.renderItem}
+                refreshing={refreshing}
+                onRefresh={()=> this.pullToRefresh()}
             />
         }
         return <EmptyData loading={loading} />

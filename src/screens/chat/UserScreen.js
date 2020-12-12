@@ -144,7 +144,11 @@ class UserScreen extends Component {
       if(users.length == 0) {
         return <EmptyData loading={ loading } stopLoad={stopLoad} />
       }
-     return <ListUserComponent users={users} navigation={navigation} />
+     return <ListUserComponent 
+              users={users}
+              navigation={navigation}
+              getListGroupUser={this.getListGroupUser}
+            />
     }
   }
   render() {
