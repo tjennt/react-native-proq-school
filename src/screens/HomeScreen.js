@@ -122,7 +122,6 @@ class HomeScreen extends Component {
         user: user,
         url_type: url_type
       })
-      console.log(data);
       this.setState(data)
     } catch (error) {
       console.log(error)
