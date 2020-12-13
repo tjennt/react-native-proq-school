@@ -72,7 +72,7 @@ export default class App extends React.Component {
     //   user: user,
     //   loading: true
     // })
-    console.log(user)
+    // console.log(user)
     this.setState({
       navigator: user.role,
       selectedTabnavigator: user.role

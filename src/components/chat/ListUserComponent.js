@@ -83,8 +83,7 @@ class ListUserComponent extends Component {
                         resizeMode="cover"
                         source={ 
                             { 
-                                uri: `${PARAMETER.SERVER_IMAGE}/${item.avatar}`,
-                                failure: ()=> { console.log('IMAGES ERROR'); } 
+                                uri: `${PARAMETER.SERVER_IMAGE}/${item.avatar}`
                             }
                         }
                     />

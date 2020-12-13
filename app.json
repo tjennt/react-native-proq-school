@@ -2,7 +2,7 @@
   "expo": {
     "name": "Proq School",
     "slug": "proq_school",
-    "version": "2.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -31,7 +31,8 @@
     "android": {
       "package": "wit.reactnative.proqschool",
       "googleServicesFile": "./google-services.json",
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      "versionCode": 2
     },
     "description": "PROQ SCHOOL",
     "githubUrl": "https://github.com/tienntps09110/react-native-proq-school"

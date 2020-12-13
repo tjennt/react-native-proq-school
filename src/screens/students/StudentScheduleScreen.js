@@ -72,7 +72,8 @@ class StudentScheduleScreen extends Component {
       selectedDay: index,
       day: day,
       loading: true,
-      stopLoad: true
+      stopLoad: true,
+      listSchedules: []
     })
     this.getListSchedule()
   }
@@ -83,7 +84,6 @@ class StudentScheduleScreen extends Component {
     const { day } = this.state
     try {
         let data = await apiSchedule.getListSchedule({user, day})
-        console.log(data);
         this.setState(data)
     } catch (error) {
         console.log(error)

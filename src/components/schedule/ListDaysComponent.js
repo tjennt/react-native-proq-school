@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
       borderTopLeftRadius: 50,
       borderBottomLeftRadius: 50,
       borderTopRightRadius: 50,
-      borderBottomRightRadius: 50,
-      backgroundColor: COLORS.LIGHT
+      borderBottomRightRadius: 50
     }
   });
