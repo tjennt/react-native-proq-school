@@ -76,3 +76,44 @@ export const TIME_TEACHER = [
         value: 3
     }
 ]
+
+export const CONFIG_TIME_ATTENDANCE = {
+    1: {
+        from: 7,
+        to: 9
+    },
+    2: {
+        from: 9,
+        to: 11
+    },
+    3: {
+        from: 11,
+        to: 13
+    },
+    4: {
+        from: 13,
+        to: 15
+    },
+    5: {
+        from: 15,
+        to: 17
+    },
+    6: {
+        from: 17,
+        to: 19
+    }
+}
+
+export const checkTime = (time)=> {
+    let hour = new Date().getHours()
+    
+    let hourSubjectClass = CONFIG_TIME_ATTENDANCE[time]
+
+    if (
+        hour >= hourSubjectClass.from &&
+        hour <= hourSubjectClass.to
+    ) {
+        return true
+    }
+    return false
+}
