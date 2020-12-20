@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
-import { View, 
+import { ToastAndroid, 
     StyleSheet, 
     TouchableOpacity,
     SafeAreaView,
-    FlatList,} from 'react-native';
+    FlatList,
+    Alert} from 'react-native';
   
   import { BottomSheet, 
     Text,
@@ -112,14 +113,16 @@ export default class ListScheduleDateTeacherComponent extends Component {
     }
 
     navigateSchedule = (item, day) => {
-        
-        this.props.navigation.navigate( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
-            classSubject: {
-                idClassSubject: item._id,
-                day: day.value
-            }
-        })
-
+        if (HelperService.timeAttendance(item.shift, day.date_format)) {
+            this.props.navigation.navigate( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
+                classSubject: {
+                    idClassSubject: item._id,
+                    day: day.value
+                }
+            })
+            return
+        }
+        Alert.alert('Cảnh báo', 'Hết giờ hoặc chưa đến thời gian điểm danh!')
     }
 
     pullToRefresh = async ()=> {

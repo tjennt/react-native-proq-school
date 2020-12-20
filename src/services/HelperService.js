@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-
+import { CONFIG_TIME_ATTENDANCE } from '../constants/Data';
 /**
  * Save in AsyncStorage 
  * @param {key, value} data
@@ -164,4 +164,29 @@ export const isObjEmpty = (obj)=> {
     }
 
     return true;
+}
+
+// Check time attendance
+export const timeAttendance = (time, date)=> {
+    let now  = getDateFormat(new Date(), 'year_month_day')
+    let dateStudy = getDateFormat(date, 'year_month_day');
+    let hour = new Date().getHours()
+    let hourSubjectClass = CONFIG_TIME_ATTENDANCE[time]
+
+    if (
+        now.valueOf() === dateStudy.valueOf() &&
+        hour >= hourSubjectClass.from &&
+        hour <= hourSubjectClass.to
+    ) {
+        return true
+    }
+    return false
+}
+
+export const truncate = (str, n, useWordBoundary)=> {
+    if (str.length <= n) { return str; }
+    const subString = str.substr(0, n-1); // the original check
+    return (useWordBoundary 
+      ? subString.substr(0, subString.lastIndexOf(" ")) 
+      : subString) + "...";
 }

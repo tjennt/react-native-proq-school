@@ -72,7 +72,7 @@ export default class ListNewsComponent extends Component {
         />
         <ListItem.Content>
           <ListItem.Title style={[GLOBAL_STYLES.TextTitleStyle]}>
-            {item.title} { item.id }
+            {helperService.truncate(item.title, 50, true)}
           </ListItem.Title>
           <ListItem.Subtitle 
             style={[ GLOBAL_STYLES.TextTitleStyle,{ 

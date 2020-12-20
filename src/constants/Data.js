@@ -103,17 +103,3 @@ export const CONFIG_TIME_ATTENDANCE = {
         to: 19
     }
 }
-
-export const checkTime = (time)=> {
-    let hour = new Date().getHours()
-    
-    let hourSubjectClass = CONFIG_TIME_ATTENDANCE[time]
-
-    if (
-        hour >= hourSubjectClass.from &&
-        hour <= hourSubjectClass.to
-    ) {
-        return true
-    }
-    return false
-}

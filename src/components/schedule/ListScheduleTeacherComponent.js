@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, 
+import { Alert, 
     StyleSheet, 
     TouchableOpacity,
     SafeAreaView,
@@ -117,13 +117,17 @@ export default class ListScheduleTeacherComponent extends Component {
 
     navigateSchedule = (day) => {
         const { data } = this.props
-
-        this.props.navigation.navigate( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
-            classSubject: {
-                idClassSubject: data.idClassSubject,
-                day: day
-            }
-        })
+        if (HelperService.timeAttendance(data.shift, day)) {
+            this.props.navigation.navigate( this.props.screenName ? this.props.screenName : 'TeacherScheduleClassScreen', {
+                classSubject: {
+                    idClassSubject: data.idClassSubject,
+                    day: day
+                }
+            })
+            return
+        }
+        Alert.alert('Cảnh báo', 'Hết giờ hoặc chưa đến thời gian điểm danh!')
+        
     }
 
     render () {
