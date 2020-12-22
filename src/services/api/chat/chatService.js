@@ -194,7 +194,7 @@ export const mapMessages = (messages, options = {})=> {
             user: {
             _id: message.from,
             name: message.from == options.id ? options.fullName : message.from,
-            avatar: `${PARAMETER.SERVER_IMAGE}/${message.from == options.id ? options.avatar : 'uploads/user-avatar/default.jpg'}`,
+            avatar: `https://i.ibb.co/jDGCmrN/user.jpg`,
             },
             sent: true
         }
@@ -209,7 +209,7 @@ export const mapMessages = (messages, options = {})=> {
           user: {
             _id: message.from,
             name: message.from,
-            avatar: `${PARAMETER.SERVER_IMAGE}/uploads/user-avatar/default.jpg`,
+            avatar: `https://i.ibb.co/jDGCmrN/user.jpg`,
           },
           sent: true
         }
@@ -224,7 +224,7 @@ export const mapMessage = (message)=> {
         user: {
             _id: message.from,
             name: message.from,
-            avatar: `${PARAMETER.SERVER_IMAGE}/${message.group.avatar}`,
+            avatar: `https://i.ibb.co/jDGCmrN/user.jpg`,
         },
         sent: false
     }

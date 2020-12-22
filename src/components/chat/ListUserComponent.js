@@ -51,8 +51,11 @@ class ListUserComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            refreshing: false
         }
+    }
+
+    componentDidMount() {
+        
     }
 
     navigateChat = (user)=> {
@@ -81,11 +84,7 @@ class ListUserComponent extends Component {
                     <Image
                         style={ styles.ImageAvatar }
                         resizeMode="cover"
-                        source={ 
-                            { 
-                                uri: `${PARAMETER.SERVER_IMAGE}/${item.avatar}`
-                            }
-                        }
+                        source={require('../../assets/images/illustrators/user.jpg')}
                     />
                     <View style={ styles.ViewNameDes }>
                         <Text 
@@ -117,7 +116,7 @@ class ListUserComponent extends Component {
                 <Image
                     style={ styles.ImageAvatar }
                     resizeMode="cover"
-                    source={ { uri: `${PARAMETER.SERVER_IMAGE}/${item.avatar}` } }
+                    source={require('../../assets/images/illustrators/user.jpg')}
                 />
                 <View style={ styles.ViewNameDes }>
                     <Text 
@@ -136,24 +135,14 @@ class ListUserComponent extends Component {
         )
     }
 
-    pullToRefesh = async ()=> {
-        const { getListGroupUser } = this.props
-        await this.setState({refreshing: true})
-        await getListGroupUser()
-        this.setState({refreshing: false})
-
-    }
     render () {
-        const { users } = this.props
-        const { refreshing } = this.state
+        const { users } = this.props;
         return (
         <SafeAreaView style={styles.container}>
             <FlatList
                 keyExtractor={this.keyExtractor}
                 data={users}
                 renderItem={this.renderItem}
-                refreshing={refreshing}
-                onRefresh={()=> this.pullToRefesh()}
             />
         </SafeAreaView>
         )
@@ -183,8 +172,7 @@ const styles = StyleSheet.create({
     ImageAvatar: {
         width: 55,
         height: 55,
-        borderRadius: 55,
-        backgroundColor: COLORS.GRAY
+        borderRadius: 55
     },
     TextName: {
         paddingTop: 5,
