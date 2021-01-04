@@ -32,7 +32,7 @@
       "package": "wit.reactnative.proqschool",
       "googleServicesFile": "./google-services.json",
       "useNextNotificationsApi": true,
-      "versionCode": 3
+      "versionCode": 4
     },
     "description": "PROQ SCHOOL",
     "githubUrl": "https://github.com/tienntps09110/react-native-proq-school"
