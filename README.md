@@ -64,20 +64,16 @@ Android config
   Sha1: F6:02:DA:09:59:FC:72:55:F3:98:ED:4C:10:F1:D8:EE:F9:F0:76:A0
   package name: host.exp.exponent
 
--Production
-  Sha1: F6:02:DA:09:59:FC:72:55:F3:98:ED:4C:10:F1:D8:EE:F9:F0:76:A0
-  package name: wit.reactnative.proqschool
-
 ```
 
 KEY STORE
 ```
-Accessing credentials for tienntps09110 in project proq_school
+Accessing credentials for tjennt in project proq_school
 Saving Keystore to E:\tailieu\react\myNewProject\proq_school.jks
 Keystore credentials
-  Keystore password: b75a75a9d61b4227b3a29190aac224a6
-  Key alias:         QHRpZW5udHBzMDkxMTAvcHJvcV9zY2hvb2w=
-  Key password:      24db2bfbfe164f70ae9012e49cb7fe33
+  Keystore password: 
+  Key alias:         
+  Key password:      
 
   Path to Keystore:  E:\tailieu\react\myNewProject\proq_school.jks
 ```
