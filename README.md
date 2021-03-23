@@ -1,5 +1,9 @@
 ## REACT NATIVE PROQ SCHOOL
 
+### GOOGLE PLAY
+```
+ https://play.google.com/store/apps/details?id=wit.reactnative.proqschool
+```
 
 ### HOW TO RUN
 
